@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="16dp"
+    tools:context="com.proyekta.app.project_lafic.activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/edtxt_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username or Email"
+            android:inputType="textWebEmailAddress"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/edtxt_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textWebPassword"
+            android:hint="Password"
+            android:textColorHint="@android:color/white"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log In"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/button_white" />
+
+        <CheckBox
+            android:id="@+id/chbox_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keep Me logged in"
+            android:layout_gravity="left"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/txtv_notmember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not a member yet ? \nCreate one"
+            android:textColor="@android:color/white"
+            android:textSize="19sp"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"/>
+
+        <Button
+            android:id="@+id/btn_sign"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Join Us"
+            android:textColor="@android:color/black"
+            android:background="@drawable/button_green"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
