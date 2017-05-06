@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#FFFFFF"
+    android:background="@android:color/white"
     tools:context="com.proyekta.app.project_lafic.activity.FirstActivity">
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_alignStart="@+id/btnSignin"
         android:layout_below="@+id/tvtContent"
         android:layout_marginTop="52dp"
-        android:background="#4FC3F7"
+        android:background="@color/colorLightBlue"
         android:onClick="btn_onClick"
         android:text="Register"
         android:textColor="#FFFFFF"
@@ -53,7 +53,7 @@
         android:textColor="#FFFFFF"
         android:id="@+id/btnSignin"
         android:onClick="btn_onClick"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/btnJoin"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

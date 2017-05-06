@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4FC3F7"
+    android:background="@android:color/white"
     android:padding="16dp"
     tools:context="com.proyekta.app.project_lafic.activity.RegistrasiActivity">
     <TextView
@@ -26,7 +26,7 @@
         android:layout_below="@+id/tvtSign"
         android:textSize="20dp"
         android:textStyle="bold"
-        android:textColor="#ffffff"
+        android:textColor="@color/colorPrimary"
         android:layout_centerHorizontal="true" />
 
     <LinearLayout
@@ -177,12 +177,12 @@
         android:layout_height="wrap_content"
         android:text="REGISTER"
         android:background="@color/colorAccent"
-        android:layout_marginTop="30dp"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
-        android:layout_below="@+id/linearLayout"
+        android:onClick="btn_onClick"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="btn_onClick"/>
+        android:layout_marginBottom="11dp" />
 
     <TextView
         android:id="@+id/txtv_login"

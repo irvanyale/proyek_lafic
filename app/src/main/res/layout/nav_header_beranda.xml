@@ -16,17 +16,19 @@
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgv_user"
         android:src="@drawable/vina"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginLeft="10dp"/>
 
     <TextView
         android:id="@+id/txtv_nama"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="10dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="ERVINA APRILIA"
+        android:textAllCaps="true"
+        android:textSize="16sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
@@ -34,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="ervinaasuka@gmail.com" />
+        android:text="ervinaasuka@gmail.com"
+        android:textSize="14sp"/>
 
 </LinearLayout>

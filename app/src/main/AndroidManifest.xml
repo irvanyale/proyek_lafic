@@ -22,7 +22,10 @@
             android:name=".activity.BerandaActivity"
             android:label="@string/title_activity_beranda"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.RegistrasiActivity" />
+        <activity android:name=".activity.RegistrasiActivity"
+            android:windowSoftInputMode="adjustNothing">
+
+        </activity>
         <activity android:name=".activity.AddItemActivity" />
         <activity android:name=".activity.ScanActivity"></activity>
         <activity android:name=".activity.SplashActivity">
