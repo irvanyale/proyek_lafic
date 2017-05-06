@@ -22,7 +22,13 @@ public interface ApiInterface {
     Call<Login> doLogin(@Body Login login);
 
     @POST("member")
-    Call<Member> doRegister(@Body Member member);
+    @FormUrlEncoded
+    Call<Member> doRegister(@Field("NAMA_MEMBER") String NAMA_MEMBER,
+                            @Field("PASSWORD_MEMBER") String PASSWORD_MEMBER,
+                            @Field("EMAIL_MEMBER") String EMAIL_MEMBER,
+                            @Field("TELEPON") String TELEPON,
+                            @Field("KELAMIN") String KELAMIN,
+                            @Field("NOMOR_ID") String NOMOR_ID);
 
     @GET("barang")
     Call<Item> getAllBarang();

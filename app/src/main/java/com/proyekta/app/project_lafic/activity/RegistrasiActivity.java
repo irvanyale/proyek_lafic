@@ -77,8 +77,8 @@ public class RegistrasiActivity extends AppCompatActivity {
                 !password.trim().isEmpty() &&
                 !repassword.trim().isEmpty()){
             if (password.equals(repassword)){
-                Member member = new Member(name, password, email, telp, "", id);
-                register(member);
+                //Member member = new Member(name, password, email, telp, "", id);
+                register(name, password, email, telp, "", id);
             } else {
                 Toast.makeText(RegistrasiActivity.this, "Password tidak sama", Toast.LENGTH_SHORT).show();
             }
@@ -87,14 +87,14 @@ public class RegistrasiActivity extends AppCompatActivity {
         }
     }
 
-    private void register(Member member){
+    private void register(String nama, String password, String email, String telp, String kelamin, String nomorId){
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
 
         ApiInterface api = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Member> call = api.doRegister(member);
+        Call<Member> call = api.doRegister(nama, password, email, telp, "", nomorId);
         call.enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {
