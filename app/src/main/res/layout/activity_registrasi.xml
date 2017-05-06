@@ -15,7 +15,7 @@
         android:id="@+id/tvtSign"
         android:textSize="50dp"
         android:textStyle="bold"
-        android:textColor="#FF9800"
+        android:textColor="@color/colorAccent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
     <TextView
@@ -28,6 +28,7 @@
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:layout_centerHorizontal="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,18 +36,18 @@
         android:orientation="vertical"
         android:layout_below="@+id/tvtWelcome"
         android:id="@+id/linearLayout">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
             android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_user"
-                android:layout_gravity="center_vertical"
-
-                />
+                android:layout_gravity="center_vertical" />
 
             <EditText
                 android:id="@+id/edtxt_username"
@@ -55,127 +56,137 @@
                 android:layout_gravity="center_vertical"
                 android:hint="Input Your Name"
                 android:inputType="text" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_user"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtxt_idnumber"
                 android:hint="ID Number"
                 android:inputType="number"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_email"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtxt_email"
                 android:hint="Input Your Email"
                 android:inputType="textEmailAddress"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_telp"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtxt_telp"
                 android:hint="Your Telephone"
                 android:layout_gravity="center_vertical"
-                android:inputType="phone"
-                />
+                android:inputType="phone" />
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
+            android:orientation="horizontal">
 
-            android:orientation="horizontal"
-            >
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_lock"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/edtxt_password"
                 android:hint="Current Password"
-                android:inputType="textWebPassword"
+                android:inputType="textWebPassword" />
 
-                />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFFFFF"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/ic_lock"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/edtxt_repassword"
                 android:hint="Retype Password"
-                android:inputType="textWebPassword"
+                android:inputType="textWebPassword" />
 
-                />
         </LinearLayout>
+
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_register"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:text="REGISTER"
-        android:background="#FF9800"
-        android:id="@+id/btnRegister"
+        android:background="@color/colorAccent"
         android:layout_marginTop="30dp"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true"
         android:onClick="btn_onClick"/>
+
+    <TextView
+        android:id="@+id/txtv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

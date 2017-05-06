@@ -20,7 +20,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
 
         /** Creates a count down timer, which will be expired after 5000 milliseconds */
-        new CountDownTimer(5000,1000) {
+        new CountDownTimer(2000,1000) {
 
             /** This method will be invoked on finishing or expiring the timer */
             @Override

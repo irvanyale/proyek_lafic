@@ -35,9 +35,6 @@ public class RegistrasiActivity extends AppCompatActivity {
     private EditText edtxt_telp;
     private EditText edtxt_password;
     private EditText edtxt_repassword;
-    private RadioGroup rdg_gender;
-    private RadioButton rbtn_l;
-    private RadioButton rbtn_p;
     private Button btn_register;
     private TextView txtv_login;
 
@@ -61,9 +58,6 @@ public class RegistrasiActivity extends AppCompatActivity {
         edtxt_telp = (EditText) findViewById(R.id.edtxt_telp);
         edtxt_password = (EditText) findViewById(R.id.edtxt_password);
         edtxt_repassword = (EditText) findViewById(R.id.edtxt_repassword);
-        rdg_gender = (RadioGroup) findViewById(R.id.rdg_gender);
-        rbtn_l = (RadioButton) findViewById(R.id.rbtn_l);
-        rbtn_p = (RadioButton) findViewById(R.id.rbtn_p);
         btn_register = (Button) findViewById(R.id.btn_register);
         txtv_login = (TextView) findViewById(R.id.txtv_login);
     }
@@ -75,16 +69,6 @@ public class RegistrasiActivity extends AppCompatActivity {
         String telp = edtxt_telp.getText().toString();
         String password = edtxt_password.getText().toString();
         String repassword = edtxt_repassword.getText().toString();
-        String gender = "";
-
-        switch (rdg_gender.getCheckedRadioButtonId()){
-            case R.id.rbtn_l:
-                gender = "Laki-laki";
-                break;
-            case R.id.rbtn_p:
-                gender = "Perempuan";
-                break;
-        }
 
         if (!name.trim().isEmpty() &&
                 !id.trim().isEmpty() &&
@@ -93,7 +77,7 @@ public class RegistrasiActivity extends AppCompatActivity {
                 !password.trim().isEmpty() &&
                 !repassword.trim().isEmpty()){
             if (password.equals(repassword)){
-                Member member = new Member(name, password, email, telp, gender, id);
+                Member member = new Member(name, password, email, telp, "", id);
                 register(member);
             } else {
                 Toast.makeText(RegistrasiActivity.this, "Password tidak sama", Toast.LENGTH_SHORT).show();
