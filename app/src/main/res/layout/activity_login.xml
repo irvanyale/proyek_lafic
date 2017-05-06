@@ -1,91 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="#4FC3F7"
     android:padding="16dp"
     tools:context="com.proyekta.app.project_lafic.activity.LoginActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:id="@+id/tvtSign"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:textColor="#FF9800"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please Sign In"
+        android:id="@+id/tvtWelcome"
+        android:layout_below="@+id/tvtSign"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/logo"
-            android:layout_gravity="center" />
-
-        <EditText
-            android:id="@+id/edtxt_username"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/tvtWelcome"
+        android:id="@+id/linearLayout">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username or Email"
-            android:inputType="textWebEmailAddress"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/edtxt_password"
+            android:background="#FAFAFA"
+            android:padding="5dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_user"
+                android:layout_gravity="center_vertical"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:id="@+id/edtxt_username"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textWebPassword"
-            android:hint="Password"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Log In"
-            android:layout_marginTop="20dp"
-            android:textColor="@android:color/black"
-            android:background="@drawable/button_white" />
-
-        <CheckBox
-            android:id="@+id/chbox_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Keep Me logged in"
-            android:layout_gravity="left"
-            android:textSize="16sp"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="16dp"/>
+            android:background="#FAFAFA"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_lock"
+                android:layout_gravity="center_vertical"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtxt_password"
+                android:inputType="textPassword"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp">
-
-        <TextView
-            android:id="@+id/txtv_notmember"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Not a member yet ? \nCreate one"
-            android:textColor="@android:color/white"
-            android:textSize="19sp"
-            android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"/>
-
-        <Button
-            android:id="@+id/btn_sign"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="Join Us"
-            android:textColor="@android:color/black"
-            android:background="@drawable/button_green"
-            android:layout_alignParentRight="true"/>
-
-    </RelativeLayout>
-
+        android:text="Sign In"
+        android:background="#FF9800"
+        android:id="@+id/btn_login"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:onClick="btn_onClick"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
+    />
 </RelativeLayout>

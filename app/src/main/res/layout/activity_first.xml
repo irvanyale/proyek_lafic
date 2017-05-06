@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#FFFFFF"
+    tools:context="com.proyekta.app.project_lafic.activity.FirstActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LAFIC"
+        android:textColor="#0D47A1"
+        android:textStyle="bold"
+        android:textSize="60dp"
+        android:id="@+id/tvtJudul"
+        android:layout_marginTop="87dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lost And Found Information Center"
+        android:textColor="#0D47A1"
+        android:textSize="20dp"
+        android:id="@+id/tvtContent"
+        android:layout_below="@+id/tvtJudul"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnJoin"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnSignin"
+        android:layout_alignStart="@+id/btnSignin"
+        android:layout_below="@+id/tvtContent"
+        android:layout_marginTop="52dp"
+        android:background="#4FC3F7"
+        android:onClick="btn_onClick"
+        android:text="Register"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp" />
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:background="#FF9800"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/btnSignin"
+        android:onClick="btn_onClick"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/btnJoin"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
