@@ -5,151 +5,177 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="#4FC3F7"
     android:padding="16dp"
     tools:context="com.proyekta.app.project_lafic.activity.RegistrasiActivity">
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join"
+        android:id="@+id/tvtSign"
+        android:textSize="50dp"
+        android:textStyle="bold"
+        android:textColor="#FF9800"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Your Account!"
+        android:id="@+id/tvtWelcome"
+        android:layout_below="@+id/tvtSign"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_centerHorizontal="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="20dp"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/edtxt_username"
+        android:orientation="vertical"
+        android:layout_below="@+id/tvtWelcome"
+        android:id="@+id/linearLayout">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
-            android:inputType="textWebEmailAddress"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
+            android:background="#FFFFFF"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_user"
+                android:layout_gravity="center_vertical"
 
-        <EditText
-            android:id="@+id/edtxt_idnumber"
+                />
+
+            <EditText
+                android:id="@+id/edtxt_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:hint="Input Your Name"
+                android:inputType="text" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ID Number"
-            android:inputType="number"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
-
-        <EditText
-            android:id="@+id/edtxt_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="textWebEmailAddress"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
-
-        <EditText
-            android:id="@+id/edtxt_telp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Telephone"
-            android:inputType="phone"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender"
-            android:textColor="@android:color/white"
-            android:textSize="18dp"
-            android:layout_gravity="left"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="6dp"/>
-
-        <RadioGroup
-            android:id="@+id/rdg_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:orientation="horizontal"
-            android:layout_marginTop="4dp">
-
-            <RadioButton
-                android:id="@+id/rbtn_l"
+            >
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:text="Laki-laki"
-                android:textColor="@android:color/white"
-                android:checked="true"/>
-
-            <RadioButton
-                android:id="@+id/rbtn_p"
+                android:src="@mipmap/ic_user"
+                android:layout_gravity="center_vertical"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtxt_idnumber"
+                android:hint="ID Number"
+                android:inputType="number"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            >
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Perempuan"
-                android:textColor="@android:color/white"/>
-
-        </RadioGroup>
-
-        <EditText
-            android:id="@+id/edtxt_password"
+                android:src="@mipmap/ic_email"
+                android:layout_gravity="center_vertical"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtxt_email"
+                android:hint="Input Your Email"
+                android:inputType="textEmailAddress"
+                android:layout_gravity="center_vertical"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:inputType="textWebPassword"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
-
-        <EditText
-            android:id="@+id/edtxt_repassword"
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_telp"
+                android:layout_gravity="center_vertical"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtxt_telp"
+                android:hint="Your Telephone"
+                android:layout_gravity="center_vertical"
+                android:inputType="phone"
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Retype Password"
-            android:inputType="textWebPassword"
-            android:textColorHint="@android:color/white"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="8dp" />
+            android:background="#FFFFFF"
 
-        <Button
-            android:id="@+id/btn_register"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_lock"
+                android:layout_gravity="center_vertical"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/edtxt_password"
+                android:hint="Current Password"
+                android:inputType="textWebPassword"
+
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create Account"
-            android:layout_marginTop="10dp"
-            android:textColor="@android:color/black"
-            android:background="@drawable/button_white" />
+            android:background="#FFFFFF"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_lock"
+                android:layout_gravity="center_vertical"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/edtxt_repassword"
+                android:hint="Retype Password"
+                android:inputType="textWebPassword"
 
+                />
+        </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp">
-
-        <TextView
-            android:id="@+id/txtv_member"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Already a member ?"
-            android:textColor="@android:color/white"
-            android:textSize="19sp"
-            android:layout_marginLeft="16dp"
-            android:layout_centerVertical="true"/>
-
-        <TextView
-            android:id="@+id/txtv_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:textColor="@color/colorButtonGreen"
-            android:textSize="19sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="8dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/txtv_member"/>
-
-    </RelativeLayout>
-
+        android:text="REGISTER"
+        android:background="#FF9800"
+        android:id="@+id/btnRegister"
+        android:layout_marginTop="30dp"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true"
+        android:onClick="btn_onClick"/>
 </RelativeLayout>
