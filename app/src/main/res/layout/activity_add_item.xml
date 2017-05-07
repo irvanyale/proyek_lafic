@@ -96,19 +96,10 @@
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
-        android:background="@color/colorAccent"
         android:text="SUBMIT"
-<<<<<<< HEAD
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-=======
         android:background="@color/colorAccent"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:layout_alignParentRight="true"/>
-
->>>>>>> 4afd51e77ce901104b3b4ba90584757ccb34aad5
 </LinearLayout>
