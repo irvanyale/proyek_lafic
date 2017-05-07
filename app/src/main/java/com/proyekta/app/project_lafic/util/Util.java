@@ -1,5 +1,7 @@
 package com.proyekta.app.project_lafic.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.proyekta.app.project_lafic.model.KategoriBarang;
@@ -12,6 +14,12 @@ import java.util.List;
  */
 
 public class Util {
+
+    final static String PREF_NAME = "lafic";
+    final static String TOKEN = "status";
+    final static int PRIVATE_MODE = 0;
+    static SharedPreferences pref;
+    static SharedPreferences.Editor editor;
 
     public static List<String> getIdKategori(List<String> kategoriBarang){
         List<String> listId = new ArrayList<>();
@@ -42,5 +50,18 @@ public class Util {
             listKet.add(ket[2]);
         }
         return listKet;
+    }
+
+    public static void setToken(Context context, String token){
+
+        pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        editor = pref.edit();
+        editor.putString(TOKEN, token);
+        editor.apply();
+    }
+
+    public static String getToken(Context context){
+        pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        return pref.getString(TOKEN, "");
     }
 }

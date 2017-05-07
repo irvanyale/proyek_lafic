@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -33,8 +34,11 @@ import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.fragment.HomeFragment;
 import com.proyekta.app.project_lafic.fragment.ManageItemsFragment;
 import com.proyekta.app.project_lafic.fragment.ProfileFragment;
+import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
+import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
+import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -56,6 +60,8 @@ public class BerandaActivity extends AppCompatActivity
     private Toolbar toolbar;
     private ApiInterface client;
     private List<KategoriBarang> kategoriBarang;
+    private List<Barang> barang;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +83,12 @@ public class BerandaActivity extends AppCompatActivity
         kategoriBarang = KategoriBarangHelper.getKategoriBarang();
         kategoriBarang.clear();
 
-        client = ApiClient.createService(ApiInterface.class, Application.token);
+        barang = BarangHelper.getBarang();
+        barang.clear();
 
-        loadKategoriBarang();
+        client = ApiClient.createService(ApiInterface.class, Util.getToken(this));
+
+        loadBarang();
 
         replaceFragment(new HomeFragment());
 
@@ -119,10 +128,36 @@ public class BerandaActivity extends AppCompatActivity
         }
     }
 
-    private void loadKategoriBarang(){
-        final ProgressDialog dialog = new ProgressDialog(this);
+    private void loadBarang(){
+        dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
+
+        Call<List<Barang>> call = client.getAllBarang();
+        call.enqueue(new Callback<List<Barang>>() {
+            @Override
+            public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
+                if (response.isSuccessful()){
+                    List<Barang> listBarang = response.body();
+                    for (Barang data : listBarang){
+                        barang.add(data);
+                    }
+                    loadKategoriBarang();
+                } else {
+                    Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Barang>> call, Throwable t) {
+                Toast.makeText(BerandaActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void loadKategoriBarang(){
 
         Call<List<KategoriBarang>> call = client.getKategoriBarang();
         call.enqueue(new Callback<List<KategoriBarang>>() {

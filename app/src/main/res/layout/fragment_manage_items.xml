@@ -3,13 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.proyekta.app.project_lafic.fragment.ManageItemsFragment">
-    
-    
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_listItem"
+        android:layout_above="@+id/rlly_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:layout_alignParentTop="true">
+
+    </android.support.v7.widget.RecyclerView>
+
+
     <RelativeLayout
+        android:id="@+id/rlly_footer"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorButtonGreen">
+        android:background="@color/colorAccent">
 
         <RelativeLayout
             android:id="@+id/rlly_add_items"
@@ -33,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="ADD ITEMS"
                 android:textStyle="bold"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textColor="@android:color/white"
                 android:layout_centerVertical="true"/>
 

@@ -1,6 +1,6 @@
 package com.proyekta.app.project_lafic.api;
 
-import com.proyekta.app.project_lafic.model.Item;
+import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
@@ -22,9 +22,6 @@ import retrofit2.http.Path;
 public interface ApiInterface {
 
     @POST("member")
-    Call<Login> doLogin(@Body Login login);
-
-    @POST("member")
     @FormUrlEncoded
     Call<Member> doRegister(@Field("NAMA_MEMBER") String NAMA_MEMBER,
                             @Field("PASSWORD_MEMBER") String PASSWORD_MEMBER,
@@ -34,14 +31,14 @@ public interface ApiInterface {
                             @Field("NOMOR_ID") String NOMOR_ID);
 
     @GET("barang")
-    Call<Item> getAllBarang();
+    Call<List<Barang>> getAllBarang();
 
     @GET("barang?BARANG_ID={id}")
-    Call<Item> getAllBarang(@Path("id") String id);
+    Call<Barang> getAllBarang(@Path("id") String id);
 
     @POST("barang")
     @FormUrlEncoded
-    Call<Item> doSubmit(@Field("BARANG_ID") String BARANG_ID,
+    Call<Barang> doSubmit(@Field("BARANG_ID") String BARANG_ID,
                         @Field("MEMBER_ID") String MEMBER_ID,
                         @Field("ID_KATEGORY") String ID_KATEGORY,
                         @Field("NAMA_BARANG") String NAMA_BARANG,

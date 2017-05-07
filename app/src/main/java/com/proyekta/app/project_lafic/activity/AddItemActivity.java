@@ -21,8 +21,9 @@ import com.proyekta.app.project_lafic.SessionManagement;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.api.AuthClient;
+import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
-import com.proyekta.app.project_lafic.model.Item;
+import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.DownloadUtil;
@@ -55,6 +56,8 @@ public class AddItemActivity extends AppCompatActivity {
     private List<String> listNamaKategoriBarang = new ArrayList<>();
     private List<String> listIdKategoriBarang = new ArrayList<>();
     private List<String> listKetKategoriBarang = new ArrayList<>();
+    private List<Barang> barang;
+    private ProgressDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +84,10 @@ public class AddItemActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, listNamaKategoriBarang);
         spinner_id_kategori.setAdapter(adapter);
 
-        client = ApiClient.createService(ApiInterface.class, Application.token);
+        client = ApiClient.createService(ApiInterface.class, Util.getToken(this));
+
+        barang = BarangHelper.getBarang();
+        barang.clear();
 
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
@@ -150,28 +156,29 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private void submit(String id, String id_kategori, String nama, String status, String warna, String tipe){
-        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
 
-        Call<Item> call = client.doSubmit("", id, id_kategori, nama, status, warna, tipe,"");
-        call.enqueue(new Callback<Item>() {
+        Call<Barang> call = client.doSubmit("", id, id_kategori, nama, status, warna, tipe,"");
+        call.enqueue(new Callback<Barang>() {
             @Override
-            public void onResponse(Call<Item> call, Response<Item> response) {
+            public void onResponse(Call<Barang> call, Response<Barang> response) {
                 if (response.isSuccessful()){
-                    Item data = response.body();
+                    Barang data = response.body();
 
                     downloadQrCode(data.getQRCODE(), data.getBARANG_ID());
 
-                    finish();
+                    loadBarang();
+
                 } else {
                     Toast.makeText(AddItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<Item> call, Throwable t) {
+            public void onFailure(Call<Barang> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t);
                 Toast.makeText(AddItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
@@ -185,6 +192,32 @@ public class AddItemActivity extends AppCompatActivity {
         Log.d(TAG, "PATH: "+path);
 
         DownloadUtil.DownloadImage(this, url, path, filename);
+    }
+
+    private void loadBarang(){
+
+        Call<List<Barang>> call = client.getAllBarang();
+        call.enqueue(new Callback<List<Barang>>() {
+            @Override
+            public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
+                if (response.isSuccessful()){
+                    List<Barang> listBarang = response.body();
+                    for (Barang data : listBarang){
+                        barang.add(data);
+                    }
+                    finish();
+                } else {
+                    Toast.makeText(AddItemActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<Barang>> call, Throwable t) {
+                Toast.makeText(AddItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override

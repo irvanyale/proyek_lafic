@@ -25,6 +25,7 @@ import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.model.Token;
+import com.proyekta.app.project_lafic.util.Util;
 
 import java.util.List;
 
@@ -107,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Login data = response.body();
                     Application.token = data.getToken();
+                    Util.setToken(LoginActivity.this, data.getToken());
                     Log.d(TAG, "TOKEN COY: "+data.getToken());
                     session.createLoginSession(
                             data.getId_member(),
