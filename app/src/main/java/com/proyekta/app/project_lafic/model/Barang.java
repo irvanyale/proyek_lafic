@@ -4,7 +4,7 @@ package com.proyekta.app.project_lafic.model;
  * Created by WINDOWS 10 on 01/05/2017.
  */
 
-public class Item {
+public class Barang {
 
     private String BARANG_ID;
     private String MEMBER_ID;
@@ -15,7 +15,7 @@ public class Item {
     private String TIPE_BARANG;
     private String QRCODE;
 
-    public Item(String MEMBER_ID, String ID_KATEGORY, String NAMA_BARANG, String STATUS, String WARNA_BARANG, String TIPE_BARANG) {
+    public Barang(String MEMBER_ID, String ID_KATEGORY, String NAMA_BARANG, String STATUS, String WARNA_BARANG, String TIPE_BARANG) {
         this.MEMBER_ID = MEMBER_ID;
         this.ID_KATEGORY = ID_KATEGORY;
         this.NAMA_BARANG = NAMA_BARANG;

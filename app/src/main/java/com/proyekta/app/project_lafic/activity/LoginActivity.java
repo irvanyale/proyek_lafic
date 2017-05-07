@@ -20,9 +20,14 @@ import com.proyekta.app.project_lafic.SessionManagement;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.api.AuthClient;
+import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
+import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.model.Token;
+import com.proyekta.app.project_lafic.util.Util;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -103,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Login data = response.body();
                     Application.token = data.getToken();
+                    Util.setToken(LoginActivity.this, data.getToken());
                     Log.d(TAG, "TOKEN COY: "+data.getToken());
                     session.createLoginSession(
                             data.getId_member(),

@@ -122,17 +122,24 @@ public class SessionManagement {
         File file = new File(StorageUtil.getLaficDirectoryPath());
         if (!file.exists()) {
             file.mkdirs();
+            MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                @Override
+                public void onScanCompleted(String path, Uri uri) {
+                    Log.d("TAG", "onScanCompleted: "+path);
+                    Log.d("TAG", "onScanCompleted: "+uri);
+                }
+            });
         }
         file = new File(StorageUtil.getFileDirectoryPath());
         if (!file.exists()) {
             file.mkdirs();
+            MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                @Override
+                public void onScanCompleted(String path, Uri uri) {
+                    Log.d("TAG", "onScanCompleted: "+path);
+                    Log.d("TAG", "onScanCompleted: "+uri);
+                }
+            });
         }
-        MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
-            @Override
-            public void onScanCompleted(String path, Uri uri) {
-                Log.d("TAG", "onScanCompleted: "+path);
-                Log.d("TAG", "onScanCompleted: "+uri);
-            }
-        });
     }
 }
