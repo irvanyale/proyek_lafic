@@ -14,6 +14,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by WINDOWS 10 on 24/04/2017.
@@ -31,10 +32,10 @@ public interface ApiInterface {
                             @Field("NOMOR_ID") String NOMOR_ID);
 
     @GET("barang")
-    Call<List<Barang>> getAllBarang();
+    Call<List<Barang>> getAllBarang(@Query("MEMBER_ID") String id);
 
     @GET("barang?BARANG_ID={id}")
-    Call<Barang> getAllBarang(@Path("id") String id);
+    Call<Barang> getBarang(@Path("id") String id);
 
     @POST("barang")
     @FormUrlEncoded
