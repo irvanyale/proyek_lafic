@@ -22,7 +22,6 @@ public class ProfileFragment extends Fragment {
     private TextInputEditText edtx_nomor_id;
     private TextInputEditText edtx_nama;
     private TextInputEditText edtx_email;
-    private TextInputEditText edtx_gender;
     private TextInputEditText edtx_telepon;
     private TextInputEditText edtx_password;
     private TextInputEditText edtx_repassword;
@@ -47,7 +46,6 @@ public class ProfileFragment extends Fragment {
         edtx_nomor_id = (TextInputEditText) view.findViewById(R.id.edtx_nomor_id);
         edtx_nama = (TextInputEditText) view.findViewById(R.id.edtx_nama);
         edtx_email = (TextInputEditText) view.findViewById(R.id.edtx_email);
-        edtx_gender = (TextInputEditText) view.findViewById(R.id.edtx_gender);
         edtx_telepon = (TextInputEditText) view.findViewById(R.id.edtx_telepon);
         edtx_password = (TextInputEditText) view.findViewById(R.id.edtx_password);
         edtx_repassword = (TextInputEditText) view.findViewById(R.id.edtx_repassword);
@@ -66,7 +64,6 @@ public class ProfileFragment extends Fragment {
             edtx_nomor_id.setText(id);
             edtx_nama.setText(nama);
             edtx_email.setText(email);
-            edtx_gender.setText(gender);
             edtx_telepon.setText(telepon);
 
         } catch (Exception e){

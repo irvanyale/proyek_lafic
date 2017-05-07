@@ -36,6 +36,7 @@ public class SessionManagement {
     public static final String KEY_KELAMIN = "kelamin";
     public static final String KEY_NOMOR_ID = "nomor_id";
     public static final String KEY_STATUS = "status";
+    public static final String TOKEN = "token";
 
     public SessionManagement(Context context) {
         this.context = context;
@@ -45,7 +46,7 @@ public class SessionManagement {
 
 
     // Login Session
-    public void createLoginSession(String id_member, String nama, String password, String email, String telepon, String kelamin, String nomor_id, String status){
+    public void createLoginSession(String token, String id_member, String nama, String password, String email, String telepon, String kelamin, String nomor_id, String status){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_ID_MEMBER, id_member);
         editor.putString(KEY_NAMA, nama);
@@ -55,7 +56,12 @@ public class SessionManagement {
         editor.putString(KEY_KELAMIN, kelamin);
         editor.putString(KEY_NOMOR_ID, nomor_id);
         editor.putString(KEY_STATUS, status);
+        editor.putString(TOKEN, token);
         editor.commit();
+    }
+
+    public String getToken(){
+        return pref.getString(TOKEN, null);
     }
 
     // Get Session
@@ -126,17 +132,24 @@ public class SessionManagement {
         File file = new File(StorageUtil.getLaficDirectoryPath());
         if (!file.exists()) {
             file.mkdirs();
+            MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                @Override
+                public void onScanCompleted(String path, Uri uri) {
+                    Log.d("TAG", "onScanCompleted: "+path);
+                    Log.d("TAG", "onScanCompleted: "+uri);
+                }
+            });
         }
         file = new File(StorageUtil.getFileDirectoryPath());
         if (!file.exists()) {
             file.mkdirs();
+            MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
+                @Override
+                public void onScanCompleted(String path, Uri uri) {
+                    Log.d("TAG", "onScanCompleted: "+path);
+                    Log.d("TAG", "onScanCompleted: "+uri);
+                }
+            });
         }
-        MediaScannerConnection.scanFile(context, new String[]{file.toString()}, null, new MediaScannerConnection.OnScanCompletedListener() {
-            @Override
-            public void onScanCompleted(String path, Uri uri) {
-                Log.d("TAG", "onScanCompleted: "+path);
-                Log.d("TAG", "onScanCompleted: "+uri);
-            }
-        });
     }
 }

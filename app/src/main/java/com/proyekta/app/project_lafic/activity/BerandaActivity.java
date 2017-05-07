@@ -1,5 +1,6 @@
 package com.proyekta.app.project_lafic.activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,17 +23,27 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.proyekta.app.project_lafic.Application;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.SessionManagement;
+import com.proyekta.app.project_lafic.api.ApiClient;
+import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.fragment.HomeFragment;
 import com.proyekta.app.project_lafic.fragment.ManageItemsFragment;
 import com.proyekta.app.project_lafic.fragment.ProfileFragment;
+import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
+import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BerandaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +54,8 @@ public class BerandaActivity extends AppCompatActivity
     private TextView txtv_nama;
     private TextView txtv_email;
     private Toolbar toolbar;
+    private ApiInterface client;
+    private List<KategoriBarang> kategoriBarang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +73,13 @@ public class BerandaActivity extends AppCompatActivity
         initComponents();
 
         getUserAccount();
+
+        kategoriBarang = KategoriBarangHelper.getKategoriBarang();
+        kategoriBarang.clear();
+
+        client = ApiClient.createService(ApiInterface.class, Application.token);
+
+        loadKategoriBarang();
 
         replaceFragment(new HomeFragment());
 
@@ -97,6 +117,35 @@ public class BerandaActivity extends AppCompatActivity
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void loadKategoriBarang(){
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        dialog.show();
+
+        Call<List<KategoriBarang>> call = client.getKategoriBarang();
+        call.enqueue(new Callback<List<KategoriBarang>>() {
+            @Override
+            public void onResponse(Call<List<KategoriBarang>> call, Response<List<KategoriBarang>> response) {
+                if (response.isSuccessful()){
+                    List<KategoriBarang> listKategoriBarang = response.body();
+                    for (KategoriBarang data : listKategoriBarang){
+                        kategoriBarang.add(data);
+                    }
+                } else {
+                    Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<KategoriBarang>> call, Throwable t) {
+                Toast.makeText(BerandaActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
     }
 
     private void showDialogLogout(){

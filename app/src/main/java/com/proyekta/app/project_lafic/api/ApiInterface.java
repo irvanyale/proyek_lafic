@@ -1,8 +1,11 @@
 package com.proyekta.app.project_lafic.api;
 
 import com.proyekta.app.project_lafic.model.Item;
+import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -46,4 +49,7 @@ public interface ApiInterface {
                         @Field("WARNA_BARANG") String WARNA_BARANG,
                         @Field("TIPE_BARANG") String TIPE_BARANG,
                         @Field("QRCODE") String QRCODE);
+
+    @GET("kategoribarang")
+    Call<List<KategoriBarang>> getKategoriBarang();
 }
