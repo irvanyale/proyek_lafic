@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:layout_centerVertical="true"
-                android:background="@android:color/white"
+                android:background="@color/colorAccent"
                 android:padding="4dp"
                 android:src="@drawable/ic_add"/>
 

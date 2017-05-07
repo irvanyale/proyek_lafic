@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Project_Lafic.iml" filepath="$PROJECT_DIR$/Project_Lafic.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/proyek_lafic.iml" filepath="$PROJECT_DIR$/proyek_lafic.iml" />
     </modules>
   </component>
 </project>

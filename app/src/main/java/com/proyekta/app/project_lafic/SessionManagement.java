@@ -15,10 +15,6 @@ import com.proyekta.app.project_lafic.util.StorageUtil;
 import java.io.File;
 import java.util.HashMap;
 
-/**
- * Created by WINDOWS 10 on 25/04/2017.
- */
-
 public class SessionManagement {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;

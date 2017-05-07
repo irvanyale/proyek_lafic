@@ -88,17 +88,15 @@
             android:textColor="@android:color/black" />
 
     </android.support.design.widget.TextInputLayout>
-
     <Button
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
+        android:background="@color/colorAccent"
         android:text="SUBMIT"
-        android:textSize="20sp"
-        android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:background="@drawable/button_green"
-        android:layout_alignParentRight="true"/>
-
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </LinearLayout>
