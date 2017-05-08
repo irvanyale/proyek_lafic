@@ -133,7 +133,7 @@ public class BerandaActivity extends AppCompatActivity
         dialog.setMessage("Loading...");
         dialog.show();
 
-        Call<List<Barang>> call = client.getAllBarang();
+        Call<List<Barang>> call = client.getAllBarang(getMemberId());
         call.enqueue(new Callback<List<Barang>>() {
             @Override
             public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
@@ -181,6 +181,12 @@ public class BerandaActivity extends AppCompatActivity
             }
         });
 
+    }
+
+    private String getMemberId(){
+        SessionManagement session = new SessionManagement(this);
+        HashMap<String, String> user = session.getUserDetails();
+        return user.get(SessionManagement.KEY_ID_MEMBER);
     }
 
     private void showDialogLogout(){

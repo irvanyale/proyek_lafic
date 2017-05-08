@@ -133,6 +133,12 @@ public class AddItemActivity extends AppCompatActivity {
         edtx_warna.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
     }
 
+    private String getMemberId(){
+        SessionManagement session = new SessionManagement(this);
+        HashMap<String, String> user = session.getUserDetails();
+        return user.get(SessionManagement.KEY_ID_MEMBER);
+    }
+
     private void doSubmit(){
         String id_kategori = idKategoriBarang;
         String nama = edtx_nama.getText().toString();
@@ -196,7 +202,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void loadBarang(){
 
-        Call<List<Barang>> call = client.getAllBarang();
+        Call<List<Barang>> call = client.getAllBarang(getMemberId());
         call.enqueue(new Callback<List<Barang>>() {
             @Override
             public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
