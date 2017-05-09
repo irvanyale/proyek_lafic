@@ -13,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -30,6 +31,9 @@ public interface ApiInterface {
                             @Field("TELEPON") String TELEPON,
                             @Field("KELAMIN") String KELAMIN,
                             @Field("NOMOR_ID") String NOMOR_ID);
+
+    @PUT("member")
+    Call<Member> doUpdateProfile(@Body Member member);
 
     @GET("barang")
     Call<List<Barang>> getAllBarang(@Query("MEMBER_ID") String id);

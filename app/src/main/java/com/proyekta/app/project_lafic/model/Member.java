@@ -13,6 +13,9 @@ public class Member {
     private String KELAMIN;
     private String NOMOR_ID;
 
+    public Member() {
+    }
+
     public Member(String NAMA_MEMBER, String PASSWORD_MEMBER, String EMAIL_MEMBER, String TELEPON, String KELAMIN, String NOMOR_ID) {
         this.NAMA_MEMBER = NAMA_MEMBER;
         this.PASSWORD_MEMBER = PASSWORD_MEMBER;
@@ -48,5 +51,33 @@ public class Member {
 
     public String getNOMOR_ID() {
         return NOMOR_ID;
+    }
+
+    public void setMEMBER_ID(String MEMBER_ID) {
+        this.MEMBER_ID = MEMBER_ID;
+    }
+
+    public void setNAMA_MEMBER(String NAMA_MEMBER) {
+        this.NAMA_MEMBER = NAMA_MEMBER;
+    }
+
+    public void setPASSWORD_MEMBER(String PASSWORD_MEMBER) {
+        this.PASSWORD_MEMBER = PASSWORD_MEMBER;
+    }
+
+    public void setEMAIL_MEMBER(String EMAIL_MEMBER) {
+        this.EMAIL_MEMBER = EMAIL_MEMBER;
+    }
+
+    public void setTELEPON(String TELEPON) {
+        this.TELEPON = TELEPON;
+    }
+
+    public void setKELAMIN(String KELAMIN) {
+        this.KELAMIN = KELAMIN;
+    }
+
+    public void setNOMOR_ID(String NOMOR_ID) {
+        this.NOMOR_ID = NOMOR_ID;
     }
 }
