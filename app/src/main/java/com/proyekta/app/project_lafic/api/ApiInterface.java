@@ -34,8 +34,8 @@ public interface ApiInterface {
     @GET("barang")
     Call<List<Barang>> getAllBarang(@Query("MEMBER_ID") String id);
 
-    @GET("barang?BARANG_ID={id}")
-    Call<Barang> getBarang(@Path("id") String id);
+    @GET("barang")
+    Call<Barang> getBarang(@Query("BARANG_ID") String id);
 
     @POST("barang")
     @FormUrlEncoded
@@ -45,7 +45,7 @@ public interface ApiInterface {
                         @Field("NAMA_BARANG") String NAMA_BARANG,
                         @Field("STATUS") String STATUS,
                         @Field("WARNA_BARANG") String WARNA_BARANG,
-                        @Field("TIPE_BARANG") String TIPE_BARANG,
+                        @Field("KETERANGAN") String KETERANGAN,
                         @Field("QRCODE") String QRCODE);
 
     @GET("kategoribarang")

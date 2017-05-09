@@ -12,16 +12,16 @@ public class Barang {
     private String NAMA_BARANG;
     private String STATUS;
     private String WARNA_BARANG;
-    private String TIPE_BARANG;
+    private String KETERANGAN;
     private String QRCODE;
 
-    public Barang(String MEMBER_ID, String ID_KATEGORY, String NAMA_BARANG, String STATUS, String WARNA_BARANG, String TIPE_BARANG) {
+    public Barang(String MEMBER_ID, String ID_KATEGORY, String NAMA_BARANG, String STATUS, String WARNA_BARANG, String KETERANGAN) {
         this.MEMBER_ID = MEMBER_ID;
         this.ID_KATEGORY = ID_KATEGORY;
         this.NAMA_BARANG = NAMA_BARANG;
         this.STATUS = STATUS;
         this.WARNA_BARANG = WARNA_BARANG;
-        this.TIPE_BARANG = TIPE_BARANG;
+        this.KETERANGAN = KETERANGAN;
     }
 
     public String getBARANG_ID() {
@@ -48,8 +48,8 @@ public class Barang {
         return WARNA_BARANG;
     }
 
-    public String getTIPE_BARANG() {
-        return TIPE_BARANG;
+    public String getKETERANGAN() {
+        return KETERANGAN;
     }
 
     public String getQRCODE() {

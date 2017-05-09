@@ -41,6 +41,17 @@
         android:layout_marginRight="5dp"
         android:background="@color/colorGrey"/>
 
+    <TextView
+        android:id="@+id/txtv_kategori"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorGrey"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="10sp"
+        android:visibility="gone"/>
+
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,8 +81,7 @@
             android:padding="15dp"
             android:inputType="textEmailAddress"
             android:drawablePadding="16dp"
-            android:hint="Tipe"
-            android:enabled="false"
+            android:hint="Keterangan(No. Seri, No. ID, IMEI dan lain-lain)"
             android:textColor="@android:color/black"/>
 
     </android.support.design.widget.TextInputLayout>

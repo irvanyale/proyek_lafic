@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.Application;
@@ -43,6 +44,7 @@ public class AddItemActivity extends AppCompatActivity {
     private static final String TAG = "AddItemActivity";
 
     private Spinner spinner_id_kategori;
+    private TextView txtv_kategori;
     private TextInputEditText edtx_nama;
     private TextInputEditText edtx_warna;
     private TextInputEditText edtx_tipe;
@@ -107,10 +109,13 @@ public class AddItemActivity extends AppCompatActivity {
                     idKategoriBarang = listIdKategoriBarang.get(position);
                     Log.d(TAG, "onItemSelected: "+idKategoriBarang);
 
-                    edtx_tipe.setText(listKetKategoriBarang.get(position));
+                    //edtx_tipe.setText(listKetKategoriBarang.get(position));
+                    txtv_kategori.setVisibility(View.VISIBLE);
+                    txtv_kategori.setText(listKetKategoriBarang.get(position));
                 } else {
                     idKategoriBarang = "";
-                    edtx_tipe.setText("");
+                    txtv_kategori.setVisibility(View.GONE);
+                    //edtx_tipe.setText("");
                 }
             }
 
@@ -123,6 +128,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void initComponents(){
         spinner_id_kategori = (Spinner) findViewById(R.id.spinner_id_kategori);
+        txtv_kategori = (TextView) findViewById(R.id.txtv_kategori);
         edtx_nama = (TextInputEditText) findViewById(R.id.edtx_nama);
         edtx_warna = (TextInputEditText) findViewById(R.id.edtx_warna);
         edtx_tipe = (TextInputEditText) findViewById(R.id.edtx_tipe);
