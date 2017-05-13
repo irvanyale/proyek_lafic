@@ -1,8 +1,6 @@
 package com.proyekta.app.project_lafic.model;
 
-/**
- * Created by WINDOWS 10 on 06/05/2017.
- */
+
 
 public class KategoriBarang {
 
