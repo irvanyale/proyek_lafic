@@ -113,8 +113,6 @@ public class AddItemActivity extends AppCompatActivity {
 
                     subKategoriAdapter(idKategoriBarang);
 
-
-
                 } else {
                     idKategoriBarang = "";
                     subKategoriAdapter(idKategoriBarang);
@@ -157,6 +155,24 @@ public class AddItemActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, listSubKategori);
         spinner_sub_kategori.setAdapter(adapter);
+
+        switch (id){
+            case "1":
+                edtx_merk.setVisibility(View.VISIBLE);
+                edtx_warna.setVisibility(View.VISIBLE);
+                edtx_tipe.setVisibility(View.VISIBLE);
+                break;
+            case "2":
+                edtx_merk.setVisibility(View.GONE);
+                edtx_warna.setVisibility(View.GONE);
+                edtx_tipe.setVisibility(View.GONE);
+                break;
+            case "3":
+                edtx_merk.setVisibility(View.VISIBLE);
+                edtx_warna.setVisibility(View.VISIBLE);
+                edtx_tipe.setVisibility(View.GONE);
+                break;
+        }
     }
 
     private String getMemberId(){
@@ -167,6 +183,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void doSubmit(){
         String id_kategori = idKategoriBarang;
+        String jenis = spinner_sub_kategori.getSelectedItem().toString();
         String merk = edtx_merk.getText().toString();
         String warna = edtx_warna.getText().toString();
         String tipe = edtx_tipe.getText().toString();
@@ -175,24 +192,22 @@ public class AddItemActivity extends AppCompatActivity {
         Log.d(TAG, "doSubmit: "+id_kategori);
 
         if (!id_kategori.trim().isEmpty() &&
-                !merk.trim().isEmpty() &&
-                !warna.trim().isEmpty() &&
-                !tipe.trim().isEmpty()){
+                !jenis.equals("Pilih Jenis Barang")){
 
             //Item item = new Item(memberId, id_kategori, nama, status, warna, tipe);
-            submit(memberId, id_kategori, merk, "AMAN", warna, tipe);
+            submit(memberId, id_kategori, jenis, merk, "AMAN", warna, tipe);
 
         } else {
             Toast.makeText(AddItemActivity.this, "Silahkan lengkapi data barang Anda", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void submit(String id, String id_kategori, String nama, String status, String warna, String tipe){
+    private void submit(String id, String id_kategori, String jenis, String merk, String status, String warna, String tipe){
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
 
-        Call<Barang> call = client.doSubmit("", id, id_kategori, nama, status, warna, tipe,"");
+        Call<Barang> call = client.doSubmit("", id, id_kategori, jenis, merk, status, warna, tipe,"");
         call.enqueue(new Callback<Barang>() {
             @Override
             public void onResponse(Call<Barang> call, Response<Barang> response) {

@@ -9,15 +9,17 @@ public class Barang {
     private String BARANG_ID;
     private String MEMBER_ID;
     private String ID_KATEGORY;
+    private String JENIS_BARANG;
     private String MERK_BARANG;
     private String STATUS;
     private String WARNA_BARANG;
     private String KETERANGAN;
     private String QRCODE;
 
-    public Barang(String MEMBER_ID, String ID_KATEGORY, String MERK_BARANG, String STATUS, String WARNA_BARANG, String KETERANGAN) {
+    public Barang(String MEMBER_ID, String ID_KATEGORY, String JENIS_BARANG, String MERK_BARANG, String STATUS, String WARNA_BARANG, String KETERANGAN) {
         this.MEMBER_ID = MEMBER_ID;
         this.ID_KATEGORY = ID_KATEGORY;
+        this.JENIS_BARANG = JENIS_BARANG;
         this.MERK_BARANG = MERK_BARANG;
         this.STATUS = STATUS;
         this.WARNA_BARANG = WARNA_BARANG;
@@ -54,5 +56,9 @@ public class Barang {
 
     public String getQRCODE() {
         return QRCODE;
+    }
+
+    public String getJENIS_BARANG() {
+        return JENIS_BARANG;
     }
 }

@@ -46,6 +46,7 @@ public interface ApiInterface {
     Call<Barang> doSubmit(@Field("BARANG_ID") String BARANG_ID,
                         @Field("MEMBER_ID") String MEMBER_ID,
                         @Field("ID_KATEGORY") String ID_KATEGORY,
+                        @Field("JENIS_BARANG") String JENIS_BARANG,
                         @Field("MERK_BARANG") String MERK_BARANG,
                         @Field("STATUS") String STATUS,
                         @Field("WARNA_BARANG") String WARNA_BARANG,

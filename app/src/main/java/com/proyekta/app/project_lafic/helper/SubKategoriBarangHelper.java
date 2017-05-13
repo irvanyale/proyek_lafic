@@ -12,7 +12,7 @@ public class SubKategoriBarangHelper {
     public static List<String> setListSubKategori(String id) {
         List<String> listSubKategori = new ArrayList<>();
 
-        listSubKategori.add("Pilih SubKategori");
+        listSubKategori.add("Pilih Jenis Barang");
         switch (id){
             case "1":
                 listSubKategori.add("Laptop");
