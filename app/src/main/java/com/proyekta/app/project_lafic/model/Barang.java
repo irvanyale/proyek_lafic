@@ -9,19 +9,21 @@ public class Barang {
     private String BARANG_ID;
     private String MEMBER_ID;
     private String ID_KATEGORY;
-    private String NAMA_BARANG;
+    private String JENIS_BARANG;
+    private String MERK_BARANG;
     private String STATUS;
     private String WARNA_BARANG;
-    private String TIPE_BARANG;
+    private String KETERANGAN;
     private String QRCODE;
 
-    public Barang(String MEMBER_ID, String ID_KATEGORY, String NAMA_BARANG, String STATUS, String WARNA_BARANG, String TIPE_BARANG) {
+    public Barang(String MEMBER_ID, String ID_KATEGORY, String JENIS_BARANG, String MERK_BARANG, String STATUS, String WARNA_BARANG, String KETERANGAN) {
         this.MEMBER_ID = MEMBER_ID;
         this.ID_KATEGORY = ID_KATEGORY;
-        this.NAMA_BARANG = NAMA_BARANG;
+        this.JENIS_BARANG = JENIS_BARANG;
+        this.MERK_BARANG = MERK_BARANG;
         this.STATUS = STATUS;
         this.WARNA_BARANG = WARNA_BARANG;
-        this.TIPE_BARANG = TIPE_BARANG;
+        this.KETERANGAN = KETERANGAN;
     }
 
     public String getBARANG_ID() {
@@ -36,8 +38,8 @@ public class Barang {
         return ID_KATEGORY;
     }
 
-    public String getNAMA_BARANG() {
-        return NAMA_BARANG;
+    public String getMERK_BARANG() {
+        return MERK_BARANG;
     }
 
     public String getSTATUS() {
@@ -48,11 +50,15 @@ public class Barang {
         return WARNA_BARANG;
     }
 
-    public String getTIPE_BARANG() {
-        return TIPE_BARANG;
+    public String getKETERANGAN() {
+        return KETERANGAN;
     }
 
     public String getQRCODE() {
         return QRCODE;
+    }
+
+    public String getJENIS_BARANG() {
+        return JENIS_BARANG;
     }
 }

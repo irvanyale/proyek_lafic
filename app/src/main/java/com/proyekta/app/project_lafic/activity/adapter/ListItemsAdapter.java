@@ -68,8 +68,8 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Barang barang = listBarang.get(position);
-        holder.txtv_nama_barang.setText(barang.getNAMA_BARANG());
-        holder.txtv_kategori_barang.setText(barang.getTIPE_BARANG());
+        holder.txtv_nama_barang.setText(barang.getMERK_BARANG());
+        holder.txtv_kategori_barang.setText(barang.getKETERANGAN());
         holder.imgv_status.setImageDrawable(
                 barang.getSTATUS().equals("AMAN") ?
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_aman) :

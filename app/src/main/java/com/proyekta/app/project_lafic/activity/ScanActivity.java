@@ -1,6 +1,11 @@
 package com.proyekta.app.project_lafic.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,6 +71,10 @@ public class ScanActivity extends AppCompatActivity {
         scanner.setStatusText("");
 
         scanner.pause();
+    }
+
+    private void checkPermission(){
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {}
     }
 
     @Override

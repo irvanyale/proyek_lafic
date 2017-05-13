@@ -13,6 +13,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -31,21 +32,25 @@ public interface ApiInterface {
                             @Field("KELAMIN") String KELAMIN,
                             @Field("NOMOR_ID") String NOMOR_ID);
 
+    @PUT("member")
+    Call<Member> doUpdateProfile(@Body Member member);
+
     @GET("barang")
     Call<List<Barang>> getAllBarang(@Query("MEMBER_ID") String id);
 
-    @GET("barang?BARANG_ID={id}")
-    Call<Barang> getBarang(@Path("id") String id);
+    @GET("barang")
+    Call<Barang> getBarang(@Query("BARANG_ID") String id);
 
     @POST("barang")
     @FormUrlEncoded
     Call<Barang> doSubmit(@Field("BARANG_ID") String BARANG_ID,
                         @Field("MEMBER_ID") String MEMBER_ID,
                         @Field("ID_KATEGORY") String ID_KATEGORY,
-                        @Field("NAMA_BARANG") String NAMA_BARANG,
+                        @Field("JENIS_BARANG") String JENIS_BARANG,
+                        @Field("MERK_BARANG") String MERK_BARANG,
                         @Field("STATUS") String STATUS,
                         @Field("WARNA_BARANG") String WARNA_BARANG,
-                        @Field("TIPE_BARANG") String TIPE_BARANG,
+                        @Field("KETERANGAN") String KETERANGAN,
                         @Field("QRCODE") String QRCODE);
 
     @GET("kategoribarang")
