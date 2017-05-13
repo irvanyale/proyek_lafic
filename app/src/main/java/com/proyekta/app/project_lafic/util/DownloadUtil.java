@@ -19,7 +19,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by WINDOWS 10 on 01/05/2017.
+ * Created by Ervina Aprilia S on 01/05/2017.
  */
 
 public class DownloadUtil {

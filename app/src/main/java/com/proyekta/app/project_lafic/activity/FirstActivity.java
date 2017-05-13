@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.proyekta.app.project_lafic.R;
-
+/**
+ * Created by Ervina Aprilia S on 13/05/2017.
+ */
 public class FirstActivity extends AppCompatActivity {
     Button btnLogin, btnRegister;
     @Override

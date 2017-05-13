@@ -27,7 +27,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
-
+/**
+ * Created by Ervina Aprilia S on 13/05/2017.
+ */
 public class ScanActivity extends AppCompatActivity {
 
     private static final String TAG = "ScanActivity";

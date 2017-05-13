@@ -19,7 +19,6 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"/>
-
     <TextView
         android:id="@+id/txtv_nama"
         android:layout_width="match_parent"
@@ -30,7 +29,6 @@
         android:textAllCaps="true"
         android:textSize="16sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
     <TextView
         android:id="@+id/txtv_email"
         android:layout_width="wrap_content"
@@ -38,5 +36,4 @@
         android:layout_marginLeft="10dp"
         android:text="ervinaasuka@gmail.com"
         android:textSize="14sp"/>
-
 </LinearLayout>

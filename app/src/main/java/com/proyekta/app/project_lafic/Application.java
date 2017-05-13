@@ -1,7 +1,7 @@
 package com.proyekta.app.project_lafic;
 
 /**
- * Created by dhanifudin on 4/18/17.
+ * Created by Ervina Aprilia S on 5/05/2017.
  */
 
 public class Application extends android.app.Application {
