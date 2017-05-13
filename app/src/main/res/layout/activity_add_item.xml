@@ -10,23 +10,6 @@
     android:layout_marginRight="10dp"
     tools:context="com.proyekta.app.project_lafic.activity.AddItemActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/edtx_nama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawablePadding="16dp"
-            android:hint="Nama"
-            android:inputType="textCapWords"
-            android:padding="15dp"
-            android:textColor="@android:color/black" />
-
-    </android.support.design.widget.TextInputLayout>
-
     <Spinner
         android:id="@+id/spinner_id_kategori"
         android:layout_width="match_parent"
@@ -40,6 +23,40 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:background="@color/colorGrey"/>
+
+    <Spinner
+        android:id="@+id/spinner_sub_kategori"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:visibility="gone"/>
+
+    <View
+        android:id="@+id/divide_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/colorGrey"
+        android:visibility="gone"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/edtx_merk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="16dp"
+            android:hint="Merk"
+            android:inputType="textCapWords"
+            android:padding="15dp"
+            android:textColor="@android:color/black" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/txtv_kategori"
@@ -78,11 +95,11 @@
             android:id="@+id/edtx_tipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:inputType="textEmailAddress"
             android:drawablePadding="16dp"
-            android:hint="Keterangan(No. Seri, No. ID, IMEI dan lain-lain)"
-            android:textColor="@android:color/black"/>
+            android:hint="Keterangan(No. Seri / IMEI)"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            android:textColor="@android:color/black" />
 
     </android.support.design.widget.TextInputLayout>
 

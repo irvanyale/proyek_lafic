@@ -24,6 +24,7 @@ import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.api.AuthClient;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
+import com.proyekta.app.project_lafic.helper.SubKategoriBarangHelper;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Member;
@@ -44,8 +45,10 @@ public class AddItemActivity extends AppCompatActivity {
     private static final String TAG = "AddItemActivity";
 
     private Spinner spinner_id_kategori;
+    private Spinner spinner_sub_kategori;
+    private View divide_spinner;
     private TextView txtv_kategori;
-    private TextInputEditText edtx_nama;
+    private TextInputEditText edtx_merk;
     private TextInputEditText edtx_warna;
     private TextInputEditText edtx_tipe;
     private TextInputEditText edtx_status;
@@ -89,7 +92,6 @@ public class AddItemActivity extends AppCompatActivity {
         client = ApiClient.createService(ApiInterface.class, Util.getToken(this));
 
         barang = BarangHelper.getBarang();
-        barang.clear();
 
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
@@ -109,13 +111,13 @@ public class AddItemActivity extends AppCompatActivity {
                     idKategoriBarang = listIdKategoriBarang.get(position);
                     Log.d(TAG, "onItemSelected: "+idKategoriBarang);
 
-                    //edtx_tipe.setText(listKetKategoriBarang.get(position));
-                    txtv_kategori.setVisibility(View.VISIBLE);
-                    txtv_kategori.setText(listKetKategoriBarang.get(position));
+                    subKategoriAdapter(idKategoriBarang);
+
+
+
                 } else {
                     idKategoriBarang = "";
-                    txtv_kategori.setVisibility(View.GONE);
-                    //edtx_tipe.setText("");
+                    subKategoriAdapter(idKategoriBarang);
                 }
             }
 
@@ -128,15 +130,33 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void initComponents(){
         spinner_id_kategori = (Spinner) findViewById(R.id.spinner_id_kategori);
+        spinner_sub_kategori = (Spinner) findViewById(R.id.spinner_sub_kategori);
+        divide_spinner = findViewById(R.id.divide_spinner);
         txtv_kategori = (TextView) findViewById(R.id.txtv_kategori);
-        edtx_nama = (TextInputEditText) findViewById(R.id.edtx_nama);
+        edtx_merk = (TextInputEditText) findViewById(R.id.edtx_merk);
         edtx_warna = (TextInputEditText) findViewById(R.id.edtx_warna);
         edtx_tipe = (TextInputEditText) findViewById(R.id.edtx_tipe);
         edtx_status = (TextInputEditText) findViewById(R.id.edtx_status);
         btn_submit = (Button) findViewById(R.id.btn_submit);
 
-        edtx_nama.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        edtx_merk.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         edtx_warna.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    }
+
+    private void subKategoriAdapter(String id){
+        if (!id.equals("")){
+            spinner_sub_kategori.setVisibility(View.VISIBLE);
+            divide_spinner.setVisibility(View.VISIBLE);
+        } else {
+            spinner_sub_kategori.setVisibility(View.GONE);
+            divide_spinner.setVisibility(View.GONE);
+        }
+
+        List<String> listSubKategori = SubKategoriBarangHelper.setListSubKategori(id);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, listSubKategori);
+        spinner_sub_kategori.setAdapter(adapter);
     }
 
     private String getMemberId(){
@@ -147,7 +167,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void doSubmit(){
         String id_kategori = idKategoriBarang;
-        String nama = edtx_nama.getText().toString();
+        String merk = edtx_merk.getText().toString();
         String warna = edtx_warna.getText().toString();
         String tipe = edtx_tipe.getText().toString();
         String status = edtx_status.getText().toString();
@@ -155,12 +175,12 @@ public class AddItemActivity extends AppCompatActivity {
         Log.d(TAG, "doSubmit: "+id_kategori);
 
         if (!id_kategori.trim().isEmpty() &&
-                !nama.trim().isEmpty() &&
+                !merk.trim().isEmpty() &&
                 !warna.trim().isEmpty() &&
                 !tipe.trim().isEmpty()){
 
             //Item item = new Item(memberId, id_kategori, nama, status, warna, tipe);
-            submit(memberId, id_kategori, nama, "AMAN", warna, tipe);
+            submit(memberId, id_kategori, merk, "AMAN", warna, tipe);
 
         } else {
             Toast.makeText(AddItemActivity.this, "Silahkan lengkapi data barang Anda", Toast.LENGTH_SHORT).show();
@@ -213,6 +233,7 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
                 if (response.isSuccessful()){
+                    barang.clear();
                     List<Barang> listBarang = response.body();
                     for (Barang data : listBarang){
                         barang.add(data);

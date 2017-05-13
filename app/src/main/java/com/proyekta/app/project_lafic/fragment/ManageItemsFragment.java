@@ -32,6 +32,8 @@ import java.util.List;
  */
 public class ManageItemsFragment extends Fragment {
 
+    private static final String TAG = "ManageItemsFragment";
+
     private RelativeLayout rlly_add_items;
     private RecyclerView rv_listItem;
     private ListItemsAdapter listItemsAdapter;
@@ -40,7 +42,6 @@ public class ManageItemsFragment extends Fragment {
     public ManageItemsFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
