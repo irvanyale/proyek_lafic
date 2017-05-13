@@ -18,7 +18,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
- * Created by WINDOWS 10 on 24/04/2017.
+ * Created by Ervina Aprilia S on 13/05/2017.
  */
 
 public interface ApiInterface {

@@ -17,7 +17,7 @@ import com.proyekta.app.project_lafic.model.Barang;
 import java.util.List;
 
 /**
- * Created by WINDOWS 10 on 05/05/2017.
+ * Created by Ervina Aprilia S on 13/05/2017.
  */
 
 public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.ViewHolder>{

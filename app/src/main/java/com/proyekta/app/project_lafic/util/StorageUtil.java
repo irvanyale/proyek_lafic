@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.util.Log;
 
 /**
- * Created by WINDOWS 10 on 01/05/2017.
+ * Created by Ervina Aprilia S on 01/05/2017.
  */
 
 public class StorageUtil {

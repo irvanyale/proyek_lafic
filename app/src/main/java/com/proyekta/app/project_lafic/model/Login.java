@@ -1,7 +1,7 @@
 package com.proyekta.app.project_lafic.model;
 
 /**
- * Created by WINDOWS 10 on 23/04/2017.
+ * Created by Ervina Aprilia S on 02/05/2017.
  */
 
 public class Login {

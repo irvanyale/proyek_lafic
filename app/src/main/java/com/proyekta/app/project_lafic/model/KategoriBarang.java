@@ -1,6 +1,8 @@
 package com.proyekta.app.project_lafic.model;
 
-
+/**
+ * Created by Ervina Aprilia S on 01/05/2017.
+ */
 
 public class KategoriBarang {
 
