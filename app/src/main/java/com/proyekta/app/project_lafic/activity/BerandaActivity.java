@@ -100,8 +100,6 @@ public class BerandaActivity extends AppCompatActivity
 
         loadBarang();
 
-        replaceFragment(new HomeFragment());
-
         Picasso.with(this)
                 .load(R.drawable.vina)
                 .fit()
@@ -204,6 +202,7 @@ public class BerandaActivity extends AppCompatActivity
                     for (BarangHilang data : listBarangHilang){
                         barangHilang.add(data);
                     }
+                    replaceFragment(new HomeFragment());
                 } else {
                     Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
                 }
