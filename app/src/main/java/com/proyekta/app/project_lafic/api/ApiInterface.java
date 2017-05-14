@@ -42,8 +42,8 @@ public interface ApiInterface {
     @GET("barangHilang")
     Call<List<BarangHilang>> getAllBarangHilang();
 
-    @GET("barang")
-    Call<Barang> getBarang(@Query("BARANG_ID") String id);
+    @PUT("barang")
+    Call<Barang> doUpdateBarang(@Body Barang Barang);
 
     @POST("barang")
     @FormUrlEncoded
@@ -56,6 +56,9 @@ public interface ApiInterface {
                         @Field("WARNA_BARANG") String WARNA_BARANG,
                         @Field("KETERANGAN") String KETERANGAN,
                         @Field("QRCODE") String QRCODE);
+
+    @GET("barang")
+    Call<Barang> getBarang(@Query("BARANG_ID") String id);
 
     @GET("kategoribarang")
     Call<List<KategoriBarang>> getKategoriBarang();

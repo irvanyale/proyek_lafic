@@ -16,6 +16,9 @@ public class Barang {
     private String KETERANGAN;
     private String QRCODE;
 
+    public Barang() {
+    }
+
     public Barang(String MEMBER_ID, String ID_KATEGORY, String JENIS_BARANG, String MERK_BARANG, String STATUS, String WARNA_BARANG, String KETERANGAN) {
         this.MEMBER_ID = MEMBER_ID;
         this.ID_KATEGORY = ID_KATEGORY;
@@ -60,5 +63,41 @@ public class Barang {
 
     public String getJENIS_BARANG() {
         return JENIS_BARANG;
+    }
+
+    public void setBARANG_ID(String BARANG_ID) {
+        this.BARANG_ID = BARANG_ID;
+    }
+
+    public void setMEMBER_ID(String MEMBER_ID) {
+        this.MEMBER_ID = MEMBER_ID;
+    }
+
+    public void setID_KATEGORY(String ID_KATEGORY) {
+        this.ID_KATEGORY = ID_KATEGORY;
+    }
+
+    public void setJENIS_BARANG(String JENIS_BARANG) {
+        this.JENIS_BARANG = JENIS_BARANG;
+    }
+
+    public void setMERK_BARANG(String MERK_BARANG) {
+        this.MERK_BARANG = MERK_BARANG;
+    }
+
+    public void setSTATUS(String STATUS) {
+        this.STATUS = STATUS;
+    }
+
+    public void setWARNA_BARANG(String WARNA_BARANG) {
+        this.WARNA_BARANG = WARNA_BARANG;
+    }
+
+    public void setKETERANGAN(String KETERANGAN) {
+        this.KETERANGAN = KETERANGAN;
+    }
+
+    public void setQRCODE(String QRCODE) {
+        this.QRCODE = QRCODE;
     }
 }

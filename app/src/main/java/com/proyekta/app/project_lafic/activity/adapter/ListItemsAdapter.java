@@ -25,6 +25,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
     private Context context;
     private List<Barang> listBarang;
     private setOnShowQRCodeListener listener = null;
+    private setOnShowEditBarangListener listenerEdit = null;
 
     public ListItemsAdapter(Context context, List<Barang> listBarang) {
         this.context = context;
@@ -85,6 +86,27 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
                 }
             }
         });
+
+        holder.lnly_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listenerEdit != null){
+
+                    Barang item = new Barang();
+                    item.setBARANG_ID(barang.getBARANG_ID());
+                    item.setMEMBER_ID(barang.getMEMBER_ID());
+                    item.setID_KATEGORY(barang.getID_KATEGORY());
+                    item.setMERK_BARANG(barang.getMERK_BARANG());
+                    item.setJENIS_BARANG(barang.getJENIS_BARANG());
+                    item.setWARNA_BARANG(barang.getWARNA_BARANG());
+                    item.setKETERANGAN(barang.getKETERANGAN());
+                    item.setSTATUS(barang.getSTATUS());
+                    item.setQRCODE(barang.getQRCODE());
+
+                    listenerEdit.OnShowEditBarangListener(item);
+                }
+            }
+        });
     }
 
     @Override
@@ -96,7 +118,15 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         this.listener = listener;
     }
 
+    public void setOnShowEditBarangListener(setOnShowEditBarangListener listener){
+        this.listenerEdit = listener;
+    }
+
     public interface setOnShowQRCodeListener {
         void OnShowQRCodeListener(String url);
+    }
+
+    public interface setOnShowEditBarangListener {
+        void OnShowEditBarangListener(Barang barang);
     }
 }

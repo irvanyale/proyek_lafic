@@ -2,11 +2,13 @@ package com.proyekta.app.project_lafic.fragment;
 
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,19 +18,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.activity.AddItemActivity;
+import com.proyekta.app.project_lafic.activity.BerandaActivity;
 import com.proyekta.app.project_lafic.activity.adapter.ListItemsAdapter;
+import com.proyekta.app.project_lafic.api.ApiClient;
+import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.util.StorageUtil;
+import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +53,8 @@ public class ManageItemsFragment extends Fragment {
     private RecyclerView rv_listItem;
     private ListItemsAdapter listItemsAdapter;
     private List<Barang> listBarang;
+    private ApiInterface client;
+    private ProgressDialog dialog;
 
     public ManageItemsFragment() {
         // Required empty public constructor
@@ -53,6 +67,8 @@ public class ManageItemsFragment extends Fragment {
 
         initComponents(view);
 
+        client = ApiClient.createService(ApiInterface.class, Util.getToken(getActivity()));
+
         listBarang = BarangHelper.getBarang();
 
         listItemsAdapter = new ListItemsAdapter(getActivity(), listBarang);
@@ -64,6 +80,13 @@ public class ManageItemsFragment extends Fragment {
             @Override
             public void OnShowQRCodeListener(String url) {
                 showDialogQRCode(url);
+            }
+        });
+
+        listItemsAdapter.setOnShowEditBarangListener(new ListItemsAdapter.setOnShowEditBarangListener() {
+            @Override
+            public void OnShowEditBarangListener(Barang barang) {
+                showDialogEditBarang(barang);
             }
         });
 
@@ -114,6 +137,116 @@ public class ManageItemsFragment extends Fragment {
         dialog.show();
     }
 
+    private String statusBarang = "AMAN";
+    private Dialog dialogEditStatus;
+
+    private void showDialogEditBarang(final Barang barang){
+        dialogEditStatus = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
+        dialogEditStatus.setContentView(R.layout.dialog_edit_barang);
+
+        Window window = dialogEditStatus.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        final Button btn_aman = (Button) dialogEditStatus.findViewById(R.id.btn_aman);
+        final Button btn_hilang = (Button) dialogEditStatus.findViewById(R.id.btn_hilang);
+        Button btn_update = (Button) dialogEditStatus.findViewById(R.id.btn_update);
+
+        btn_aman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_aman.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_green));
+                btn_aman.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.white));
+
+                btn_hilang.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_grey));
+                btn_hilang.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.black));
+
+                statusBarang = "AMAN";
+            }
+        });
+
+        btn_hilang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_hilang.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_red));
+                btn_hilang.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.white));
+
+                btn_aman.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_grey));
+                btn_aman.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.black));
+
+                statusBarang = "HILANG";
+            }
+        });
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                doUpdateBarang(barang);
+            }
+        });
+
+        dialogEditStatus.show();
+    }
+
+    private void doUpdateBarang(final Barang barang){
+
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("Loading...");
+        dialog.show();
+
+        barang.setSTATUS(statusBarang);
+        Call<Barang> call = client.doUpdateBarang(barang);
+        call.enqueue(new Callback<Barang>() {
+            @Override
+            public void onResponse(Call<Barang> call, Response<Barang> response) {
+                if (response.isSuccessful()){
+                    loadBarang(barang.getMEMBER_ID());
+                } else {
+                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    dialogEditStatus.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Barang> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                dialogEditStatus.dismiss();
+            }
+        });
+    }
+
+    private void loadBarang(String idMember){
+
+        Call<List<Barang>> call = client.getAllBarang(idMember);
+        call.enqueue(new Callback<List<Barang>>() {
+            @Override
+            public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
+                if (response.isSuccessful()){
+                    listBarang.clear();
+                    List<Barang> barang = response.body();
+                    for (Barang data : barang){
+                        listBarang.add(data);
+                    }
+                    listItemsAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+                dialogEditStatus.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<Barang>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                dialogEditStatus.dismiss();
+            }
+        });
+    }
+
     private void share(String id){
         Intent share = new Intent();
         share.setAction(Intent.ACTION_SEND);
@@ -128,12 +261,21 @@ public class ManageItemsFragment extends Fragment {
         super.onResume();
         listBarang = BarangHelper.getBarang();
         listItemsAdapter = new ListItemsAdapter(getActivity(), listBarang);
+
         listItemsAdapter.setOnShowQRCodeListener(new ListItemsAdapter.setOnShowQRCodeListener() {
             @Override
             public void OnShowQRCodeListener(String url) {
                 showDialogQRCode(url);
             }
         });
+
+        listItemsAdapter.setOnShowEditBarangListener(new ListItemsAdapter.setOnShowEditBarangListener() {
+            @Override
+            public void OnShowEditBarangListener(Barang barang) {
+                showDialogEditBarang(barang);
+            }
+        });
+
         rv_listItem.setAdapter(listItemsAdapter);
     }
 }
