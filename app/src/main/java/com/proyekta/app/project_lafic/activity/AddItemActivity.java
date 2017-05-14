@@ -161,11 +161,12 @@ public class AddItemActivity extends AppCompatActivity {
                 edtx_merk.setVisibility(View.VISIBLE);
                 edtx_warna.setVisibility(View.VISIBLE);
                 edtx_tipe.setVisibility(View.VISIBLE);
+                edtx_tipe.setHint("Keterangan(No. Seri / IMEI)");
                 break;
             case "2":
                 edtx_merk.setVisibility(View.GONE);
                 edtx_warna.setVisibility(View.GONE);
-                edtx_tipe.setVisibility(View.GONE);
+                edtx_tipe.setHint("No. ID (NIM, NIK, dll)");
                 break;
             case "3":
                 edtx_merk.setVisibility(View.VISIBLE);

@@ -35,8 +35,10 @@ import com.proyekta.app.project_lafic.fragment.HomeFragment;
 import com.proyekta.app.project_lafic.fragment.ManageItemsFragment;
 import com.proyekta.app.project_lafic.fragment.ProfileFragment;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
+import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
 import com.proyekta.app.project_lafic.model.Barang;
+import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
@@ -54,6 +56,8 @@ import retrofit2.Response;
 public class BerandaActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "BerandaActivity";
+
     private CircleImageView imgv_user;
     private NavigationView navigationView;
     private SessionManagement session;
@@ -63,6 +67,7 @@ public class BerandaActivity extends AppCompatActivity
     private ApiInterface client;
     private List<KategoriBarang> kategoriBarang;
     private List<Barang> barang;
+    private List<BarangHilang> barangHilang;
     private ProgressDialog dialog;
 
     @Override
@@ -87,6 +92,9 @@ public class BerandaActivity extends AppCompatActivity
 
         barang = BarangHelper.getBarang();
         barang.clear();
+
+        barangHilang = BarangHilangHelper.getBarangHilang();
+        barangHilang.clear();
 
         client = ApiClient.createService(ApiInterface.class, Util.getToken(this));
 
@@ -170,10 +178,11 @@ public class BerandaActivity extends AppCompatActivity
                     for (KategoriBarang data : listKategoriBarang){
                         kategoriBarang.add(data);
                     }
+                    loadBarangHilang();
                 } else {
                     Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
             }
 
             @Override
@@ -182,7 +191,31 @@ public class BerandaActivity extends AppCompatActivity
                 dialog.dismiss();
             }
         });
+    }
 
+    private void loadBarangHilang(){
+
+        Call<List<BarangHilang>> call = client.getAllBarangHilang();
+        call.enqueue(new Callback<List<BarangHilang>>() {
+            @Override
+            public void onResponse(Call<List<BarangHilang>> call, Response<List<BarangHilang>> response) {
+                if (response.isSuccessful()){
+                    List<BarangHilang> listBarangHilang = response.body();
+                    for (BarangHilang data : listBarangHilang){
+                        barangHilang.add(data);
+                    }
+                } else {
+                    Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<BarangHilang>> call, Throwable t) {
+                Toast.makeText(BerandaActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
     }
 
     private String getMemberId(){

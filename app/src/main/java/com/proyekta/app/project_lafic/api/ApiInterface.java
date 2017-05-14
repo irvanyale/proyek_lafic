@@ -1,6 +1,7 @@
 package com.proyekta.app.project_lafic.api;
 
 import com.proyekta.app.project_lafic.model.Barang;
+import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
@@ -37,6 +38,9 @@ public interface ApiInterface {
 
     @GET("barang")
     Call<List<Barang>> getAllBarang(@Query("MEMBER_ID") String id);
+
+    @GET("barangHilang")
+    Call<List<BarangHilang>> getAllBarangHilang();
 
     @GET("barang")
     Call<Barang> getBarang(@Query("BARANG_ID") String id);
