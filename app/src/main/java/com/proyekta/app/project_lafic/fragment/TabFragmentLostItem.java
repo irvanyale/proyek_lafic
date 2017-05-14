@@ -107,6 +107,7 @@ public class TabFragmentLostItem extends Fragment {
                     for (BarangHilang data : listItems){
                         listBarangHilang.add(data);
                     }
+                    listLostItemsAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
                 }

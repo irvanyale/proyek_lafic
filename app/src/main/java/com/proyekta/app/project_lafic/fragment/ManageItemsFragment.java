@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -31,11 +32,13 @@ import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.model.Barang;
+import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.util.StorageUtil;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -138,6 +141,7 @@ public class ManageItemsFragment extends Fragment {
     }
 
     private String statusBarang = "AMAN";
+    private EditText edtx_lokasi_hilang;
     private Dialog dialogEditStatus;
 
     private void showDialogEditBarang(final Barang barang){
@@ -152,6 +156,7 @@ public class ManageItemsFragment extends Fragment {
         final Button btn_aman = (Button) dialogEditStatus.findViewById(R.id.btn_aman);
         final Button btn_hilang = (Button) dialogEditStatus.findViewById(R.id.btn_hilang);
         Button btn_update = (Button) dialogEditStatus.findViewById(R.id.btn_update);
+        edtx_lokasi_hilang = (EditText) dialogEditStatus.findViewById(R.id.edtx_lokasi_hilang);
 
         btn_aman.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +166,8 @@ public class ManageItemsFragment extends Fragment {
 
                 btn_hilang.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_grey));
                 btn_hilang.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.black));
+
+                edtx_lokasi_hilang.setVisibility(View.GONE);
 
                 statusBarang = "AMAN";
             }
@@ -175,6 +182,8 @@ public class ManageItemsFragment extends Fragment {
                 btn_aman.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_grey));
                 btn_aman.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.black));
 
+                edtx_lokasi_hilang.setVisibility(View.VISIBLE);
+
                 statusBarang = "HILANG";
             }
         });
@@ -186,6 +195,7 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
+        dialogEditStatus.setCanceledOnTouchOutside(true);
         dialogEditStatus.show();
     }
 
@@ -201,7 +211,7 @@ public class ManageItemsFragment extends Fragment {
             @Override
             public void onResponse(Call<Barang> call, Response<Barang> response) {
                 if (response.isSuccessful()){
-                    loadBarang(barang.getMEMBER_ID());
+                    doPostBarangHilang(barang);
                 } else {
                     Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
@@ -211,6 +221,36 @@ public class ManageItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Barang> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                dialogEditStatus.dismiss();
+            }
+        });
+    }
+
+    private void doPostBarangHilang(final Barang barang){
+
+        BarangHilang barangHilang = new BarangHilang();
+        barangHilang.setBARANG_ID(barang.getBARANG_ID());
+        barangHilang.setTANGGAL_HILANG(new Date().toString());
+        barangHilang.setTANGGAL_KETEMU("-");
+        barangHilang.setLOKASI_HILANG(edtx_lokasi_hilang.getText().toString());
+
+        Call<BarangHilang> call = client.postBarangHilang(barangHilang);
+        call.enqueue(new Callback<BarangHilang>() {
+            @Override
+            public void onResponse(Call<BarangHilang> call, Response<BarangHilang> response) {
+                if (response.isSuccessful()){
+                    loadBarang(barang.getMEMBER_ID());
+                } else {
+                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    dialogEditStatus.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BarangHilang> call, Throwable t) {
                 Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
