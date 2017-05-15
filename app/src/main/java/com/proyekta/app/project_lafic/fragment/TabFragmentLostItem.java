@@ -70,6 +70,8 @@ public class TabFragmentLostItem extends Fragment {
             }
         });
 
+        loadBarangHilang();
+
         return view;
     }
 
@@ -89,13 +91,14 @@ public class TabFragmentLostItem extends Fragment {
 
     private void loadBarangHilang(){
 
-        if (refresh != null)
+        if (refresh != null){
             refresh.post(new Runnable() {
                 @Override
                 public void run() {
                     refresh.setRefreshing(true);
                 }
             });
+        }
 
         Call<List<BarangHilang>> call = client.getAllBarangHilang();
         call.enqueue(new Callback<List<BarangHilang>>() {

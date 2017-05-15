@@ -150,12 +150,14 @@ public class AddItemActivity extends AppCompatActivity {
             divide_spinner.setVisibility(View.GONE);
         }
 
+        //subkategori
         List<String> listSubKategori = SubKategoriBarangHelper.setListSubKategori(id);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, listSubKategori);
         spinner_sub_kategori.setAdapter(adapter);
 
+        //tampil form
         switch (id){
             case "1":
                 edtx_merk.setVisibility(View.VISIBLE);

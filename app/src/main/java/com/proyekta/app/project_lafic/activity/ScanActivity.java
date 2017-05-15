@@ -1,11 +1,14 @@
 package com.proyekta.app.project_lafic.activity;
 
 import android.Manifest;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +25,7 @@ import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.SessionManagement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,7 +118,7 @@ public class ScanActivity extends AppCompatActivity {
 
                         Log.d(TAG, "barcodeResult: "+obj.toString());
 
-                        Toast.makeText(ScanActivity.this, obj.toString(), Toast.LENGTH_SHORT).show();
+                        showDialogSendMessage(obj.getString("NAMA_MEMBER"));
 
                     } catch (JSONException e){
                         e.printStackTrace();
@@ -130,6 +134,30 @@ public class ScanActivity extends AppCompatActivity {
 
         }
     };
+
+    private void showDialogSendMessage(final String nama){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanActivity.this);
+
+        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+nama+"?");
+
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(ScanActivity.this, SendMessageActivity.class).putExtra("nama", nama));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

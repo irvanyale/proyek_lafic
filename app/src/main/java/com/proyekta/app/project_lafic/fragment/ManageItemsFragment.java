@@ -38,6 +38,7 @@ import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -79,6 +80,7 @@ public class ManageItemsFragment extends Fragment {
         rv_listItem.setLayoutManager(linearLayoutManager);
         rv_listItem.setAdapter(listItemsAdapter);
 
+        //tampil QRCode
         listItemsAdapter.setOnShowQRCodeListener(new ListItemsAdapter.setOnShowQRCodeListener() {
             @Override
             public void OnShowQRCodeListener(String url) {
@@ -86,6 +88,7 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
+        //tampil edit status
         listItemsAdapter.setOnShowEditBarangListener(new ListItemsAdapter.setOnShowEditBarangListener() {
             @Override
             public void OnShowEditBarangListener(Barang barang) {
@@ -108,6 +111,7 @@ public class ManageItemsFragment extends Fragment {
         rv_listItem = (RecyclerView) view.findViewById(R.id.rv_listItem);
     }
 
+    //tampil dialog QRCode
     private void showDialogQRCode(final String id){
         Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
         dialog.setContentView(R.layout.dialog_qrcode);
@@ -230,10 +234,13 @@ public class ManageItemsFragment extends Fragment {
 
     private void doPostBarangHilang(final Barang barang){
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+        String currentDateandTime = sdf.format(new Date());
+
         BarangHilang barangHilang = new BarangHilang();
         barangHilang.setBARANG_ID(barang.getBARANG_ID());
-        barangHilang.setTANGGAL_HILANG(new Date().toString());
-        barangHilang.setTANGGAL_KETEMU("-");
+        barangHilang.setTANGGAL_HILANG(currentDateandTime);
+        //barangHilang.setTANGGAL_KETEMU("-");
         barangHilang.setLOKASI_HILANG(edtx_lokasi_hilang.getText().toString());
 
         Call<BarangHilang> call = client.postBarangHilang(barangHilang);
