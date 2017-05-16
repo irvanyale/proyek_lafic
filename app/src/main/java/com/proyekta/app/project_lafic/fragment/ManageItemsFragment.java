@@ -123,6 +123,7 @@ public class ManageItemsFragment extends Fragment {
 
         ImageView imgv_share = (ImageView) dialog.findViewById(R.id.imgv_share);
 
+        //Image share QR code
         imgv_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
