@@ -185,7 +185,17 @@ public class ProfileFragment extends Fragment {
                     setEnabled(true);
                     break;
                 case R.id.btn_submit:
-                    doUpdateProfile(getEditTextMember());
+                    if (edtx_nomor_id.getText().toString().equals("") ||
+                            edtx_nama.getText().toString().equals("") ||
+                            edtx_email.getText().toString().equals("") ||
+                            edtx_telepon.getText().toString().equals("") ||
+                            edtx_password.getText().toString().equals("")){
+                        Toast.makeText(getActivity(), "Silahkan lengkapi data Anda", Toast.LENGTH_SHORT).show();
+                    } else if (!edtx_password.getText().toString().equals(edtx_repassword.getText().toString())){
+                        Toast.makeText(getActivity(), "Password tidak sama", Toast.LENGTH_SHORT).show();
+                    } else {
+                        doUpdateProfile(getEditTextMember());
+                    }
                     break;
             }
         }
