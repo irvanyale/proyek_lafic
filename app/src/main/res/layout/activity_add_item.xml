@@ -8,7 +8,7 @@
     android:padding="10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    tools:context="com.proyekta.app.project_lafic.activity.AddItemActivity">
+    tools:context="com.proyekta.app.project_lafic.app.proyekta.app.project_lafic.activity.AddItemActivity">
 
     <Spinner
         android:id="@+id/spinner_id_kategori"

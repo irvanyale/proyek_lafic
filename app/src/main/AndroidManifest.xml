@@ -10,23 +10,23 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".Application"
+        android:name="app.proyekta.app.project_lafic.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name="app.proyekta.app.project_lafic.activity.LoginActivity"></activity>
         <activity
-            android:name=".activity.BerandaActivity"
+            android:name="app.proyekta.app.project_lafic.activity.BerandaActivity"
             android:label="@string/title_activity_beranda"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RegistrasiActivity"
+            android:name="app.proyekta.app.project_lafic.activity.RegistrasiActivity"
             android:windowSoftInputMode="adjustNothing"></activity>
-        <activity android:name=".activity.AddItemActivity" />
-        <activity android:name=".activity.ScanActivity" />
-        <activity android:name=".activity.SplashActivity">
+        <activity android:name="app.proyekta.app.project_lafic.activity.AddItemActivity" />
+        <activity android:name="app.proyekta.app.project_lafic.activity.ScanActivity" />
+        <activity android:name="app.proyekta.app.project_lafic.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,9 +34,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.FirstActivity"
+            android:name="app.proyekta.app.project_lafic.activity.FirstActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activity.SendMessageActivity"></activity>
+        <activity android:name="app.proyekta.app.project_lafic.activity.SendMessageActivity"></activity>
     </application>
 
 </manifest>

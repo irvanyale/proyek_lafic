@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center_horizontal"
-    tools:context="com.proyekta.app.project_lafic.fragment.ProfileFragment">
+    tools:context="com.proyekta.app.project_lafic.app.proyekta.app.project_lafic.fragment.ProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgv_user"

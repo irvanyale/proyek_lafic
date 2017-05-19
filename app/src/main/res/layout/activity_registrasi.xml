@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:padding="16dp"
-    tools:context="com.proyekta.app.project_lafic.activity.RegistrasiActivity">
+    tools:context="com.proyekta.app.project_lafic.app.proyekta.app.project_lafic.activity.RegistrasiActivity">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
