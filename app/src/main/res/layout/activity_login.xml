@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@android:color/white"
-    tools:context="com.proyekta.app.project_lafic.app.proyekta.app.project_lafic.activity.LoginActivity">
+    tools:context="com.proyekta.app.project_lafic.activity.LoginActivity">
 
     <TextView
         android:layout_width="wrap_content"

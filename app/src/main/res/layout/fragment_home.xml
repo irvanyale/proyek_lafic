@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.proyekta.app.project_lafic.app.proyekta.app.project_lafic.fragment.HomeFragment">
+    tools:context="com.proyekta.app.project_lafic.fragment.HomeFragment">
 
     <ImageView
         android:layout_width="80dp"

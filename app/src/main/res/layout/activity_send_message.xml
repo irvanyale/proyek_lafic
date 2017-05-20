@@ -9,7 +9,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="5dp"
     android:orientation="vertical"
-    tools:context="com.proyekta.app.project_lafic.app.proyekta.app.project_lafic.activity.SendMessageActivity">
+    tools:context="com.proyekta.app.project_lafic.activity.SendMessageActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

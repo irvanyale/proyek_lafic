@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.proyekta.app.project_lafic.app.proyekta.app.project_lafic.activity.BerandaActivity">
+    tools:context="com.proyekta.app.project_lafic.activity.BerandaActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
