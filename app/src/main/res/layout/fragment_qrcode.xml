@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context="com.proyekta.app.project_lafic.fragment.QRCodeFragment">
+
+    <Button
+        android:id="@+id/btn_download"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:text="Download QRCode"
+        android:background="@drawable/button_grey_rounded"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imgv_qrcode"
+            android:layout_width="300dp"
+            android:layout_height="300dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txvw_qrcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Klik DOWNLOAD QRCODE \nuntuk mendapatkan QRCode"
+        android:gravity="center"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

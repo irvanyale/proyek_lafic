@@ -218,7 +218,7 @@ public class AddItemActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Barang data = response.body();
 
-                    downloadQrCode(data.getQRCODE(), data.getBARANG_ID());
+                    //downloadQrCode(data.getQRCODE(), data.getBARANG_ID());
 
                     loadBarang();
 

@@ -1,4 +1,4 @@
-package com.proyekta.app.project_lafic.activity.adapter;
+package com.proyekta.app.project_lafic.fragment.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

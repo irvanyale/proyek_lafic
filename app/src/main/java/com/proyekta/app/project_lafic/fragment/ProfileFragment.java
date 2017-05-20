@@ -134,6 +134,7 @@ public class ProfileFragment extends Fragment {
                 member.getTELEPON(),
                 "",
                 member.getNOMOR_ID(),
+                "",
                 "");
 
         edtx_nomor_id.setText(member.getNOMOR_ID());

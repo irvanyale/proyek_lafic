@@ -31,7 +31,8 @@ public interface ApiInterface {
                             @Field("EMAIL_MEMBER") String EMAIL_MEMBER,
                             @Field("TELEPON") String TELEPON,
                             @Field("KELAMIN") String KELAMIN,
-                            @Field("NOMOR_ID") String NOMOR_ID);
+                            @Field("NOMOR_ID") String NOMOR_ID,
+                            @Field("QRCODE") String QRCODE);
 
     @PUT("member")
     Call<Member> doUpdateProfile(@Body Member member);

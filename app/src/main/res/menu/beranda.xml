@@ -5,7 +5,7 @@
         android:id="@+id/action_scan"
         android:orderInCategory="100"
         android:title="Scan QR Code"
-        android:icon="@drawable/ic_scan"
+        android:icon="@drawable/ic_scan_white"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_search"

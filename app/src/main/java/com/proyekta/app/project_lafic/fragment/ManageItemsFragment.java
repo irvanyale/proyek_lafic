@@ -6,12 +6,10 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +24,7 @@ import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.activity.AddItemActivity;
-import com.proyekta.app.project_lafic.activity.BerandaActivity;
-import com.proyekta.app.project_lafic.activity.adapter.ListItemsAdapter;
+import com.proyekta.app.project_lafic.fragment.adapter.ListItemsAdapter;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
@@ -84,7 +81,7 @@ public class ManageItemsFragment extends Fragment {
         listItemsAdapter.setOnShowQRCodeListener(new ListItemsAdapter.setOnShowQRCodeListener() {
             @Override
             public void OnShowQRCodeListener(String url) {
-                showDialogQRCode(url);
+                //showDialogQRCode(url);
             }
         });
 
@@ -313,7 +310,7 @@ public class ManageItemsFragment extends Fragment {
         listItemsAdapter.setOnShowQRCodeListener(new ListItemsAdapter.setOnShowQRCodeListener() {
             @Override
             public void OnShowQRCodeListener(String url) {
-                showDialogQRCode(url);
+                //showDialogQRCode(url);
             }
         });
 

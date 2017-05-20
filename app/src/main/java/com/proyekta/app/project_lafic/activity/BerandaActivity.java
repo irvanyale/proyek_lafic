@@ -34,6 +34,7 @@ import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.fragment.HomeFragment;
 import com.proyekta.app.project_lafic.fragment.ManageItemsFragment;
 import com.proyekta.app.project_lafic.fragment.ProfileFragment;
+import com.proyekta.app.project_lafic.fragment.QRCodeFragment;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
@@ -69,6 +70,9 @@ public class BerandaActivity extends AppCompatActivity
     private List<Barang> barang;
     private List<BarangHilang> barangHilang;
     private ProgressDialog dialog;
+
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -269,7 +273,13 @@ public class BerandaActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()){
+                super.onBackPressed();
+                return;
+            } else {
+                Toast.makeText(this, "Press BACK again to Exit", Toast.LENGTH_SHORT).show();
+            }
+            mBackPressed = System.currentTimeMillis();
         }
     }
 
@@ -323,6 +333,10 @@ public class BerandaActivity extends AppCompatActivity
             case R.id.nav_found:
                 break;
             case R.id.nav_message:
+                break;
+            case R.id.nav_qrcode:
+                fragment = new QRCodeFragment();
+                getSupportActionBar().setTitle("QR CODE");
                 break;
             case R.id.nav_logout:
                 showDialogLogout();

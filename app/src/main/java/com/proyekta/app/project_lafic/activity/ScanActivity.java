@@ -118,6 +118,11 @@ public class ScanActivity extends AppCompatActivity {
 
                         Log.d(TAG, "barcodeResult: "+obj.toString());
 
+                        bttn_scan.setText("SCAN");
+                        scanner.setVisibility(View.GONE);
+                        rlly_qrcode.setVisibility(View.VISIBLE);
+                        scanner.pause();
+
                         showDialogSendMessage(obj.getString("NAMA_MEMBER"));
 
                     } catch (JSONException e){
