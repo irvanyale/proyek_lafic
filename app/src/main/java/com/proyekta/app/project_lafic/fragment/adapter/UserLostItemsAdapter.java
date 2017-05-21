@@ -3,7 +3,6 @@ package com.proyekta.app.project_lafic.fragment.adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +16,16 @@ import com.proyekta.app.project_lafic.model.Barang;
 import java.util.List;
 
 /**
- * Created by Ervina Aprilia S on 13/05/2017.
+ * Created by WINDOWS 10 on 21/05/2017.
  */
 
-public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.ViewHolder>{
+public class UserLostItemsAdapter extends RecyclerView.Adapter<UserLostItemsAdapter.ViewHolder>{
 
     private Context context;
     private List<Barang> listBarang;
-    private setOnShowQRCodeListener listener = null;
     private setOnShowEditBarangListener listenerEdit = null;
 
-    public ListItemsAdapter(Context context, List<Barang> listBarang) {
+    public UserLostItemsAdapter(Context context, List<Barang> listBarang) {
         this.context = context;
         this.listBarang = listBarang;
     }
@@ -49,6 +47,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             imgv_barang = (ImageView)itemView.findViewById(R.id.imgv_barang);
             imgv_status = (ImageView)itemView.findViewById(R.id.imgv_status);
             txtv_nama_barang = (TextView) itemView.findViewById(R.id.txtv_nama_barang);
@@ -62,7 +61,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.item_list_barang, parent, false);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.user_list_barang_hilang, parent, false);
         return new ViewHolder(view);
     }
 
@@ -76,16 +75,6 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_aman) :
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_hilang)
         );
-
-        holder.lnly_qrcode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null){
-                    Log.d("a", "onClick: ");
-                    listener.OnShowQRCodeListener(barang.getBARANG_ID());
-                }
-            }
-        });
 
         holder.lnly_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,16 +108,8 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         notifyDataSetChanged();
     }
 
-    public void setOnShowQRCodeListener(setOnShowQRCodeListener listener){
-        this.listener = listener;
-    }
-
     public void setOnShowEditBarangListener(setOnShowEditBarangListener listener){
         this.listenerEdit = listener;
-    }
-
-    public interface setOnShowQRCodeListener {
-        void OnShowQRCodeListener(String url);
     }
 
     public interface setOnShowEditBarangListener {

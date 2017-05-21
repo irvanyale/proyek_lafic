@@ -35,6 +35,7 @@ import com.proyekta.app.project_lafic.fragment.HomeFragment;
 import com.proyekta.app.project_lafic.fragment.ManageItemsFragment;
 import com.proyekta.app.project_lafic.fragment.ProfileFragment;
 import com.proyekta.app.project_lafic.fragment.QRCodeFragment;
+import com.proyekta.app.project_lafic.fragment.UserLostItemsFragment;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
@@ -318,7 +319,7 @@ public class BerandaActivity extends AppCompatActivity
         switch (id){
             case R.id.nav_home:
                 fragment = new HomeFragment();
-                getSupportActionBar().setTitle("Beranda");
+                getSupportActionBar().setTitle("Home");
                 break;
             case R.id.nav_profile:
                 fragment = new ProfileFragment();
@@ -329,6 +330,8 @@ public class BerandaActivity extends AppCompatActivity
                 getSupportActionBar().setTitle("Manage Items");
                 break;
             case R.id.nav_lost:
+                fragment = new UserLostItemsFragment();
+                getSupportActionBar().setTitle("Lost Items");
                 break;
             case R.id.nav_found:
                 break;

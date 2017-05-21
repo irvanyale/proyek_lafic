@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.proyekta.app.project_lafic.fragment.ManageItemsFragment">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_listItem"
         android:layout_above="@+id/rlly_footer"

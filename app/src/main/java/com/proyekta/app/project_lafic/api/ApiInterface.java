@@ -5,14 +5,17 @@ import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
+import com.proyekta.app.project_lafic.model.SuksesResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -66,4 +69,8 @@ public interface ApiInterface {
 
     @POST("barangHilang")
     Call<BarangHilang> postBarangHilang(@Body BarangHilang barangHilang);
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "barangHilang", hasBody = true)
+    Call<SuksesResponse> deleteBarangHilang(@Field("BARANG_ID") String BARANG_ID);
 }
