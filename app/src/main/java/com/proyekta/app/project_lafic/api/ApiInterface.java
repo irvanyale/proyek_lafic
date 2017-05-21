@@ -75,6 +75,9 @@ public interface ApiInterface {
     @HTTP(method = "DELETE", path = "barangHilang", hasBody = true)
     Call<SuksesResponse> deleteBarangHilang(@Field("BARANG_ID") String BARANG_ID);
 
+    @GET("pesan")
+    Call<List<Pesan>> getAllMessages(@Query("MEMBER_ID") String id);
+
     @POST("pesan")
     Call<Pesan> sendMessage(@Body Pesan pesan);
 }

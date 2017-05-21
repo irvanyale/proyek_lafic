@@ -33,6 +33,7 @@ import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.fragment.HomeFragment;
 import com.proyekta.app.project_lafic.fragment.ManageItemsFragment;
+import com.proyekta.app.project_lafic.fragment.MessagesFragment;
 import com.proyekta.app.project_lafic.fragment.ProfileFragment;
 import com.proyekta.app.project_lafic.fragment.QRCodeFragment;
 import com.proyekta.app.project_lafic.fragment.UserLostItemsFragment;
@@ -336,6 +337,8 @@ public class BerandaActivity extends AppCompatActivity
             case R.id.nav_found:
                 break;
             case R.id.nav_message:
+                fragment = new MessagesFragment();
+                getSupportActionBar().setTitle("Messages");
                 break;
             case R.id.nav_qrcode:
                 fragment = new QRCodeFragment();
