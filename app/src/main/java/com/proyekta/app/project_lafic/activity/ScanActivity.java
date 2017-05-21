@@ -26,6 +26,7 @@ import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.SessionManagement;
+import com.proyekta.app.project_lafic.model.Member;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +43,7 @@ public class ScanActivity extends AppCompatActivity {
     private Button bttn_scan;
     private DecoratedBarcodeView scanner;
     private BeepManager beepManager;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +125,14 @@ public class ScanActivity extends AppCompatActivity {
                         rlly_qrcode.setVisibility(View.VISIBLE);
                         scanner.pause();
 
-                        showDialogSendMessage(obj.getString("NAMA_MEMBER"));
+                        Member member = new Member();
+                        member.setMEMBER_ID(obj.getString("MEMBER_ID"));
+                        member.setNAMA_MEMBER(obj.getString("NAMA_MEMBER"));
+                        member.setTELEPON(obj.getString("TELEPON"));
+                        member.setEMAIL_MEMBER(obj.getString("EMAIL_MEMBER"));
+                        member.setNOMOR_ID(obj.getString("NOMOR_ID"));
+
+                        showDialogSendMessage(member);
 
                     } catch (JSONException e){
                         e.printStackTrace();
@@ -140,16 +149,24 @@ public class ScanActivity extends AppCompatActivity {
         }
     };
 
-    private void showDialogSendMessage(final String nama){
+    private void showDialogSendMessage(final Member member){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanActivity.this);
 
-        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+nama+"?");
+        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+member.getNAMA_MEMBER()+"?");
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        startActivity(new Intent(ScanActivity.this, SendMessageActivity.class).putExtra("nama", nama));
+                        Intent intent = new Intent(ScanActivity.this, SendMessageActivity.class);
+                        intent.putExtra("member_id", member.getMEMBER_ID());
+                        intent.putExtra("nama", member.getNAMA_MEMBER());
+                        intent.putExtra("telp", member.getTELEPON());
+                        intent.putExtra("email", member.getEMAIL_MEMBER());
+                        intent.putExtra("no_id", member.getNOMOR_ID());
+                        startActivity(intent);
+                        alertDialog.dismiss();
+                        finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -159,7 +176,7 @@ public class ScanActivity extends AppCompatActivity {
                     }
                 });
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog = alertDialogBuilder.create();
 
         alertDialog.show();
     }

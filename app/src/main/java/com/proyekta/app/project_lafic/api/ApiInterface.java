@@ -5,6 +5,7 @@ import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
+import com.proyekta.app.project_lafic.model.Pesan;
 import com.proyekta.app.project_lafic.model.SuksesResponse;
 
 import java.util.List;
@@ -73,4 +74,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "barangHilang", hasBody = true)
     Call<SuksesResponse> deleteBarangHilang(@Field("BARANG_ID") String BARANG_ID);
+
+    @POST("pesan")
+    Call<Pesan> sendMessage(@Body Pesan pesan);
 }
