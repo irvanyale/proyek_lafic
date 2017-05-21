@@ -1,6 +1,7 @@
 package com.proyekta.app.project_lafic.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,7 @@ public class SendMessageActivity extends AppCompatActivity {
 
     private String memberId;
     private String namaMember;
+    private String telpMember;
     private TextView txtv_from;
     private TextView txtv_to;
     private EditText edtx_message;
@@ -35,6 +37,7 @@ public class SendMessageActivity extends AppCompatActivity {
         HashMap<String, String> user = session.getUserDetails();
         memberId = user.get(SessionManagement.KEY_ID_MEMBER);
         namaMember = user.get(SessionManagement.KEY_NAMA);
+        telpMember = user.get(SessionManagement.KEY_TELEPON);
 
         txtv_from.setText(namaMember);
         txtv_to.setText(getIntent().getStringExtra("nama"));
@@ -52,6 +55,10 @@ public class SendMessageActivity extends AppCompatActivity {
         switch (id){
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.action_call:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+telpMember));
+                startActivity(intent);
                 break;
             case R.id.action_send:
                 break;

@@ -28,6 +28,7 @@ import com.proyekta.app.project_lafic.fragment.adapter.ListItemsAdapter;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
+import com.proyekta.app.project_lafic.helper.BarangStatusAmanHelper;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.util.StorageUtil;
@@ -54,6 +55,7 @@ public class ManageItemsFragment extends Fragment {
     private RecyclerView rv_listItem;
     private ListItemsAdapter listItemsAdapter;
     private List<Barang> listBarang;
+    private List<Barang> listBarangAman;
     private ApiInterface client;
     private ProgressDialog dialog;
 
@@ -71,8 +73,9 @@ public class ManageItemsFragment extends Fragment {
         client = ApiClient.createService(ApiInterface.class, Util.getToken(getActivity()));
 
         listBarang = BarangHelper.getBarang();
+        listBarangAman = BarangStatusAmanHelper.getBarangAman();
 
-        listItemsAdapter = new ListItemsAdapter(getActivity(), listBarang);
+        listItemsAdapter = new ListItemsAdapter(getActivity(), listBarangAman);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rv_listItem.setLayoutManager(linearLayoutManager);
         rv_listItem.setAdapter(listItemsAdapter);
@@ -271,10 +274,12 @@ public class ManageItemsFragment extends Fragment {
             public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
                 if (response.isSuccessful()){
                     listBarang.clear();
+                    listBarangAman.clear();
                     List<Barang> barang = response.body();
                     for (Barang data : barang){
                         listBarang.add(data);
                     }
+                    listBarangAman = BarangStatusAmanHelper.getBarangAman();
                     listItemsAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
@@ -305,7 +310,8 @@ public class ManageItemsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         listBarang = BarangHelper.getBarang();
-        listItemsAdapter = new ListItemsAdapter(getActivity(), listBarang);
+        listBarangAman = BarangStatusAmanHelper.getBarangAman();
+        listItemsAdapter = new ListItemsAdapter(getActivity(), listBarangAman);
 
         listItemsAdapter.setOnShowQRCodeListener(new ListItemsAdapter.setOnShowQRCodeListener() {
             @Override
