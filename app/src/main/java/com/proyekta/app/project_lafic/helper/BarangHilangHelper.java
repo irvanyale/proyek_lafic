@@ -5,10 +5,10 @@ import com.proyekta.app.project_lafic.model.BarangHilang;
 import java.util.List;
 import java.util.Vector;
 
-/**
- * Created by WINDOWS 10 on 14/05/2017.
- */
 
+/**
+ * Created by Ervina Aprilia S on 14/05/2017.
+ */
 public class BarangHilangHelper {
     private static List<BarangHilang> barangHilang;
 
