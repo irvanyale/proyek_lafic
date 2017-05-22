@@ -2,10 +2,13 @@ package com.proyekta.app.project_lafic.fragment;
 
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,11 +19,14 @@ import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.activity.BerandaActivity;
+import com.proyekta.app.project_lafic.activity.ScanActivity;
+import com.proyekta.app.project_lafic.activity.SendMessageActivity;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.fragment.adapter.ListLostItemsAdapter;
 import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
 import com.proyekta.app.project_lafic.model.BarangHilang;
+import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.Util;
 
 import java.util.List;
@@ -40,7 +46,7 @@ public class TabFragmentLostItem extends Fragment {
     private List<BarangHilang> listBarangHilang;
     private ListLostItemsAdapter listLostItemsAdapter;
     private SwipeRefreshLayout refresh;
-
+    private AlertDialog alertDialog;
     private ApiInterface client;
 
     public TabFragmentLostItem() {
@@ -70,6 +76,13 @@ public class TabFragmentLostItem extends Fragment {
             }
         });
 
+        listLostItemsAdapter.setOnSendMessageListener(new ListLostItemsAdapter.setOnSendMessageListener() {
+            @Override
+            public void OnSendMessageListener(Member member) {
+                showDialogSendMessage(member);
+            }
+        });
+
         loadBarangHilang();
 
         return view;
@@ -78,6 +91,37 @@ public class TabFragmentLostItem extends Fragment {
     private void initComponents(View view){
         rv_listItem = (RecyclerView) view.findViewById(R.id.rv_listItem);
         refresh = (SwipeRefreshLayout) view.findViewById(R.id.refresh);
+    }
+
+    private void showDialogSendMessage(final Member member){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+
+        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+member.getNAMA_MEMBER()+"?");
+
+        alertDialogBuilder.setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(getActivity(), SendMessageActivity.class);
+                        intent.putExtra("member_id", member.getMEMBER_ID());
+                        intent.putExtra("nama", member.getNAMA_MEMBER());
+                        intent.putExtra("telp", member.getTELEPON());
+                        intent.putExtra("email", member.getEMAIL_MEMBER());
+                        intent.putExtra("no_id", member.getNOMOR_ID());
+                        startActivity(intent);
+                        alertDialog.dismiss();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+        alertDialog = alertDialogBuilder.create();
+
+        alertDialog.show();
     }
 
     private void refreshData(){

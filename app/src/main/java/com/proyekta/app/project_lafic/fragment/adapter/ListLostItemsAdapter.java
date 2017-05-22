@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangHilang;
+import com.proyekta.app.project_lafic.model.Member;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class ListLostItemsAdapter extends RecyclerView.Adapter<ListLostItemsAdap
 
     private Context context;
     private List<BarangHilang> listBarang;
+    private setOnSendMessageListener listener = null;
 
     public Context getContext() {
         return context;
@@ -59,16 +62,41 @@ public class ListLostItemsAdapter extends RecyclerView.Adapter<ListLostItemsAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         BarangHilang item = listBarang.get(position);
         holder.txtv_nama_barang.setText(item.getMERK_BARANG());
         holder.txtv_warna_barang.setText(item.getWARNA_BARANG());
         holder.txtv_keterangan_barang.setText(item.getKETERANGAN());
         holder.txtv_lokasi_hilang.setText(item.getLOKASI_HILANG());
+
+        holder.imgv_pesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+
+                    Member member = new Member();
+                    member.setMEMBER_ID(listBarang.get(position).getMEMBER_ID());
+                    member.setNAMA_MEMBER(listBarang.get(position).getNAMA_MEMBER());
+                    member.setTELEPON(listBarang.get(position).getTELEPON());
+                    member.setEMAIL_MEMBER(listBarang.get(position).getEMAIL_MEMBER());
+                    member.setNOMOR_ID(listBarang.get(position).getNOMOR_ID());
+
+                    listener.OnSendMessageListener(member);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return listBarang.size();
+    }
+
+    public void setOnSendMessageListener(setOnSendMessageListener listener){
+        this.listener = listener;
+    }
+
+    public interface setOnSendMessageListener {
+        void OnSendMessageListener(Member member);
     }
 }
