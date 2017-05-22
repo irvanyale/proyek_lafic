@@ -38,6 +38,7 @@ public class SendMessageActivity extends AppCompatActivity {
     private String user_id;
     private String user_nama;
     private String user_telp;
+    private String jenis_pesan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class SendMessageActivity extends AppCompatActivity {
 
         txtv_from.setText(namaMember);
         txtv_to.setText(user_nama);
+        txtv_subject.setText(jenis_pesan);
     }
 
     private void initComponents(){
@@ -73,6 +75,7 @@ public class SendMessageActivity extends AppCompatActivity {
         user_id = getIntent().getStringExtra("member_id");
         user_nama = getIntent().getStringExtra("nama");
         user_telp = getIntent().getStringExtra("telp");
+        jenis_pesan = getIntent().getStringExtra("jenis_pesan");
     }
 
     private Pesan getDataMessage(){

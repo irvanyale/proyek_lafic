@@ -8,7 +8,7 @@ public class KategoriBarang {
 
     private String ID_KATEGORY;
     private String JENIS;
-    private String KETERANGAN;
+    private String KETERANGAN_KATEGORY;
 
     public String getID_KATEGORY() {
         return ID_KATEGORY;
@@ -19,6 +19,6 @@ public class KategoriBarang {
     }
 
     public String getKETERANGAN() {
-        return KETERANGAN;
+        return KETERANGAN_KATEGORY;
     }
 }

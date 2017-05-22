@@ -16,14 +16,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity"></activity>
+        <activity android:name=".activity.LoginActivity" />
         <activity
             android:name=".activity.BerandaActivity"
             android:label="@string/title_activity_beranda"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.RegistrasiActivity"
-            android:windowSoftInputMode="adjustNothing"></activity>
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".activity.AddItemActivity" />
         <activity android:name=".activity.ScanActivity" />
         <activity android:name=".activity.SplashActivity">
@@ -35,8 +35,11 @@
         </activity>
         <activity
             android:name=".activity.FirstActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".activity.SendMessageActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.SendMessageActivity" />
+        <activity android:name=".activity.SearchLostItemsActivity" />
+        <activity android:name=".activity.SearchFoundItemsActivity" />
+        <activity android:name=".activity.AddFoundItemActivity"></activity>
     </application>
 
 </manifest>
