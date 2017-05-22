@@ -5,14 +5,18 @@ import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
+import com.proyekta.app.project_lafic.model.Pesan;
+import com.proyekta.app.project_lafic.model.SuksesResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -31,7 +35,8 @@ public interface ApiInterface {
                             @Field("EMAIL_MEMBER") String EMAIL_MEMBER,
                             @Field("TELEPON") String TELEPON,
                             @Field("KELAMIN") String KELAMIN,
-                            @Field("NOMOR_ID") String NOMOR_ID);
+                            @Field("NOMOR_ID") String NOMOR_ID,
+                            @Field("QRCODE") String QRCODE);
 
     @PUT("member")
     Call<Member> doUpdateProfile(@Body Member member);
@@ -65,4 +70,14 @@ public interface ApiInterface {
 
     @POST("barangHilang")
     Call<BarangHilang> postBarangHilang(@Body BarangHilang barangHilang);
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "barangHilang", hasBody = true)
+    Call<SuksesResponse> deleteBarangHilang(@Field("BARANG_ID") String BARANG_ID);
+
+    @GET("pesan")
+    Call<List<Pesan>> getAllMessages(@Query("MEMBER_ID") String id);
+
+    @POST("pesan")
+    Call<Pesan> sendMessage(@Body Pesan pesan);
 }

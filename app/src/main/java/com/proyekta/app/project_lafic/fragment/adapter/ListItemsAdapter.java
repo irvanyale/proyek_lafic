@@ -1,4 +1,4 @@
-package com.proyekta.app.project_lafic.activity.adapter;
+package com.proyekta.app.project_lafic.fragment.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -112,6 +112,11 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
     @Override
     public int getItemCount() {
         return listBarang.size();
+    }
+
+    public void setList(List<Barang> listBarang){
+        this.listBarang = listBarang;
+        notifyDataSetChanged();
     }
 
     public void setOnShowQRCodeListener(setOnShowQRCodeListener listener){

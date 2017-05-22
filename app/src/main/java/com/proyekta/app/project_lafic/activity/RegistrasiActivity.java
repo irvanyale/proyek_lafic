@@ -94,7 +94,7 @@ public class RegistrasiActivity extends AppCompatActivity {
 
         ApiInterface api = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<Member> call = api.doRegister(nama, password, email, telp, "", nomorId);
+        Call<Member> call = api.doRegister(nama, password, email, telp, "", nomorId, "");
         call.enqueue(new Callback<Member>() {
             @Override
             public void onResponse(Call<Member> call, Response<Member> response) {

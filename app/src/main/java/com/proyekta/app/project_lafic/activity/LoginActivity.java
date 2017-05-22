@@ -37,9 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = "LoginActivity";
 
-    private static final int TIME_INTERVAL = 2000;
-    private long mBackPressed;
-
     private Button btn_login;
     private Button btn_sign;
     private CheckBox chbox_login;
@@ -118,7 +115,8 @@ public class LoginActivity extends AppCompatActivity {
                             data.getTelepon(),
                             data.getKelamin(),
                             data.getNomor_id(),
-                            data.getStatus());
+                            data.getStatus(),
+                            data.getQrcode());
                     session.checkLogin();
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password Salah", Toast.LENGTH_SHORT).show();
@@ -148,17 +146,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
-
-    @Override
-    public void onBackPressed() {
-        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()){
-            super.onBackPressed();
-            return;
-        } else {
-            Toast.makeText(this, "Press BACK again to Exit", Toast.LENGTH_SHORT).show();
-        }
-        mBackPressed = System.currentTimeMillis();
-    }
 
     private void hideKeyboard(View view){
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);

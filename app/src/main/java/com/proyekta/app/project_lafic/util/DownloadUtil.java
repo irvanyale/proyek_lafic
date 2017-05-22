@@ -81,7 +81,7 @@ public class DownloadUtil {
             @Override
             protected void onPostExecute(Void aVoid) {
                 dialog.dismiss();
-                //Toast.makeText(context, "Download Sukses", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Download Sukses", Toast.LENGTH_SHORT).show();
                 super.onPostExecute(aVoid);
             }
         }
