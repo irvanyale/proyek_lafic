@@ -23,7 +23,7 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
 
     private Context context;
     private List<BarangPenemuan> listBarang;
-    private ListLostItemsAdapter.setOnSendMessageListener listener = null;
+    private setOnSendMessageListener listener = null;
 
     public ListFoundItemsAdapter(Context context, List<BarangPenemuan> listBarang) {
         this.context = context;
@@ -94,7 +94,12 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
         return listBarang.size();
     }
 
-    public void setOnSendMessageListener(ListLostItemsAdapter.setOnSendMessageListener listener){
+    public void setList(List<BarangPenemuan> listBarang){
+        this.listBarang = listBarang;
+        notifyDataSetChanged();
+    }
+
+    public void setOnSendMessageListener(setOnSendMessageListener listener){
         this.listener = listener;
     }
 

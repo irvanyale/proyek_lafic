@@ -29,6 +29,16 @@ public class FirstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first);
 
         initComponents();
+
+        if(isReadStorageAllowed()){
+            //If permission is already having then showing the toast
+            Toast.makeText(FirstActivity.this,"You already have the permission",Toast.LENGTH_LONG).show();
+            //Existing the method with return
+            return;
+        }
+
+        //If the app has not the permission then asking for the permission
+        requestStoragePermission();
     }
 
     private void initComponents(){

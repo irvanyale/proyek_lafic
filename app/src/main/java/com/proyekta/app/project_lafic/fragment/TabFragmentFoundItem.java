@@ -75,7 +75,7 @@ public class TabFragmentFoundItem extends Fragment {
             }
         });
 
-        listFoundItemsAdapter.setOnSendMessageListener(new ListLostItemsAdapter.setOnSendMessageListener() {
+        listFoundItemsAdapter.setOnSendMessageListener(new ListFoundItemsAdapter.setOnSendMessageListener() {
             @Override
             public void OnSendMessageListener(Member member) {
                 showDialogSendMessage(member);
@@ -163,5 +163,21 @@ public class TabFragmentFoundItem extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        listBarangPenemuan = BarangPenemuanHelper.getBarangPenemuan();
+        listFoundItemsAdapter.setList(listBarangPenemuan);
+
+        listFoundItemsAdapter.setOnSendMessageListener(new ListFoundItemsAdapter.setOnSendMessageListener() {
+            @Override
+            public void OnSendMessageListener(Member member) {
+                showDialogSendMessage(member);
+            }
+        });
+
     }
 }
