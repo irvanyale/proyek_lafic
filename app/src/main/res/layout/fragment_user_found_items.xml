@@ -5,6 +5,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_listItem"
+        android:layout_above="@+id/rlly_footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -12,5 +13,42 @@
         android:layout_alignParentTop="true">
 
     </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:id="@+id/rlly_footer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorAccent">
+
+        <RelativeLayout
+            android:id="@+id/rlly_add_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageButton
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"
+                android:background="@android:color/white"
+                android:padding="4dp"
+                android:src="@drawable/ic_add"/>
+
+            <TextView
+                android:layout_toRightOf="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ADD FOUND ITEM"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="@android:color/white"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -41,7 +41,8 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         ImageView imgv_barang;
         ImageView imgv_status;
         TextView txtv_nama_barang;
-        TextView txtv_kategori_barang;
+        TextView txtv_warna_barang;
+        TextView txtv_keterangan_barang;
         LinearLayout lnly_qrcode;
         LinearLayout lnly_edit;
         LinearLayout lnly_delete;
@@ -52,7 +53,8 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
             imgv_barang = (ImageView)itemView.findViewById(R.id.imgv_barang);
             imgv_status = (ImageView)itemView.findViewById(R.id.imgv_status);
             txtv_nama_barang = (TextView) itemView.findViewById(R.id.txtv_nama_barang);
-            txtv_kategori_barang = (TextView) itemView.findViewById(R.id.txtv_kategori_barang);
+            txtv_warna_barang = (TextView) itemView.findViewById(R.id.txtv_warna_barang);
+            txtv_keterangan_barang = (TextView) itemView.findViewById(R.id.txtv_keterangan_barang);
             lnly_qrcode = (LinearLayout) itemView.findViewById(R.id.lnly_qrcode);
             lnly_edit = (LinearLayout) itemView.findViewById(R.id.lnly_edit);
             lnly_delete = (LinearLayout) itemView.findViewById(R.id.lnly_delete);
@@ -69,8 +71,11 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Barang barang = listBarang.get(position);
-        holder.txtv_nama_barang.setText(barang.getMERK_BARANG());
-        holder.txtv_kategori_barang.setText(barang.getKETERANGAN());
+        String merk = barang.getMERK_BARANG().equals("") ? "" : " - " + barang.getMERK_BARANG();
+        holder.txtv_nama_barang.setText(barang.getJENIS_BARANG() + merk);
+        holder.txtv_warna_barang.setText(barang.getWARNA_BARANG());
+        holder.txtv_warna_barang.setVisibility(barang.getWARNA_BARANG().equals("") ? View.GONE : View.VISIBLE);
+        holder.txtv_keterangan_barang.setText(barang.getKETERANGAN());
         holder.imgv_status.setImageDrawable(
                 barang.getSTATUS().equals("AMAN") ?
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_aman) :

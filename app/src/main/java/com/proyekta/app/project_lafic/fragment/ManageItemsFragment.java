@@ -52,7 +52,7 @@ public class ManageItemsFragment extends Fragment {
 
     private static final String TAG = "ManageItemsFragment";
 
-    private RelativeLayout rlly_add_items;
+    private RelativeLayout rlly_footer;
     private RecyclerView rv_listItem;
     private ListItemsAdapter listItemsAdapter;
     private List<Barang> listBarang;
@@ -97,7 +97,7 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
-        rlly_add_items.setOnClickListener(new View.OnClickListener() {
+        rlly_footer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), AddItemActivity.class));
@@ -108,7 +108,7 @@ public class ManageItemsFragment extends Fragment {
     }
 
     private void initComponents(View view){
-        rlly_add_items = (RelativeLayout) view.findViewById(R.id.rlly_add_items);
+        rlly_footer = (RelativeLayout) view.findViewById(R.id.rlly_footer);
         rv_listItem = (RecyclerView) view.findViewById(R.id.rv_listItem);
     }
 

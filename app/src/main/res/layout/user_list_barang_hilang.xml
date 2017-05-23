@@ -50,7 +50,6 @@
                         android:id="@+id/txtv_nama_barang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="5dp"
@@ -60,12 +59,25 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtv_kategori_barang"
+                        android:id="@+id/txtv_warna_barang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="HP ASUS"
+                        android:text="Merah"
+                        android:textColor="@color/colorDarkGrey"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtv_keterangan_barang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="Merah"
                         android:textColor="@color/colorDarkGrey"
                         android:textSize="12sp"
                         android:textStyle="bold" />
