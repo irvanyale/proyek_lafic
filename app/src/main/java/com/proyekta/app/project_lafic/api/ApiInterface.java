@@ -2,6 +2,7 @@ package com.proyekta.app.project_lafic.api;
 
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangHilang;
+import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
@@ -70,6 +71,15 @@ public interface ApiInterface {
 
     @POST("barangHilang")
     Call<BarangHilang> postBarangHilang(@Body BarangHilang barangHilang);
+
+    @GET("Penemuan")
+    Call<List<BarangPenemuan>> getAllBarangPenemuan();
+
+    @GET("Penemuan")
+    Call<List<BarangPenemuan>> getBarangPenemuanMember(@Query("MEMBER_ID") String id);
+
+    @POST("Penemuan")
+    Call<BarangPenemuan> postBarangPenemuan(@Body BarangPenemuan barangPenemuan);
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "barangHilang", hasBody = true)

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -45,6 +46,8 @@ public class ScanActivity extends AppCompatActivity {
     private BeepManager beepManager;
     private AlertDialog alertDialog;
 
+    private int CAMERA_PERMISSION_CODE = 23;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +82,16 @@ public class ScanActivity extends AppCompatActivity {
         scanner.setStatusText("");
 
         scanner.pause();
+
+        if(isReadStorageAllowed()){
+            //If permission is already having then showing the toast
+            Toast.makeText(ScanActivity.this,"You already have the permission",Toast.LENGTH_LONG).show();
+            //Existing the method with return
+            return;
+        }
+
+        //If the app has not the permission then asking for the permission
+        requestStoragePermission();
     }
 
     private void checkPermission(){
@@ -193,5 +206,48 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
+    }
+
+    //We are calling this method to check the permission status
+    private boolean isReadStorageAllowed() {
+        //Getting the permission status
+        int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+
+        //If permission is granted returning true
+        if (result1 == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        //If permission is not granted returning false
+        return false;
+    }
+
+    //Requesting permission
+    private void requestStoragePermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.CAMERA)){
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //Checking the request code of our request
+        if(requestCode == CAMERA_PERMISSION_CODE){
+
+            //If permission is granted
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                //Displaying a toast
+                Toast.makeText(this,"Permission granted now you can read the storage",Toast.LENGTH_LONG).show();
+            }else{
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this,"Oops you just denied the permission",Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }

@@ -108,6 +108,7 @@ public class TabFragmentLostItem extends Fragment {
                         intent.putExtra("telp", member.getTELEPON());
                         intent.putExtra("email", member.getEMAIL_MEMBER());
                         intent.putExtra("no_id", member.getNOMOR_ID());
+                        intent.putExtra("jenis_pesan", "PENEMUAN BARANG");
                         startActivity(intent);
                         alertDialog.dismiss();
                     }

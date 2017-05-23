@@ -64,8 +64,10 @@ public class ListLostItemsAdapter extends RecyclerView.Adapter<ListLostItemsAdap
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         BarangHilang item = listBarang.get(position);
-        holder.txtv_nama_barang.setText(item.getMERK_BARANG());
+        String merk = item.getMERK_BARANG().equals("") ? "" : " - " + item.getMERK_BARANG();
+        holder.txtv_nama_barang.setText(item.getJENIS_BARANG() + merk);
         holder.txtv_warna_barang.setText(item.getWARNA_BARANG());
+        holder.txtv_warna_barang.setVisibility(item.getWARNA_BARANG().equals("") ? View.GONE : View.VISIBLE);
         holder.txtv_keterangan_barang.setText(item.getKETERANGAN());
         holder.txtv_lokasi_hilang.setText(item.getLOKASI_HILANG());
 
