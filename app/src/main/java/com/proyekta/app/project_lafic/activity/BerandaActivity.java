@@ -306,6 +306,7 @@ public class BerandaActivity extends AppCompatActivity
                 startActivity(new Intent(BerandaActivity.this, ScanActivity.class));
                 break;
             case R.id.action_search:
+                startActivity(new Intent(BerandaActivity.this, SearchLostItemsActivity.class));
                 break;
         }
 
