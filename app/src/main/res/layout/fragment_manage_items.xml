@@ -42,7 +42,7 @@
                 android:layout_toRightOf="@+id/img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ADD ITEMS"
+                android:text="ADD ITEM"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:textColor="@android:color/white"

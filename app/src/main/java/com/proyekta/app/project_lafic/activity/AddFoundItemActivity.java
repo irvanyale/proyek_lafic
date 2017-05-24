@@ -24,6 +24,7 @@ import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.BarangPenemuanHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
 import com.proyekta.app.project_lafic.helper.SubKategoriBarangHelper;
+import com.proyekta.app.project_lafic.helper.UserBarangPenemuanHelper;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
@@ -87,7 +88,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
 
         client = ApiClient.createService(ApiInterface.class, Util.getToken(this));
 
-        listBarangPenemuen = BarangPenemuanHelper.getBarangPenemuan();
+        listBarangPenemuen = UserBarangPenemuanHelper.getUserBarangPenemuan();
 
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
@@ -134,6 +135,12 @@ public class AddFoundItemActivity extends AppCompatActivity {
 
         edtx_merk.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         edtx_warna.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    }
+
+    private String getMemberId(){
+        SessionManagement session = new SessionManagement(this);
+        HashMap<String, String> user = session.getUserDetails();
+        return user.get(SessionManagement.KEY_ID_MEMBER);
     }
 
     private void subKategoriAdapter(String id){
@@ -225,7 +232,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
 
     private void loadBarangPenemuan(){
 
-        Call<List<BarangPenemuan>> call = client.getAllBarangPenemuan();
+        Call<List<BarangPenemuan>> call = client.getBarangPenemuanMember(getMemberId());
         call.enqueue(new Callback<List<BarangPenemuan>>() {
             @Override
             public void onResponse(Call<List<BarangPenemuan>> call, Response<List<BarangPenemuan>> response) {

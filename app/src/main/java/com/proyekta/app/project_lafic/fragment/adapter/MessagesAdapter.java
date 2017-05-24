@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.model.Pesan;
 
 import java.text.SimpleDateFormat;
@@ -24,6 +25,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     private Context context;
     private List<Pesan> listPesan;
+    private setOnSendMessageListener listener = null;
 
     public MessagesAdapter(Context context, List<Pesan> listPesan) {
         this.context = context;
@@ -37,6 +39,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
         private ImageView imgv_user;
+        private ImageView imgv_pesan;
         private TextView txtv_pengirim;
         private TextView txtv_pesan;
         private TextView txtv_waktu;
@@ -45,6 +48,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             super(itemView);
 
             imgv_user = (ImageView)itemView.findViewById(R.id.imgv_user);
+            imgv_pesan = (ImageView)itemView.findViewById(R.id.imgv_pesan);
             txtv_pengirim = (TextView) itemView.findViewById(R.id.txtv_pengirim);
             txtv_pesan = (TextView) itemView.findViewById(R.id.txtv_pesan);
             txtv_waktu = (TextView) itemView.findViewById(R.id.txtv_waktu);
@@ -58,7 +62,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Pesan pesan = listPesan.get(position);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -74,6 +78,23 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         holder.txtv_pengirim.setText(pesan.getPENGIRIM());
         holder.txtv_pesan.setText(pesan.getISI_PESAN());
         holder.txtv_waktu.setText(sdate);
+
+        holder.imgv_pesan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null){
+
+                    Member member = new Member();
+                    member.setMEMBER_ID(listPesan.get(position).getMEMBER_ID());
+                    member.setNAMA_MEMBER(listPesan.get(position).getNAMA_MEMBER());
+                    member.setTELEPON(listPesan.get(position).getTELEPON());
+                    member.setEMAIL_MEMBER(listPesan.get(position).getEMAIL_MEMBER());
+                    member.setNOMOR_ID(listPesan.get(position).getNOMOR_ID());
+
+                    listener.OnSendMessageListener(member);
+                }
+            }
+        });
     }
 
     @Override
@@ -84,5 +105,13 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     public void setList(List<Pesan> listPesan){
         this.listPesan = listPesan;
         notifyDataSetChanged();
+    }
+
+    public void setOnSendMessageListener(setOnSendMessageListener listener){
+        this.listener = listener;
+    }
+
+    public interface setOnSendMessageListener {
+        void OnSendMessageListener(Member member);
     }
 }

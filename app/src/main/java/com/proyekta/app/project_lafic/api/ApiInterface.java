@@ -45,6 +45,12 @@ public interface ApiInterface {
     @GET("barang")
     Call<List<Barang>> getAllBarang(@Query("MEMBER_ID") String id);
 
+    @GET("barang")
+    Call<List<Barang>> getAllBarangByCategory(@Query("JENIS_BARANG") String JENIS_BARANG);
+
+    @GET("barang")
+    Call<List<Barang>> getAllBarangByQuery(@Query("q") String Query);
+
     @PUT("barang")
     Call<Barang> doUpdateBarang(@Body Barang Barang);
 
@@ -68,6 +74,12 @@ public interface ApiInterface {
 
     @GET("barangHilang")
     Call<List<BarangHilang>> getAllBarangHilang();
+
+    @GET("barangHilang")
+    Call<List<BarangHilang>> getAllBarangHilangByCategory(@Query("JENIS_BARANG") String JENIS_BARANG);
+
+    @GET("barangHilang")
+    Call<List<BarangHilang>> getAllBarangHilangByQuery(@Query("q") String Query);
 
     @POST("barangHilang")
     Call<BarangHilang> postBarangHilang(@Body BarangHilang barangHilang);

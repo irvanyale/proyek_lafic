@@ -36,6 +36,7 @@ import com.proyekta.app.project_lafic.fragment.ManageItemsFragment;
 import com.proyekta.app.project_lafic.fragment.MessagesFragment;
 import com.proyekta.app.project_lafic.fragment.ProfileFragment;
 import com.proyekta.app.project_lafic.fragment.QRCodeFragment;
+import com.proyekta.app.project_lafic.fragment.UserFoundItemsFragment;
 import com.proyekta.app.project_lafic.fragment.UserLostItemsFragment;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
@@ -305,7 +306,7 @@ public class BerandaActivity extends AppCompatActivity
                 startActivity(new Intent(BerandaActivity.this, ScanActivity.class));
                 break;
             case R.id.action_search:
-                startActivity(new Intent(BerandaActivity.this, AddFoundItemActivity.class));
+                startActivity(new Intent(BerandaActivity.this, SearchLostItemsActivity.class));
                 break;
         }
 
@@ -336,6 +337,8 @@ public class BerandaActivity extends AppCompatActivity
                 getSupportActionBar().setTitle("Lost Items");
                 break;
             case R.id.nav_found:
+                fragment = new UserFoundItemsFragment();
+                getSupportActionBar().setTitle("Found Items");
                 break;
             case R.id.nav_message:
                 fragment = new MessagesFragment();
