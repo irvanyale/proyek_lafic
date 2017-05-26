@@ -7,7 +7,8 @@
         android:orderInCategory="100"
         android:title="Call"
         android:icon="@drawable/ic_phone_white"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        android:visible="false"/>
 
     <item
         android:id="@+id/action_send"

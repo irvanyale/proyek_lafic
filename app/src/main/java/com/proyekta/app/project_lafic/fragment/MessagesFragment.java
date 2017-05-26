@@ -89,7 +89,7 @@ public class MessagesFragment extends Fragment {
     private void showDialogSendMessage(final Member member){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+member.getNAMA_MEMBER()+"?");
+        alertDialogBuilder.setTitle("Apakah Anda ingin membalas pesan ke "+member.getNAMA_MEMBER()+"?");
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -101,7 +101,7 @@ public class MessagesFragment extends Fragment {
                         intent.putExtra("telp", member.getTELEPON());
                         intent.putExtra("email", member.getEMAIL_MEMBER());
                         intent.putExtra("no_id", member.getNOMOR_ID());
-                        intent.putExtra("jenis_pesan", "PENEMUAN BARANG");
+                        intent.putExtra("jenis_pesan", "PERMINTAAN BARANG");
                         startActivity(intent);
                         alertDialog.dismiss();
                     }
