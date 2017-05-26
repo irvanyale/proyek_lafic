@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,7 +22,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -255,6 +259,38 @@ public class BerandaActivity extends AppCompatActivity
         alertDialog.show();
     }
 
+    private void showDialogSearch(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(BerandaActivity.this);
+
+        LayoutInflater inf = LayoutInflater.from(BerandaActivity.this);
+        View v = inf.inflate(R.layout.dialog_search, null);
+
+        builder.setView(v);
+
+        final AlertDialog ad = builder.create();
+
+        final RadioGroup rgp_search = (RadioGroup) v.findViewById(R.id.rgp_search);
+        Button btn_search = (Button) v.findViewById(R.id.btn_search);
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (rgp_search.getCheckedRadioButtonId()){
+                    case R.id.rbtn_lost_items:
+                        startActivity(new Intent(BerandaActivity.this, SearchLostItemsActivity.class));
+                        ad.dismiss();
+                        break;
+                    case R.id.rbtn_found_items:
+                        startActivity(new Intent(BerandaActivity.this, SearchFoundItemsActivity.class));
+                        ad.dismiss();
+                        break;
+                }
+            }
+        });
+
+        ad.show();
+    }
+
     private void replaceFragment(Fragment fragment) {
         String backStateName =  fragment.getClass().getName();
         String fragmentTag = backStateName;
@@ -306,7 +342,7 @@ public class BerandaActivity extends AppCompatActivity
                 startActivity(new Intent(BerandaActivity.this, ScanActivity.class));
                 break;
             case R.id.action_search:
-                startActivity(new Intent(BerandaActivity.this, SearchLostItemsActivity.class));
+                showDialogSearch();
                 break;
         }
 

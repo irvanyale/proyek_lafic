@@ -42,6 +42,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         private ImageView imgv_pesan;
         private TextView txtv_pengirim;
         private TextView txtv_pesan;
+        private TextView txtv_tgl;
         private TextView txtv_waktu;
 
         public ViewHolder(View itemView) {
@@ -51,6 +52,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             imgv_pesan = (ImageView)itemView.findViewById(R.id.imgv_pesan);
             txtv_pengirim = (TextView) itemView.findViewById(R.id.txtv_pengirim);
             txtv_pesan = (TextView) itemView.findViewById(R.id.txtv_pesan);
+            txtv_tgl = (TextView) itemView.findViewById(R.id.txtv_tgl);
             txtv_waktu = (TextView) itemView.findViewById(R.id.txtv_waktu);
         }
     }
@@ -66,18 +68,23 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         Pesan pesan = listPesan.get(position);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
         try {
             date = sdf.parse(pesan.getTANGGAL_PESAN());
         } catch (Exception e) {
             Log.e("TAG", Log.getStackTraceString(e));
         }
-        sdf = new SimpleDateFormat("HH:mm");
+        sdf = new SimpleDateFormat("EEE, d MMM yyyy");
+        sdf_time = new SimpleDateFormat("HH:mm");
+
         String sdate = sdf.format(date);
+        String stime = sdf_time.format(date);
 
         holder.txtv_pengirim.setText(pesan.getPENGIRIM());
         holder.txtv_pesan.setText(pesan.getISI_PESAN());
-        holder.txtv_waktu.setText(sdate);
+        holder.txtv_tgl.setText(sdate);
+        holder.txtv_waktu.setText(stime);
 
         holder.imgv_pesan.setOnClickListener(new View.OnClickListener() {
             @Override

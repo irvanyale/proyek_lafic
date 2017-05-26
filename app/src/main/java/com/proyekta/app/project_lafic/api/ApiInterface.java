@@ -90,6 +90,12 @@ public interface ApiInterface {
     @GET("Penemuan")
     Call<List<BarangPenemuan>> getBarangPenemuanMember(@Query("MEMBER_ID") String id);
 
+    @GET("Penemuan")
+    Call<List<BarangPenemuan>> getBarangPenemuanByCategory(@Query("JENIS_BARANG") String JENIS_BARANG);
+
+    @GET("Penemuan")
+    Call<List<BarangPenemuan>> getBarangPenemuanByQuery(@Query("q") String Query);
+
     @POST("Penemuan")
     Call<BarangPenemuan> postBarangPenemuan(@Body BarangPenemuan barangPenemuan);
 
