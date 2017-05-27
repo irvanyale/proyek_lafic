@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.Member;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -87,6 +89,12 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
                 }
             }
         });
+
+        Picasso.with(getContext())
+                .load(ApiClient.BASE_URL_FOTO + item.getFOTO_PENEMUAN())
+                .error(R.drawable.ic_image)
+                .fit()
+                .into(holder.imgv_barang);
     }
 
     @Override

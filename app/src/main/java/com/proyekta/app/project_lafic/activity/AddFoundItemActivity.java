@@ -1,6 +1,11 @@
 package com.proyekta.app.project_lafic.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +17,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,13 +34,19 @@ import com.proyekta.app.project_lafic.helper.SubKategoriBarangHelper;
 import com.proyekta.app.project_lafic.helper.UserBarangPenemuanHelper;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
+import com.proyekta.app.project_lafic.model.Foto;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.util.Util;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,7 +54,10 @@ import retrofit2.Response;
 public class AddFoundItemActivity extends AppCompatActivity {
 
     private static final String TAG = "AddFoundItemActivity";
+    private int SELECT_FILE = 1;
 
+    private RelativeLayout rlly_foto;
+    private ImageView imgv_barang;
     private Spinner spinner_id_kategori;
     private Spinner spinner_sub_kategori;
     private View divide_spinner;
@@ -61,6 +77,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
     private List<String> listKetKategoriBarang = new ArrayList<>();
     private List<BarangPenemuan> listBarangPenemuen;
     private ProgressDialog dialog;
+    private String path_gallery = "-1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,9 +137,17 @@ public class AddFoundItemActivity extends AppCompatActivity {
             }
         });
 
+        rlly_foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
     }
 
     private void initComponents(){
+        rlly_foto = (RelativeLayout) findViewById(R.id.rlly_foto);
+        imgv_barang = (ImageView) findViewById(R.id.imgv_barang);
         spinner_id_kategori = (Spinner) findViewById(R.id.spinner_id_kategori);
         spinner_sub_kategori = (Spinner) findViewById(R.id.spinner_sub_kategori);
         divide_spinner = findViewById(R.id.divide_spinner);
@@ -135,6 +160,11 @@ public class AddFoundItemActivity extends AppCompatActivity {
 
         edtx_merk.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         edtx_warna.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    }
+
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, SELECT_FILE);
     }
 
     private String getMemberId(){
@@ -196,6 +226,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
             barangPenemuan.setMERK_BARANG(merk);
             barangPenemuan.setWARNA_BARANG(warna);
             barangPenemuan.setKETERANGAN(tipe);
+            barangPenemuan.setFOTO_PENEMUAN("");
             barangPenemuan.setLOKASI_KETEMU(lokasi);
 
             submit(barangPenemuan);
@@ -203,6 +234,33 @@ public class AddFoundItemActivity extends AppCompatActivity {
         } else {
             Toast.makeText(AddFoundItemActivity.this, "Silahkan lengkapi data barang Anda", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void uploadFoto(String id, String filePath){
+        File file = new File(filePath);
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
+        RequestBody idBarang = RequestBody.create(MediaType.parse("text/plain"), id);
+
+        Call<Foto> call = client.uploadFotoBarangPenemuan(body, idBarang);
+        call.enqueue(new Callback<Foto>() {
+            @Override
+            public void onResponse(Call<Foto> call, Response<Foto> response) {
+                if (response.isSuccessful()){
+                    loadBarangPenemuan();
+                } else {
+                    Toast.makeText(AddFoundItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Foto> call, Throwable t) {
+                Toast.makeText(AddFoundItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
     }
 
     private void submit(final BarangPenemuan barangPenemuan){
@@ -215,7 +273,8 @@ public class AddFoundItemActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BarangPenemuan> call, Response<BarangPenemuan> response) {
                 if (response.isSuccessful()){
-                    loadBarangPenemuan();
+                    Log.d(TAG, "onResponsePenemuan: "+response.body().getBARANG_PENEMUAN_ID());
+                    uploadFoto(response.body().getBARANG_PENEMUAN_ID(), path_gallery);
                 } else {
                     Toast.makeText(AddFoundItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
@@ -255,6 +314,38 @@ public class AddFoundItemActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == SELECT_FILE){
+                if (data != null){
+                    try {
+                        Uri uriImage = data.getData();
+                        String[] filePath = {MediaStore.Images.Media.DATA};
+
+                        Cursor cursor = this.getContentResolver().query(uriImage, filePath, null, null, null);
+                        if (cursor != null){
+                            cursor.moveToFirst();
+                            int columnIndex = cursor.getColumnIndex(filePath[0]);
+                            path_gallery = cursor.getString(columnIndex);
+                            cursor.close();
+                        }
+
+                        Picasso.with(this)
+                                .load(uriImage)
+                                .error(R.drawable.ic_image)
+                                .fit()
+                                .into(imgv_barang);
+
+                    } catch (Exception e){
+                        Log.e(TAG, Log.getStackTraceString(e));
+                    }
+                }
+            }
+        }
     }
 
     @Override

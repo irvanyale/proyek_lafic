@@ -9,6 +9,7 @@ public class BarangHilang {
 
     private String BARANG_HILANG_ID;
     private String BARANG_ID;
+    private String FOTO;
     private String TANGGAL_HILANG;
     private String TANGGAL_KETEMU;
     private String LOKASI_HILANG;
@@ -43,6 +44,14 @@ public class BarangHilang {
 
     public void setBARANG_ID(String BARANG_ID) {
         this.BARANG_ID = BARANG_ID;
+    }
+
+    public String getFOTO() {
+        return FOTO;
+    }
+
+    public void setFOTO(String FOTO) {
+        this.FOTO = FOTO;
     }
 
     public String getTANGGAL_HILANG() {
