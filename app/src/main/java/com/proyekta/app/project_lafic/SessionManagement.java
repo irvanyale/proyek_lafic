@@ -32,6 +32,7 @@ public class SessionManagement {
     public static final String KEY_KELAMIN = "kelamin";
     public static final String KEY_NOMOR_ID = "nomor_id";
     public static final String KEY_STATUS = "status";
+    public static final String KEY_FOTO = "foto";
     public static final String KEY_QRCODE = "qrcode";
 
     public SessionManagement(Context context) {
@@ -42,7 +43,7 @@ public class SessionManagement {
 
 
     // Login Session
-    public void createLoginSession(String id_member, String nama, String password, String email, String telepon, String kelamin, String nomor_id, String status, String qrcode){
+    public void createLoginSession(String id_member, String nama, String password, String email, String telepon, String kelamin, String nomor_id, String status, String foto, String qrcode){
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_ID_MEMBER, id_member);
         editor.putString(KEY_NAMA, nama);
@@ -52,6 +53,7 @@ public class SessionManagement {
         editor.putString(KEY_KELAMIN, kelamin);
         editor.putString(KEY_NOMOR_ID, nomor_id);
         editor.putString(KEY_STATUS, status);
+        editor.putString(KEY_FOTO, foto);
         editor.putString(KEY_QRCODE, qrcode);
         editor.commit();
     }
@@ -67,6 +69,7 @@ public class SessionManagement {
         user.put(KEY_KELAMIN, pref.getString(KEY_KELAMIN, null));
         user.put(KEY_NOMOR_ID, pref.getString(KEY_NOMOR_ID, null));
         user.put(KEY_STATUS, pref.getString(KEY_STATUS, null));
+        user.put(KEY_FOTO, pref.getString(KEY_FOTO, null));
         user.put(KEY_QRCODE, pref.getString(KEY_QRCODE, null));
         return user;
     }

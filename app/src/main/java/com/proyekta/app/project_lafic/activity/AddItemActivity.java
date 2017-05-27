@@ -211,7 +211,7 @@ public class AddItemActivity extends AppCompatActivity {
         dialog.setMessage("Loading...");
         dialog.show();
 
-        Call<Barang> call = client.doSubmit("", id, id_kategori, jenis, merk, status, warna, tipe,"");
+        Call<Barang> call = client.doSubmit("", id, id_kategori, jenis, merk, status, warna, tipe, "");
         call.enqueue(new Callback<Barang>() {
             @Override
             public void onResponse(Call<Barang> call, Response<Barang> response) {

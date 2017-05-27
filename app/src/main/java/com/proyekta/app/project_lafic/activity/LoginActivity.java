@@ -119,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                             data.getKelamin(),
                             data.getNomor_id(),
                             data.getStatus(),
+                            data.getFoto(),
                             data.getQrcode());
                     session.checkLogin();
                 } else {

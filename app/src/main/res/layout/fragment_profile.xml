@@ -7,11 +7,40 @@
     android:gravity="center_horizontal"
     tools:context="com.proyekta.app.project_lafic.fragment.ProfileFragment">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgv_user"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/ic_profile_circle"/>
+    <RelativeLayout
+        android:id="@+id/rlly_edit_foto"
+        android:layout_width="80dp"
+        android:layout_height="80dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgv_user"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_profile_circle"/>
+
+        <RelativeLayout
+            android:id="@+id/rlly_ic_foto"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/oval_yellow"
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_camera"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"

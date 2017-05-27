@@ -10,8 +10,9 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
-    
+
     public static final String BASE_URL = "http://192.168.1.11/rest_server/index.php/";
+    public static final String BASE_URL_FOTO = "http://192.168.1.11/rest_server/images/";
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

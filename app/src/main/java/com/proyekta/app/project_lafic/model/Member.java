@@ -12,6 +12,7 @@ public class Member {
     private String TELEPON;
     private String KELAMIN;
     private String NOMOR_ID;
+    private String FOTO;
 
     public Member() {
     }
@@ -79,5 +80,13 @@ public class Member {
 
     public void setNOMOR_ID(String NOMOR_ID) {
         this.NOMOR_ID = NOMOR_ID;
+    }
+
+    public String getFOTO() {
+        return FOTO;
+    }
+
+    public void setFOTO(String FOTO) {
+        this.FOTO = FOTO;
     }
 }

@@ -5,5 +5,4 @@ package com.proyekta.app.project_lafic;
  */
 
 public interface Constant {
-
 }
