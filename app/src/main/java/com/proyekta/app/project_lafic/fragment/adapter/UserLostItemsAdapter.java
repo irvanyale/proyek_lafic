@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.model.Barang;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -100,6 +102,12 @@ public class UserLostItemsAdapter extends RecyclerView.Adapter<UserLostItemsAdap
                 }
             }
         });
+
+        Picasso.with(getContext())
+                .load(ApiClient.BASE_URL_FOTO + barang.getFOTO())
+                .error(R.drawable.ic_image)
+                .fit()
+                .into(holder.imgv_barang);
     }
 
     @Override

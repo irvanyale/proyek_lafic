@@ -14,6 +14,7 @@ public class Barang {
     private String STATUS;
     private String WARNA_BARANG;
     private String KETERANGAN;
+    private String FOTO;
 
     public Barang() {
     }
@@ -92,4 +93,11 @@ public class Barang {
         this.KETERANGAN = KETERANGAN;
     }
 
+    public String getFOTO() {
+        return FOTO;
+    }
+
+    public void setFOTO(String FOTO) {
+        this.FOTO = FOTO;
+    }
 }

@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/imgv_barang"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_height="110dp"
                 android:src="@drawable/ic_image" />
 
         </LinearLayout>

@@ -237,9 +237,9 @@ public class ProfileFragment extends Fragment {
 
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
-        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), idMember);
+        RequestBody id = RequestBody.create(MediaType.parse("text/plain"), idMember);
 
-        Call<Foto> call = client.uploadFoto(body, name);
+        Call<Foto> call = client.uploadFoto(body, id);
         call.enqueue(new Callback<Foto>() {
             @Override
             public void onResponse(Call<Foto> call, Response<Foto> response) {

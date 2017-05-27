@@ -116,5 +116,9 @@ public interface ApiInterface {
 
     @Multipart
     @POST("upload_foto")
-    Call<Foto> uploadFoto(@Part MultipartBody.Part image, @Part("MEMBER_ID") RequestBody name);
+    Call<Foto> uploadFoto(@Part MultipartBody.Part image, @Part("MEMBER_ID") RequestBody id);
+
+    @Multipart
+    @POST("upload_foto")
+    Call<Foto> uploadFotoBarang(@Part MultipartBody.Part image, @Part("BARANG_ID") RequestBody id);
 }
