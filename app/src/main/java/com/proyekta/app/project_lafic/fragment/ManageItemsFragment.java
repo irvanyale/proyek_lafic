@@ -234,10 +234,6 @@ public class ManageItemsFragment extends Fragment {
         });
     }
 
-    private void uploadFoto(String id, String filePath){
-
-    }
-
     private void doPostBarangHilang(final Barang barang){
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");

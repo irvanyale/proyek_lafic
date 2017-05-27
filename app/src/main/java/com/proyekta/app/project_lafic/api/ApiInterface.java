@@ -5,7 +5,6 @@ import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.Foto;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
-import com.proyekta.app.project_lafic.model.Login;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.model.Pesan;
 import com.proyekta.app.project_lafic.model.SuksesResponse;
@@ -16,7 +15,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,7 +23,6 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**

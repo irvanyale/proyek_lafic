@@ -12,7 +12,7 @@ public class Member {
     private String TELEPON;
     private String KELAMIN;
     private String NOMOR_ID;
-    private String FOTO;
+    private String FOTO_MEMBER;
 
     public Member() {
     }
@@ -83,10 +83,10 @@ public class Member {
     }
 
     public String getFOTO() {
-        return FOTO;
+        return FOTO_MEMBER;
     }
 
     public void setFOTO(String FOTO) {
-        this.FOTO = FOTO;
+        this.FOTO_MEMBER = FOTO;
     }
 }

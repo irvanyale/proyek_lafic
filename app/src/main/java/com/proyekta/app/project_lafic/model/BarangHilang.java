@@ -9,7 +9,6 @@ public class BarangHilang {
 
     private String BARANG_HILANG_ID;
     private String BARANG_ID;
-    private String FOTO;
     private String TANGGAL_HILANG;
     private String TANGGAL_KETEMU;
     private String LOKASI_HILANG;
@@ -21,6 +20,7 @@ public class BarangHilang {
     private String STATUS;
     private String WARNA_BARANG;
     private String KETERANGAN;
+    private String FOTO;
     private String QRCODE;
     private String NAMA_MEMBER;
     private String PASSWORD_MEMBER;

@@ -6,13 +6,13 @@ package com.proyekta.app.project_lafic.model;
 
 public class Foto {
 
-    private String FOTO;
+    private String FOTO_MEMBER;
 
     public String getFOTO() {
-        return FOTO;
+        return FOTO_MEMBER;
     }
 
     public void setFOTO(String FOTO) {
-        this.FOTO = FOTO;
+        this.FOTO_MEMBER = FOTO;
     }
 }
