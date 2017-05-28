@@ -1,6 +1,11 @@
 package com.proyekta.app.project_lafic.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +17,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,16 +33,23 @@ import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
 import com.proyekta.app.project_lafic.helper.SubKategoriBarangHelper;
 import com.proyekta.app.project_lafic.model.Barang;
+import com.proyekta.app.project_lafic.model.Foto;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.DownloadUtil;
+import com.proyekta.app.project_lafic.util.ImageUtil;
 import com.proyekta.app.project_lafic.util.StorageUtil;
 import com.proyekta.app.project_lafic.util.Util;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +57,10 @@ import retrofit2.Response;
 public class AddItemActivity extends AppCompatActivity {
 
     private static final String TAG = "AddItemActivity";
+    private int SELECT_FILE = 1;
 
+    private RelativeLayout rlly_foto;
+    private ImageView imgv_barang;
     private Spinner spinner_id_kategori;
     private Spinner spinner_sub_kategori;
     private View divide_spinner;
@@ -63,6 +80,7 @@ public class AddItemActivity extends AppCompatActivity {
     private List<String> listKetKategoriBarang = new ArrayList<>();
     private List<Barang> barang;
     private ProgressDialog dialog;
+    private String path_gallery = "-1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,9 +142,18 @@ public class AddItemActivity extends AppCompatActivity {
 
             }
         });
+
+        rlly_foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
     }
 
     private void initComponents(){
+        rlly_foto = (RelativeLayout) findViewById(R.id.rlly_foto);
+        imgv_barang = (ImageView) findViewById(R.id.imgv_barang);
         spinner_id_kategori = (Spinner) findViewById(R.id.spinner_id_kategori);
         spinner_sub_kategori = (Spinner) findViewById(R.id.spinner_sub_kategori);
         divide_spinner = findViewById(R.id.divide_spinner);
@@ -139,6 +166,11 @@ public class AddItemActivity extends AppCompatActivity {
 
         edtx_merk.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         edtx_warna.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    }
+
+    private void openGallery() {
+        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(gallery, SELECT_FILE);
     }
 
     private void subKategoriAdapter(String id){
@@ -206,12 +238,42 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
+    private void uploadFoto(String id, String filePath){
+
+        File file = new File(filePath);
+        //reduce image size
+        File image = ImageUtil.ImageResizer(file) == null ? file : ImageUtil.ImageResizer(file);
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), image);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
+        RequestBody idBarang = RequestBody.create(MediaType.parse("text/plain"), id);
+
+        Call<Foto> call = client.uploadFotoBarang(body, idBarang);
+        call.enqueue(new Callback<Foto>() {
+            @Override
+            public void onResponse(Call<Foto> call, Response<Foto> response) {
+                if (response.isSuccessful()){
+                    loadBarang();
+                } else {
+                    Toast.makeText(AddItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Foto> call, Throwable t) {
+                Toast.makeText(AddItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
+
     private void submit(String id, String id_kategori, String jenis, String merk, String status, String warna, String tipe){
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
 
-        Call<Barang> call = client.doSubmit("", id, id_kategori, jenis, merk, status, warna, tipe,"");
+        Call<Barang> call = client.doSubmit("", id, id_kategori, jenis, merk, status, warna, tipe, "");
         call.enqueue(new Callback<Barang>() {
             @Override
             public void onResponse(Call<Barang> call, Response<Barang> response) {
@@ -220,7 +282,7 @@ public class AddItemActivity extends AppCompatActivity {
 
                     //downloadQrCode(data.getQRCODE(), data.getBARANG_ID());
 
-                    loadBarang();
+                    uploadFoto(data.getBARANG_ID(), path_gallery);
 
                 } else {
                     Toast.makeText(AddItemActivity.this, "there is an error", Toast.LENGTH_SHORT).show();
@@ -270,6 +332,38 @@ public class AddItemActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == SELECT_FILE){
+                if (data != null){
+                    try {
+                        Uri uriImage = data.getData();
+                        String[] filePath = {MediaStore.Images.Media.DATA};
+
+                        Cursor cursor = this.getContentResolver().query(uriImage, filePath, null, null, null);
+                        if (cursor != null){
+                            cursor.moveToFirst();
+                            int columnIndex = cursor.getColumnIndex(filePath[0]);
+                            path_gallery = cursor.getString(columnIndex);
+                            cursor.close();
+                        }
+
+                        Picasso.with(this)
+                                .load(uriImage)
+                                .error(R.drawable.ic_image)
+                                .fit()
+                                .into(imgv_barang);
+
+                    } catch (Exception e){
+                        Log.e(TAG, Log.getStackTraceString(e));
+                    }
+                }
+            }
+        }
     }
 
     @Override

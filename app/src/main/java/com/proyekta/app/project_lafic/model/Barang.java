@@ -14,7 +14,7 @@ public class Barang {
     private String STATUS;
     private String WARNA_BARANG;
     private String KETERANGAN;
-    private String QRCODE;
+    private String FOTO;
 
     public Barang() {
     }
@@ -57,10 +57,6 @@ public class Barang {
         return KETERANGAN;
     }
 
-    public String getQRCODE() {
-        return QRCODE;
-    }
-
     public String getJENIS_BARANG() {
         return JENIS_BARANG;
     }
@@ -97,7 +93,11 @@ public class Barang {
         this.KETERANGAN = KETERANGAN;
     }
 
-    public void setQRCODE(String QRCODE) {
-        this.QRCODE = QRCODE;
+    public String getFOTO() {
+        return FOTO;
+    }
+
+    public void setFOTO(String FOTO) {
+        this.FOTO = FOTO;
     }
 }

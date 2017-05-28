@@ -10,13 +10,48 @@
     android:layout_marginRight="10dp">
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rlly_foto"
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/imgv_barang"
+                    android:layout_width="100dp"
+                    android:layout_height="110dp"
+                    android:src="@drawable/ic_image"/>
+
+                <RelativeLayout
+                    android:id="@+id/rlly_ic_foto"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/oval_yellow"
+                        android:layout_centerInParent="true"/>
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_camera"
+                        android:layout_centerInParent="true"/>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <Spinner
                 android:id="@+id/spinner_id_kategori"

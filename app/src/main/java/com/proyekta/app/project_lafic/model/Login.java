@@ -14,6 +14,7 @@ public class Login {
     private String kelamin;
     private String nomor_id;
     private String status;
+    private String foto;
     private String qrcode;
 
     public String getToken() {
@@ -50,6 +51,10 @@ public class Login {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getFoto() {
+        return foto;
     }
 
     public String getQrcode() {

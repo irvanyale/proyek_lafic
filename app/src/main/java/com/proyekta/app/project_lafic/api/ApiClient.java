@@ -11,8 +11,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
+<<<<<<< HEAD
 
     public static final String BASE_URL = "http://192.168.43.239:8080/rest_server/index.php/";
+=======
+    public static final String BASE_URL = "http://192.168.1.11/rest_server/index.php/";
+    public static final String BASE_URL_FOTO = "http://192.168.1.11/rest_server/images/";
+>>>>>>> 57f3e7f1b24829e7cb08a358b7cfeabd80ae2f6b
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()

@@ -111,11 +111,6 @@ public class BerandaActivity extends AppCompatActivity
 
         loadBarang();
 
-        Picasso.with(this)
-                .load(R.drawable.vina)
-                .fit()
-                .into(imgv_user);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -138,9 +133,16 @@ public class BerandaActivity extends AppCompatActivity
             HashMap<String, String> user = session.getUserDetails();
             String nama = user.get(SessionManagement.KEY_NAMA);
             String email = user.get(SessionManagement.KEY_EMAIL);
+            String foto = user.get(SessionManagement.KEY_FOTO);
 
             txtv_nama.setText(nama);
             txtv_email.setText(email);
+
+            Picasso.with(this)
+                    .load(ApiClient.BASE_URL_FOTO + foto)
+                    .error(R.drawable.ic_profile_circle_white)
+                    .fit()
+                    .into(imgv_user);
 
         } catch (Exception e){
             e.printStackTrace();

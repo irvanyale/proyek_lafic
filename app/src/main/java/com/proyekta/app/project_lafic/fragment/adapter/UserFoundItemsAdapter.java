@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,6 +98,12 @@ public class UserFoundItemsAdapter extends RecyclerView.Adapter<UserFoundItemsAd
 
         holder.txtv_tgl.setText(sdate);
         holder.txtv_waktu.setText(stime);
+
+        Picasso.with(getContext())
+                .load(ApiClient.BASE_URL_FOTO + item.getFOTO_PENEMUAN())
+                .error(R.drawable.ic_image)
+                .fit()
+                .into(holder.imgv_barang);
     }
 
     @Override

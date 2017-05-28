@@ -20,6 +20,7 @@ public class BarangHilang {
     private String STATUS;
     private String WARNA_BARANG;
     private String KETERANGAN;
+    private String FOTO;
     private String QRCODE;
     private String NAMA_MEMBER;
     private String PASSWORD_MEMBER;
@@ -43,6 +44,14 @@ public class BarangHilang {
 
     public void setBARANG_ID(String BARANG_ID) {
         this.BARANG_ID = BARANG_ID;
+    }
+
+    public String getFOTO() {
+        return FOTO;
+    }
+
+    public void setFOTO(String FOTO) {
+        this.FOTO = FOTO;
     }
 
     public String getTANGGAL_HILANG() {

@@ -12,6 +12,7 @@ public class BarangPenemuan {
     private String MERK_BARANG;
     private String WARNA_BARANG;
     private String KETERANGAN;
+    private String FOTO_PENEMUAN;
     private String TANGGAL_KETEMU;
     private String LOKASI_KETEMU;
     private String NAMA_MEMBER;
@@ -149,5 +150,13 @@ public class BarangPenemuan {
 
     public void setQRCODE(String QRCODE) {
         this.QRCODE = QRCODE;
+    }
+
+    public String getFOTO_PENEMUAN() {
+        return FOTO_PENEMUAN;
+    }
+
+    public void setFOTO_PENEMUAN(String FOTO_PENEMUAN) {
+        this.FOTO_PENEMUAN = FOTO_PENEMUAN;
     }
 }

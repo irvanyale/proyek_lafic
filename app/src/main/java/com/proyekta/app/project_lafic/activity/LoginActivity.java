@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
 
         Call<Login> call = client.createToken(username, password);
+        Log.d(TAG, "login: "+username+" "+password);
 
         call.enqueue(new Callback<Login>() {
             @Override
@@ -119,10 +120,17 @@ public class LoginActivity extends AppCompatActivity {
                             data.getKelamin(),
                             data.getNomor_id(),
                             data.getStatus(),
+                            data.getFoto(),
                             data.getQrcode());
                     session.checkLogin();
                 } else {
+<<<<<<< HEAD
                     Toast.makeText(LoginActivity.this, "Username and Password is wrong", Toast.LENGTH_SHORT).show();
+=======
+                    Toast.makeText(LoginActivity.this, "Username atau Password Salah", Toast.LENGTH_SHORT).show();
+                    Log.e("Error Code", String.valueOf(response.code()));
+                    Log.e("Error Body", response.errorBody().toString());
+>>>>>>> 57f3e7f1b24829e7cb08a358b7cfeabd80ae2f6b
                 }
                 dialog.dismiss();
             }
