@@ -146,7 +146,7 @@ public class ManageItemsFragment extends Fragment {
         dialog.show();
     }
 
-    private String statusBarang = "AMAN";
+    private String statusBarang = "SECURE";
     private EditText edtx_lokasi_hilang;
     private Dialog dialogEditStatus;
 
@@ -175,7 +175,7 @@ public class ManageItemsFragment extends Fragment {
 
                 edtx_lokasi_hilang.setVisibility(View.GONE);
 
-                statusBarang = "AMAN";
+                statusBarang = "SECURE";
             }
         });
 
@@ -190,7 +190,7 @@ public class ManageItemsFragment extends Fragment {
 
                 edtx_lokasi_hilang.setVisibility(View.VISIBLE);
 
-                statusBarang = "HILANG";
+                statusBarang = "LOST";
             }
         });
 
@@ -219,7 +219,7 @@ public class ManageItemsFragment extends Fragment {
                 if (response.isSuccessful()){
                     doPostBarangHilang(barang);
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     dialogEditStatus.dismiss();
                 }
@@ -227,7 +227,7 @@ public class ManageItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Barang> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
             }
@@ -252,7 +252,7 @@ public class ManageItemsFragment extends Fragment {
                 if (response.isSuccessful()){
                     loadBarang(barang.getMEMBER_ID());
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     dialogEditStatus.dismiss();
                 }
@@ -260,7 +260,7 @@ public class ManageItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BarangHilang> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
             }
@@ -283,7 +283,7 @@ public class ManageItemsFragment extends Fragment {
                     listBarangAman = BarangStatusAmanHelper.getBarangAman();
                     listItemsAdapter.setList(listBarangAman);
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
@@ -291,7 +291,7 @@ public class ManageItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Barang>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
             }

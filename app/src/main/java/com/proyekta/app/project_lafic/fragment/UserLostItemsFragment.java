@@ -147,7 +147,7 @@ public class UserLostItemsFragment extends Fragment {
                 if (response.isSuccessful()){
                     deleteBarangHilang(barang);
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     dialogEditStatus.dismiss();
                 }
@@ -155,7 +155,7 @@ public class UserLostItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Barang> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
             }
@@ -178,7 +178,7 @@ public class UserLostItemsFragment extends Fragment {
                     listBarangHilang = BarangStatusHilangHelper.getBarangHilang();
                     lostItemsAdapter.setList(listBarangHilang);
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
@@ -186,7 +186,7 @@ public class UserLostItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Barang>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
             }
@@ -202,7 +202,7 @@ public class UserLostItemsFragment extends Fragment {
                 if (response.isSuccessful()){
                     loadBarang(barang.getMEMBER_ID());
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     dialogEditStatus.dismiss();
                 }
@@ -210,7 +210,7 @@ public class UserLostItemsFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SuksesResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 dialogEditStatus.dismiss();
             }

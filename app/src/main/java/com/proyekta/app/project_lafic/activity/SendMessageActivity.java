@@ -100,17 +100,17 @@ public class SendMessageActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Pesan> call, Response<Pesan> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(SendMessageActivity.this, "Pesan berhasil terkirim", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendMessageActivity.this, "Message succes send", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(SendMessageActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendMessageActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Pesan> call, Throwable t) {
-                Toast.makeText(SendMessageActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendMessageActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

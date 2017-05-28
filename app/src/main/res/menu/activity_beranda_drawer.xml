@@ -18,11 +18,11 @@
             <menu>
                 <item
                     android:id="@+id/nav_lost"
-                    android:icon="@drawable/ic_lost_item"
+                    android:icon="@drawable/ic_close_black_24dp"
                     android:title="Lost Items" />
                 <item
                     android:id="@+id/nav_found"
-                    android:icon="@drawable/ic_found_item"
+                    android:icon="@drawable/ic_wb_incandescent_black_24dp"
                     android:title="Found Items" />
 
             </menu>

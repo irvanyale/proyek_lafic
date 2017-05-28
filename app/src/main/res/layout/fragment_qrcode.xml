@@ -29,7 +29,7 @@
         android:id="@+id/txvw_qrcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Klik DOWNLOAD QRCODE \nuntuk mendapatkan QRCode"
+        android:text="Clik DOWNLOAD QRCODE \for get QRCode"
         android:gravity="center"
         android:layout_centerInParent="true"/>
 

@@ -84,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/edtxt_idnumber"
-                        android:hint="ID Number"
+                        android:hint="NIM, NIP , NIK"
                         android:inputType="number"
                         android:layout_gravity="center_vertical" />
 
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:id="@+id/edtxt_password"
-                        android:hint="Current Password"
+                        android:hint="Password"
                         android:inputType="textWebPassword" />
 
                 </LinearLayout>

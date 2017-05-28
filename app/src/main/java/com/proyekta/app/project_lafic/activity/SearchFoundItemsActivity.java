@@ -71,7 +71,7 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
         initComponents();
 
         listKategoriBarang = KategoriBarangHelper.getKategoriBarang();
-        kategoriBarang.add("-1~Pilih Kategori~-");
+        kategoriBarang.add("-1~Choose The Category~-");
         for (KategoriBarang data : listKategoriBarang){
             kategoriBarang.add(data.getID_KATEGORY() + "~" + data.getJENIS() + "~" + data.getKETERANGAN());
         }
@@ -199,7 +199,7 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
                     }
                     searchFoundItemsAdapter.setList(listPencarianBarangPenemuan);
                 } else {
-                    Toast.makeText(SearchFoundItemsActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchFoundItemsActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
 
                 if (refresh != null){
@@ -209,7 +209,7 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BarangPenemuan>> call, Throwable t) {
-                Toast.makeText(SearchFoundItemsActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchFoundItemsActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
 
                 if (refresh != null){
                     refresh.setRefreshing(false);
@@ -240,7 +240,7 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
                     }
                     searchFoundItemsAdapter.setList(listPencarianBarangPenemuan);
                 } else {
-                    Toast.makeText(SearchFoundItemsActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchFoundItemsActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
 
                 if (refresh != null){
@@ -250,7 +250,7 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BarangPenemuan>> call, Throwable t) {
-                Toast.makeText(SearchFoundItemsActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchFoundItemsActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
 
                 if (refresh != null){
                     refresh.setRefreshing(false);
@@ -262,7 +262,7 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
     private void showDialogSendMessage(final Member member){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SearchFoundItemsActivity.this);
 
-        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+member.getNAMA_MEMBER()+"?");
+        alertDialogBuilder.setTitle("would you like to send message to "+member.getNAMA_MEMBER()+"?");
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -274,7 +274,7 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
                         intent.putExtra("telp", member.getTELEPON());
                         intent.putExtra("email", member.getEMAIL_MEMBER());
                         intent.putExtra("no_id", member.getNOMOR_ID());
-                        intent.putExtra("jenis_pesan", "PERMINTAAN BARANG");
+                        intent.putExtra("jenis_pesan", "DEMAND FOR ITEM");
                         startActivity(intent);
                         alertDialog.dismiss();
                     }

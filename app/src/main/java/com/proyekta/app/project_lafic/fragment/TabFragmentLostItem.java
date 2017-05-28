@@ -96,7 +96,7 @@ public class TabFragmentLostItem extends Fragment {
     private void showDialogSendMessage(final Member member){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+member.getNAMA_MEMBER()+"?");
+        alertDialogBuilder.setTitle("Would you like to send message to "+member.getNAMA_MEMBER()+"?");
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -157,7 +157,7 @@ public class TabFragmentLostItem extends Fragment {
                     }
                     listLostItemsAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
 
                 if (refresh != null){
@@ -168,7 +168,7 @@ public class TabFragmentLostItem extends Fragment {
 
             @Override
             public void onFailure(Call<List<BarangHilang>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
 
                 if (refresh != null){
                     refresh.setRefreshing(false);

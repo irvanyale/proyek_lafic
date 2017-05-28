@@ -150,7 +150,7 @@ public class ScanActivity extends AppCompatActivity {
                     } catch (JSONException e){
                         e.printStackTrace();
                         Log.d(TAG, "Result "+result.getResult().toString());
-                        Toast.makeText(ScanActivity.this, "Terjadi Kesalahan", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ScanActivity.this, "There is an error", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -165,7 +165,7 @@ public class ScanActivity extends AppCompatActivity {
     private void showDialogSendMessage(final Member member){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ScanActivity.this);
 
-        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+member.getNAMA_MEMBER()+"?");
+        alertDialogBuilder.setTitle("Would you like send message to  "+member.getNAMA_MEMBER()+"?");
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
