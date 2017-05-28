@@ -90,7 +90,7 @@ public class UserLostItemsAdapter extends RecyclerView.Adapter<UserLostItemsAdap
         holder.txtv_lokasi_hilang.setText(barang.getLOKASI_HILANG());
 
         holder.imgv_status.setImageDrawable(
-                barang.getSTATUS().equals("SECURE") ?
+                barang.getSTATUS().equals("AMAN") ?
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_aman) :
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_hilang)
         );

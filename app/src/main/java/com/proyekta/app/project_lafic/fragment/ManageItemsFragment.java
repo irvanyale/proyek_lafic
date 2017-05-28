@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.activity.AddItemActivity;
+import com.proyekta.app.project_lafic.activity.EditItemActivity;
 import com.proyekta.app.project_lafic.fragment.adapter.ListItemsAdapter;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
@@ -97,6 +98,23 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
+        listItemsAdapter.setOnEditBarangListener(new ListItemsAdapter.setOnEditBarangListener() {
+            @Override
+            public void OnEditBarangListener(Barang barang) {
+                Intent intent = new Intent(getActivity(), EditItemActivity.class);
+                intent.putExtra("barang_id", barang.getBARANG_ID());
+                intent.putExtra("member_id", barang.getMEMBER_ID());
+                intent.putExtra("id_kategori", barang.getID_KATEGORY());
+                intent.putExtra("jenis_barang", barang.getJENIS_BARANG());
+                intent.putExtra("merk_barang", barang.getMERK_BARANG());
+                intent.putExtra("warna_barang", barang.getWARNA_BARANG());
+                intent.putExtra("keterangan", barang.getKETERANGAN());
+                intent.putExtra("foto", barang.getFOTO());
+                intent.putExtra("status", barang.getSTATUS());
+                startActivity(intent);
+            }
+        });
+
         rlly_footer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +164,7 @@ public class ManageItemsFragment extends Fragment {
         dialog.show();
     }
 
-    private String statusBarang = "SECURE";
+    private String statusBarang = "AMAN";
     private EditText edtx_lokasi_hilang;
     private Dialog dialogEditStatus;
 
@@ -175,7 +193,7 @@ public class ManageItemsFragment extends Fragment {
 
                 edtx_lokasi_hilang.setVisibility(View.GONE);
 
-                statusBarang = "SECURE";
+                statusBarang = "AMAN";
             }
         });
 
@@ -190,7 +208,7 @@ public class ManageItemsFragment extends Fragment {
 
                 edtx_lokasi_hilang.setVisibility(View.VISIBLE);
 
-                statusBarang = "LOST";
+                statusBarang = "HILANG";
             }
         });
 

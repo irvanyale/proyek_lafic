@@ -112,12 +112,11 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_qrcode" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -131,12 +130,12 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_edit" />
+                        android:src="@drawable/ic_edit_status" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lnly_delete"
+                    android:id="@+id/lnly_edit_barang"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -145,7 +144,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_delete" />
+                        android:src="@drawable/ic_edit" />
 
                 </LinearLayout>
 

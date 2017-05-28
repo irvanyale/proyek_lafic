@@ -219,7 +219,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
         String tipe = edtx_tipe.getText().toString();
         String lokasi = edtx_lokasi.getText().toString();
 
-        if (!jenis.equals("Choose kind items")){
+        if (!jenis.equals("Pilih Jenis Barang")){
 
             BarangPenemuan barangPenemuan = new BarangPenemuan();
             barangPenemuan.setMEMBER_ID(memberId);

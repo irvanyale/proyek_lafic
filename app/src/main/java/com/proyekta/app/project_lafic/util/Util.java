@@ -3,6 +3,7 @@ package com.proyekta.app.project_lafic.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Spinner;
 
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 
@@ -50,6 +51,18 @@ public class Util {
             listKet.add(ket[2]);
         }
         return listKet;
+    }
+
+    public static int getIndex(Spinner spinner, String myString) {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     public static void setToken(Context context, String token){

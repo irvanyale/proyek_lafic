@@ -23,22 +23,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.proyekta.app.project_lafic.Application;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.SessionManagement;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
-import com.proyekta.app.project_lafic.api.AuthClient;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
+import com.proyekta.app.project_lafic.helper.BarangStatusAmanHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
 import com.proyekta.app.project_lafic.helper.SubKategoriBarangHelper;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.Foto;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
-import com.proyekta.app.project_lafic.model.Member;
-import com.proyekta.app.project_lafic.util.DownloadUtil;
 import com.proyekta.app.project_lafic.util.ImageUtil;
-import com.proyekta.app.project_lafic.util.StorageUtil;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -54,9 +50,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddItemActivity extends AppCompatActivity {
+public class EditItemActivity extends AppCompatActivity {
 
-    private static final String TAG = "AddItemActivity";
+    private static final String TAG = "EditItemActivity";
     private int SELECT_FILE = 1;
 
     private RelativeLayout rlly_foto;
@@ -78,16 +74,18 @@ public class AddItemActivity extends AppCompatActivity {
     private List<String> listNamaKategoriBarang = new ArrayList<>();
     private List<String> listIdKategoriBarang = new ArrayList<>();
     private List<String> listKetKategoriBarang = new ArrayList<>();
-    private List<Barang> barang;
+    private List<Barang> listBarang;
     private ProgressDialog dialog;
     private String path_gallery = "-1";
-
+    private String barang_id = "";
+    private String member_id = "";
+    private String foto = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_item);
+        setContentView(R.layout.activity_edit_item);
 
-        getSupportActionBar().setTitle("ADD ITEM");
+        getSupportActionBar().setTitle("EDIT ITEM");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initComponents();
@@ -109,7 +107,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         client = ApiClient.createService(ApiInterface.class, Util.getToken(this));
 
-        barang = BarangHelper.getBarang();
+        listBarang = BarangHelper.getBarang();
 
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
@@ -149,6 +147,9 @@ public class AddItemActivity extends AppCompatActivity {
                 openGallery();
             }
         });
+
+        loadDataBarang();
+
     }
 
     private void initComponents(){
@@ -166,6 +167,31 @@ public class AddItemActivity extends AppCompatActivity {
 
         edtx_merk.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         edtx_warna.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    }
+
+    private void loadDataBarang(){
+
+        barang_id = getIntent().getStringExtra("barang_id");
+        member_id = getIntent().getStringExtra("member_id");
+        foto = getIntent().getStringExtra("foto");
+
+        Picasso.with(this)
+                .load(ApiClient.BASE_URL_FOTO + getIntent().getStringExtra("foto"))
+                .error(R.drawable.ic_image)
+                .fit()
+                .into(imgv_barang);
+
+        spinner_id_kategori.setSelection(Integer.parseInt(getIntent().getStringExtra("id_kategori")));
+        spinner_sub_kategori.setSelection(Util.getIndex(spinner_sub_kategori, getIntent().getStringExtra("jenis_barang")));
+        edtx_merk.setText(getIntent().getStringExtra("merk_barang"));
+        edtx_warna.setText(getIntent().getStringExtra("warna_barang"));
+        edtx_tipe.setText(getIntent().getStringExtra("keterangan"));
+    }
+
+    private String getMemberId(){
+        SessionManagement session = new SessionManagement(this);
+        HashMap<String, String> user = session.getUserDetails();
+        return user.get(SessionManagement.KEY_ID_MEMBER);
     }
 
     private void openGallery() {
@@ -211,34 +237,42 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
-    private String getMemberId(){
-        SessionManagement session = new SessionManagement(this);
-        HashMap<String, String> user = session.getUserDetails();
-        return user.get(SessionManagement.KEY_ID_MEMBER);
-    }
-
     private void doSubmit(){
         String id_kategori = idKategoriBarang;
         String jenis = spinner_sub_kategori.getSelectedItem().toString();
         String merk = edtx_merk.getText().toString();
         String warna = edtx_warna.getText().toString();
         String tipe = edtx_tipe.getText().toString();
-        String status = edtx_status.getText().toString();
-
-        Log.d(TAG, "doSubmit: "+id_kategori);
 
         if (!id_kategori.trim().isEmpty() &&
                 !jenis.equals("Pilih Jenis Barang")){
 
-            //Item item = new Item(memberId, id_kategori, nama, status, warna, tipe);
-            submit(memberId, id_kategori, jenis, merk, "AMAN", warna, tipe);
+            Barang item = new Barang();
+            item.setBARANG_ID(barang_id);
+            item.setMEMBER_ID(member_id);
+            item.setID_KATEGORY(id_kategori);
+            item.setMERK_BARANG(merk);
+            item.setJENIS_BARANG(jenis);
+            item.setWARNA_BARANG(warna);
+            item.setKETERANGAN(tipe);
+            item.setSTATUS("AMAN");
+            if (!path_gallery.equals("-1")){
+                uploadFoto(barang_id, path_gallery, item);
+            } else {
+                item.setFOTO(foto);
+                doUpdateBarang(item);
+            }
 
         } else {
-            Toast.makeText(AddItemActivity.this, "please complete your data items", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditItemActivity.this, "please complete your data items", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void uploadFoto(String id, String filePath){
+    private void uploadFoto(String id, String filePath, final Barang item){
+
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading...");
+        dialog.show();
 
         File file = new File(filePath);
         //reduce image size
@@ -253,82 +287,70 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Foto> call, Response<Foto> response) {
                 if (response.isSuccessful()){
-                    loadBarang();
+                    item.setFOTO(response.body().getFOTO_BARANG());
+                    doUpdateBarang(item);
                 } else {
-                    Toast.makeText(AddItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
+                    Toast.makeText(EditItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
                 }
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Foto> call, Throwable t) {
-                Toast.makeText(AddItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
     }
 
-    private void submit(String id, String id_kategori, String jenis, String merk, String status, String warna, String tipe){
+    private void doUpdateBarang(final Barang barang){
+
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading...");
         dialog.show();
 
-        Call<Barang> call = client.doSubmit("", id, id_kategori, jenis, merk, status, warna, tipe, "");
+        Call<Barang> call = client.doUpdateBarang(barang);
         call.enqueue(new Callback<Barang>() {
             @Override
             public void onResponse(Call<Barang> call, Response<Barang> response) {
                 if (response.isSuccessful()){
-                    Barang data = response.body();
-
-                    //downloadQrCode(data.getQRCODE(), data.getBARANG_ID());
-
-                    uploadFoto(data.getBARANG_ID(), path_gallery);
-
+                    loadBarang(getMemberId());
                 } else {
-                    Toast.makeText(AddItemActivity.this, "there is an error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditItemActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<Barang> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t);
-                Toast.makeText(AddItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
-
         });
     }
 
-    private void downloadQrCode(String url, String filename){
-        String path = StorageUtil.getFileDirectoryPath();
-        Log.d(TAG, "PATH: "+path);
+    private void loadBarang(String idMember){
 
-        DownloadUtil.DownloadImage(this, url, path, filename);
-    }
-
-    private void loadBarang(){
-
-        Call<List<Barang>> call = client.getAllBarang(getMemberId());
+        Call<List<Barang>> call = client.getAllBarang(idMember);
         call.enqueue(new Callback<List<Barang>>() {
             @Override
             public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
                 if (response.isSuccessful()){
-                    barang.clear();
-                    List<Barang> listBarang = response.body();
-                    for (Barang data : listBarang){
-                        barang.add(data);
+                    listBarang.clear();
+                    List<Barang> barang = response.body();
+                    for (Barang data : barang){
+                        listBarang.add(data);
                     }
-                    finish();
                 } else {
-                    Toast.makeText(AddItemActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditItemActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
+                finish();
             }
 
             @Override
             public void onFailure(Call<List<Barang>> call, Throwable t) {
-                Toast.makeText(AddItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

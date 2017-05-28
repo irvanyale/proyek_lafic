@@ -21,8 +21,7 @@
             android:name=".activity.BerandaActivity"
             android:label="@string/title_activity_beranda"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activity.RegistrasiActivity" />
+        <activity android:name=".activity.RegistrasiActivity" />
         <activity android:name=".activity.AddItemActivity" />
         <activity android:name=".activity.ScanActivity" />
         <activity android:name=".activity.SplashActivity">
@@ -39,7 +38,8 @@
         <activity android:name=".activity.SearchLostItemsActivity" />
         <activity android:name=".activity.SearchFoundItemsActivity" />
         <activity android:name=".activity.AddFoundItemActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.EditItemActivity"></activity>
     </application>
 
 </manifest>

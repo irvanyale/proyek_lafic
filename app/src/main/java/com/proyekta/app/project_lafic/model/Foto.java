@@ -7,6 +7,7 @@ package com.proyekta.app.project_lafic.model;
 public class Foto {
 
     private String FOTO_MEMBER;
+    private String FOTO;
 
     public String getFOTO() {
         return FOTO_MEMBER;
@@ -14,5 +15,9 @@ public class Foto {
 
     public void setFOTO(String FOTO) {
         this.FOTO_MEMBER = FOTO;
+    }
+
+    public String getFOTO_BARANG() {
+        return FOTO;
     }
 }

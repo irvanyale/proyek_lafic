@@ -28,6 +28,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
     private List<Barang> listBarang;
     private setOnShowQRCodeListener listener = null;
     private setOnShowEditBarangListener listenerEdit = null;
+    private setOnEditBarangListener listenerEditBarang = null;
 
     public ListItemsAdapter(Context context, List<Barang> listBarang) {
         this.context = context;
@@ -47,7 +48,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         TextView txtv_keterangan_barang;
         LinearLayout lnly_qrcode;
         LinearLayout lnly_edit;
-        LinearLayout lnly_delete;
+        LinearLayout lnly_edit_barang;
         LinearLayout lnly_image;
 
         public ViewHolder(View itemView) {
@@ -59,7 +60,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
             txtv_keterangan_barang = (TextView) itemView.findViewById(R.id.txtv_keterangan_barang);
             lnly_qrcode = (LinearLayout) itemView.findViewById(R.id.lnly_qrcode);
             lnly_edit = (LinearLayout) itemView.findViewById(R.id.lnly_edit);
-            lnly_delete = (LinearLayout) itemView.findViewById(R.id.lnly_delete);
+            lnly_edit_barang = (LinearLayout) itemView.findViewById(R.id.lnly_edit_barang);
             lnly_image = (LinearLayout) itemView.findViewById(R.id.lnly_image);
         }
     }
@@ -79,7 +80,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         holder.txtv_warna_barang.setVisibility(barang.getWARNA_BARANG().equals("") ? View.GONE : View.VISIBLE);
         holder.txtv_keterangan_barang.setText(barang.getKETERANGAN());
         holder.imgv_status.setImageDrawable(
-                barang.getSTATUS().equals("SECURE") ?
+                barang.getSTATUS().equals("AMAN") ?
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_aman) :
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_hilang)
         );
@@ -114,6 +115,27 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
             }
         });
 
+        holder.lnly_edit_barang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listenerEditBarang != null){
+
+                    Barang item = new Barang();
+                    item.setBARANG_ID(barang.getBARANG_ID());
+                    item.setMEMBER_ID(barang.getMEMBER_ID());
+                    item.setID_KATEGORY(barang.getID_KATEGORY());
+                    item.setMERK_BARANG(barang.getMERK_BARANG());
+                    item.setJENIS_BARANG(barang.getJENIS_BARANG());
+                    item.setWARNA_BARANG(barang.getWARNA_BARANG());
+                    item.setKETERANGAN(barang.getKETERANGAN());
+                    item.setSTATUS(barang.getSTATUS());
+                    item.setFOTO(barang.getFOTO());
+
+                    listenerEditBarang.OnEditBarangListener(item);
+                }
+            }
+        });
+
         Picasso.with(getContext())
                 .load(ApiClient.BASE_URL_FOTO + barang.getFOTO())
                 .error(R.drawable.ic_image)
@@ -139,11 +161,19 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         this.listenerEdit = listener;
     }
 
+    public void setOnEditBarangListener(setOnEditBarangListener listener){
+        this.listenerEditBarang = listener;
+    }
+
     public interface setOnShowQRCodeListener {
         void OnShowQRCodeListener(String url);
     }
 
     public interface setOnShowEditBarangListener {
         void OnShowEditBarangListener(Barang barang);
+    }
+
+    public interface setOnEditBarangListener {
+        void OnEditBarangListener(Barang barang);
     }
 }
