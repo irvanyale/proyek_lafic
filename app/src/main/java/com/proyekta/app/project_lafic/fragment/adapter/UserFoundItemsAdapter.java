@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.api.ApiClient;
+import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.squareup.picasso.Picasso;
 
@@ -27,6 +28,7 @@ public class UserFoundItemsAdapter extends RecyclerView.Adapter<UserFoundItemsAd
 
     private Context context;
     private List<BarangPenemuan> listBarangPenemuan;
+    private setOnShowEditBarangListener listenerEdit = null;
 
     public UserFoundItemsAdapter(Context context, List<BarangPenemuan> listBarangPenemuan) {
         this.context = context;
@@ -74,13 +76,22 @@ public class UserFoundItemsAdapter extends RecyclerView.Adapter<UserFoundItemsAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        BarangPenemuan item = listBarangPenemuan.get(position);
+        final BarangPenemuan item = listBarangPenemuan.get(position);
         String merk = item.getMERK_BARANG().equals("") ? "" : " - " + item.getMERK_BARANG();
         holder.txtv_nama_barang.setText(item.getJENIS_BARANG() + merk);
         holder.txtv_warna_barang.setText(item.getWARNA_BARANG());
         holder.txtv_warna_barang.setVisibility(item.getWARNA_BARANG().equals("") ? View.GONE : View.VISIBLE);
         holder.txtv_keterangan_barang.setText(item.getKETERANGAN());
         holder.txtv_lokasi_ketemu.setText(item.getLOKASI_KETEMU());
+
+        holder.lnly_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listenerEdit != null){
+                    listenerEdit.OnShowEditBarangListener(item.getBARANG_PENEMUAN_ID());
+                }
+            }
+        });
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -114,5 +125,13 @@ public class UserFoundItemsAdapter extends RecyclerView.Adapter<UserFoundItemsAd
     public void setList(List<BarangPenemuan> listBarangPenemuan){
         this.listBarangPenemuan = listBarangPenemuan;
         notifyDataSetChanged();
+    }
+
+    public void setOnShowEditBarangListener(setOnShowEditBarangListener listener){
+        this.listenerEdit = listener;
+    }
+
+    public interface setOnShowEditBarangListener {
+        void OnShowEditBarangListener(String id);
     }
 }

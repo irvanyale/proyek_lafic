@@ -78,6 +78,9 @@ public interface ApiInterface {
     Call<List<BarangHilang>> getAllBarangHilang();
 
     @GET("barangHilang")
+    Call<List<BarangHilang>> getAllBarangHilangByMember(@Query("MEMBER_ID") String MEMBER_ID);
+
+    @GET("barangHilang")
     Call<List<BarangHilang>> getAllBarangHilangByCategory(@Query("JENIS_BARANG") String JENIS_BARANG);
 
     @GET("barangHilang")
@@ -100,6 +103,10 @@ public interface ApiInterface {
 
     @POST("Penemuan")
     Call<BarangPenemuan> postBarangPenemuan(@Body BarangPenemuan barangPenemuan);
+
+    @FormUrlEncoded
+    @HTTP(method = "DELETE", path = "Penemuan", hasBody = true)
+    Call<SuksesResponse> deleteBarangPenemuan(@Field("BARANG_PENEMUAN_ID") String BARANG_PENEMUAN_ID);
 
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "barangHilang", hasBody = true)

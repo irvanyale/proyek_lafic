@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.SessionManagement;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.fragment.adapter.ListItemsAdapter;
@@ -27,10 +28,14 @@ import com.proyekta.app.project_lafic.fragment.adapter.UserLostItemsAdapter;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.BarangStatusAmanHelper;
 import com.proyekta.app.project_lafic.helper.BarangStatusHilangHelper;
+import com.proyekta.app.project_lafic.helper.UserBarangHilangHelper;
 import com.proyekta.app.project_lafic.model.Barang;
+import com.proyekta.app.project_lafic.model.BarangHilang;
+import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.SuksesResponse;
 import com.proyekta.app.project_lafic.util.Util;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,7 +52,7 @@ public class UserLostItemsFragment extends Fragment {
     private RecyclerView rv_listItem;
     private UserLostItemsAdapter lostItemsAdapter;
     private List<Barang> listBarang;
-    private List<Barang> listBarangHilang;
+    private List<BarangHilang> listBarangHilang;
     private ApiInterface client;
     private ProgressDialog dialog;
 
@@ -65,7 +70,7 @@ public class UserLostItemsFragment extends Fragment {
         client = ApiClient.createService(ApiInterface.class, Util.getToken(getActivity()));
 
         listBarang = BarangHelper.getBarang();
-        listBarangHilang = BarangStatusHilangHelper.getBarangHilang();
+        listBarangHilang = UserBarangHilangHelper.getUserBarangHilang();
 
         lostItemsAdapter = new UserLostItemsAdapter(getActivity(), listBarangHilang);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -79,6 +84,8 @@ public class UserLostItemsFragment extends Fragment {
                 showDialogEditBarang(barang);
             }
         });
+
+        loadDataBarangHilang();
 
         return view;
     }
@@ -133,6 +140,41 @@ public class UserLostItemsFragment extends Fragment {
         dialogEditStatus.show();
     }
 
+    private String getMemberId(){
+        SessionManagement session = new SessionManagement(getActivity());
+        HashMap<String, String> user = session.getUserDetails();
+        return user.get(SessionManagement.KEY_ID_MEMBER);
+    }
+
+    private void loadDataBarangHilang(){
+        final ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("Loading...");
+        dialog.show();
+
+        Call<List<BarangHilang>> call = client.getAllBarangHilangByMember(getMemberId());
+        call.enqueue(new Callback<List<BarangHilang>>() {
+            @Override
+            public void onResponse(Call<List<BarangHilang>> call, Response<List<BarangHilang>> response) {
+                if (response.isSuccessful()){
+                    listBarangHilang.clear();
+                    for (BarangHilang item : response.body()){
+                        listBarangHilang.add(item);
+                    }
+                    lostItemsAdapter.setList(listBarangHilang);
+                } else {
+                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<List<BarangHilang>> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+    }
+
     private void doUpdateBarang(final Barang barang){
 
         dialog = new ProgressDialog(getActivity());
@@ -170,15 +212,10 @@ public class UserLostItemsFragment extends Fragment {
             public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
                 if (response.isSuccessful()){
                     listBarang.clear();
-                    listBarangHilang.clear();
-                    List<Barang> barang = response.body();
-                    for (Barang data : barang){
-                        listBarang.add(data);
-                    }
-                    listBarangHilang = BarangStatusHilangHelper.getBarangHilang();
-                    lostItemsAdapter.setList(listBarangHilang);
+                    loadDataBarangHilang();
                 } else {
                     Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
                 dialog.dismiss();
                 dialogEditStatus.dismiss();

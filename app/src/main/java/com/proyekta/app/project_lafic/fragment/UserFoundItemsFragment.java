@@ -1,15 +1,22 @@
 package com.proyekta.app.project_lafic.fragment;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -22,7 +29,9 @@ import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.fragment.adapter.UserFoundItemsAdapter;
 import com.proyekta.app.project_lafic.helper.BarangPenemuanHelper;
 import com.proyekta.app.project_lafic.helper.UserBarangPenemuanHelper;
+import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
+import com.proyekta.app.project_lafic.model.SuksesResponse;
 import com.proyekta.app.project_lafic.util.Util;
 
 import java.util.HashMap;
@@ -74,6 +83,13 @@ public class UserFoundItemsFragment extends Fragment {
             }
         });
 
+        foundItemsAdapter.setOnShowEditBarangListener(new UserFoundItemsAdapter.setOnShowEditBarangListener() {
+            @Override
+            public void OnShowEditBarangListener(String id) {
+                showDialogDeleteBarangPenemuan(id);
+            }
+        });
+
         loadDataBarangPenemuan();
 
         return view;
@@ -82,6 +98,52 @@ public class UserFoundItemsFragment extends Fragment {
     private void initComponents(View view){
         rv_listItem = (RecyclerView) view.findViewById(R.id.rv_listItem);
         rlly_footer = (RelativeLayout) view.findViewById(R.id.rlly_footer);
+    }
+
+    private String statusBarang = "AMAN";
+    private EditText edtx_lokasi_hilang;
+    private Dialog dialogEditStatus;
+
+    private void showDialogDeleteBarangPenemuan(final String id){
+        dialogEditStatus = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
+        dialogEditStatus.setContentView(R.layout.dialog_edit_barang);
+
+        Window window = dialogEditStatus.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        final Button btn_aman = (Button) dialogEditStatus.findViewById(R.id.btn_aman);
+        final Button btn_hilang = (Button) dialogEditStatus.findViewById(R.id.btn_hilang);
+        Button btn_update = (Button) dialogEditStatus.findViewById(R.id.btn_update);
+        edtx_lokasi_hilang = (EditText) dialogEditStatus.findViewById(R.id.edtx_lokasi_hilang);
+
+        btn_hilang.setVisibility(View.GONE);
+
+        btn_aman.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_aman.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_green));
+                btn_aman.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.white));
+
+                btn_hilang.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.button_grey));
+                btn_hilang.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.black));
+
+                edtx_lokasi_hilang.setVisibility(View.GONE);
+
+                statusBarang = "AMAN";
+            }
+        });
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteBarangPenemuan(id);
+            }
+        });
+
+        dialogEditStatus.setCanceledOnTouchOutside(true);
+        dialogEditStatus.show();
     }
 
     private String getMemberId(){
@@ -116,6 +178,33 @@ public class UserFoundItemsFragment extends Fragment {
             public void onFailure(Call<List<BarangPenemuan>> call, Throwable t) {
                 Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+            }
+        });
+    }
+
+    private void deleteBarangPenemuan(String id){
+        final ProgressDialog dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("Loading...");
+        dialog.show();
+
+        Call<SuksesResponse> call = client.deleteBarangPenemuan(id);
+        call.enqueue(new Callback<SuksesResponse>() {
+            @Override
+            public void onResponse(Call<SuksesResponse> call, Response<SuksesResponse> response) {
+                if (response.isSuccessful()){
+                    loadDataBarangPenemuan();
+                } else {
+                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                }
+                dialog.dismiss();
+                dialogEditStatus.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<SuksesResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                dialogEditStatus.dismiss();
             }
         });
     }
