@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         dialog.show();
 
         Call<Login> call = client.createToken(username, password);
+        Log.d(TAG, "login: "+username+" "+password);
 
         call.enqueue(new Callback<Login>() {
             @Override
@@ -124,6 +125,8 @@ public class LoginActivity extends AppCompatActivity {
                     session.checkLogin();
                 } else {
                     Toast.makeText(LoginActivity.this, "Username atau Password Salah", Toast.LENGTH_SHORT).show();
+                    Log.e("Error Code", String.valueOf(response.code()));
+                    Log.e("Error Body", response.errorBody().toString());
                 }
                 dialog.dismiss();
             }

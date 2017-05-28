@@ -27,6 +27,7 @@ import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.model.Foto;
 import com.proyekta.app.project_lafic.model.Member;
+import com.proyekta.app.project_lafic.util.ImageUtil;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -234,8 +235,10 @@ public class ProfileFragment extends Fragment {
         dialog.show();
 
         File file = new File(filePath);
+        //reduce image size
+        File image = ImageUtil.ImageResizer(file) == null ? file : ImageUtil.ImageResizer(file);
 
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), image);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
         RequestBody id = RequestBody.create(MediaType.parse("text/plain"), idMember);
 

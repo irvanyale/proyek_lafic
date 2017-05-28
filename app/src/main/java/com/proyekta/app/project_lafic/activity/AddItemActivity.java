@@ -37,6 +37,7 @@ import com.proyekta.app.project_lafic.model.Foto;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.DownloadUtil;
+import com.proyekta.app.project_lafic.util.ImageUtil;
 import com.proyekta.app.project_lafic.util.StorageUtil;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
@@ -240,8 +241,10 @@ public class AddItemActivity extends AppCompatActivity {
     private void uploadFoto(String id, String filePath){
 
         File file = new File(filePath);
+        //reduce image size
+        File image = ImageUtil.ImageResizer(file) == null ? file : ImageUtil.ImageResizer(file);
 
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), image);
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
         RequestBody idBarang = RequestBody.create(MediaType.parse("text/plain"), id);
 
