@@ -26,6 +26,7 @@ public class SearchLostItemsAdapter extends RecyclerView.Adapter<SearchLostItems
     private Context context;
     private List<BarangHilang> listBarang;
     private setOnSendMessageListener listener = null;
+    private setOnShowImageListener listenerShow = null;
 
     public Context getContext() {
         return context;
@@ -90,6 +91,15 @@ public class SearchLostItemsAdapter extends RecyclerView.Adapter<SearchLostItems
             }
         });
 
+        holder.imgv_barang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listenerShow != null){
+                    listenerShow.OnShowImageListener(position);
+                }
+            }
+        });
+
         Picasso.with(getContext())
                 .load(ApiClient.BASE_URL_FOTO + item.getFOTO())
                 .error(R.drawable.ic_image)
@@ -111,7 +121,15 @@ public class SearchLostItemsAdapter extends RecyclerView.Adapter<SearchLostItems
         this.listener = listener;
     }
 
+    public void setOnShowImageListener(setOnShowImageListener listener){
+        this.listenerShow = listener;
+    }
+
     public interface setOnSendMessageListener {
         void OnSendMessageListener(Member member);
+    }
+
+    public interface setOnShowImageListener {
+        void OnShowImageListener(int position);
     }
 }

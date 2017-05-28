@@ -1,5 +1,6 @@
 package com.proyekta.app.project_lafic.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,19 +13,24 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.SessionManagement;
 import com.proyekta.app.project_lafic.activity.adapter.SearchLostItemsAdapter;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
+import com.proyekta.app.project_lafic.fragment.adapter.ListLostItemsAdapter;
 import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
 import com.proyekta.app.project_lafic.helper.PencarianBarangHilangHelper;
@@ -35,6 +41,7 @@ import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,6 +105,13 @@ public class SearchLostItemsActivity extends AppCompatActivity {
             @Override
             public void OnSendMessageListener(Member member) {
                 showDialogSendMessage(member);
+            }
+        });
+
+        searchLostItemsAdapter.setOnShowImageListener(new SearchLostItemsAdapter.setOnShowImageListener() {
+            @Override
+            public void OnShowImageListener(int position) {
+                showDialogImageZoom(position);
             }
         });
 
@@ -185,6 +199,27 @@ public class SearchLostItemsActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item, listSubKategori);
         spinner_sub_kategori.setAdapter(adapter);
     }
+
+    private void showDialogImageZoom(int position){
+        Dialog dialog = new Dialog(this, R.style.Theme_Dialog_Fullscreen_Margin);
+        dialog.setContentView(R.layout.dialog_image_zoom);
+
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        PhotoView image = (PhotoView) dialog.findViewById(R.id.image);
+        Picasso.with(this)
+                .load(ApiClient.BASE_URL_FOTO + listPencarianBarangHilang.get(position).getFOTO())
+                .fit()
+                .into(image);
+
+        dialog.show();
+    }
+
 
     private void loadDataPencarianBarangHilangByCategory(String kategori){
 

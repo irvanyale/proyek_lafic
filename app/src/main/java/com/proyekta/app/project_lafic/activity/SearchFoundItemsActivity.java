@@ -1,5 +1,6 @@
 package com.proyekta.app.project_lafic.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,14 +13,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.activity.adapter.SearchFoundItemsAdapter;
 import com.proyekta.app.project_lafic.activity.adapter.SearchLostItemsAdapter;
@@ -33,6 +38,7 @@ import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,6 +106,13 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
             }
         });
 
+        searchFoundItemsAdapter.setOnShowImageListener(new SearchFoundItemsAdapter.setOnShowImageListener() {
+            @Override
+            public void OnShowImageListener(int position) {
+                showDialogImageZoom(position);
+            }
+        });
+
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -150,6 +163,26 @@ public class SearchFoundItemsActivity extends AppCompatActivity {
         divide_spinner = findViewById(R.id.divide_spinner);
         rv_listItem = (RecyclerView) findViewById(R.id.rv_listItem);
         refresh = (SwipeRefreshLayout) findViewById(R.id.refresh);
+    }
+
+    private void showDialogImageZoom(int position){
+        Dialog dialog = new Dialog(this, R.style.Theme_Dialog_Fullscreen_Margin);
+        dialog.setContentView(R.layout.dialog_image_zoom);
+
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        PhotoView image = (PhotoView) dialog.findViewById(R.id.image);
+        Picasso.with(this)
+                .load(ApiClient.BASE_URL_FOTO + listPencarianBarangPenemuan.get(position).getFOTO_PENEMUAN())
+                .fit()
+                .into(image);
+
+        dialog.show();
     }
 
     private void refreshData(){

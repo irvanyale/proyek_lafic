@@ -29,6 +29,7 @@ public class ListLostItemsAdapter extends RecyclerView.Adapter<ListLostItemsAdap
     private Context context;
     private List<BarangHilang> listBarang;
     private setOnSendMessageListener listener = null;
+    private setOnShowImageListener listenerShow = null;
 
     public Context getContext() {
         return context;
@@ -97,6 +98,15 @@ public class ListLostItemsAdapter extends RecyclerView.Adapter<ListLostItemsAdap
             }
         });
 
+        holder.imgv_barang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listenerShow != null){
+                    listenerShow.OnShowImageListener(position);
+                }
+            }
+        });
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
@@ -130,7 +140,15 @@ public class ListLostItemsAdapter extends RecyclerView.Adapter<ListLostItemsAdap
         this.listener = listener;
     }
 
+    public void setOnShowImageListener(setOnShowImageListener listener){
+        this.listenerShow = listener;
+    }
+
     public interface setOnSendMessageListener {
         void OnSendMessageListener(Member member);
+    }
+
+    public interface setOnShowImageListener {
+        void OnShowImageListener(int position);
     }
 }

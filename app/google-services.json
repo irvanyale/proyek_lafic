@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "972079450043",
+    "firebase_url": "https://lafic-294c7.firebaseio.com",
+    "project_id": "lafic-294c7",
+    "storage_bucket": "lafic-294c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972079450043:android:c801896eed9e91f3",
+        "android_client_info": {
+          "package_name": "com.proyekta.app.project_lafic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972079450043-n36mks9i96oithrfql52jqopkoa9g25t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.proyekta.app.project_lafic",
+            "certificate_hash": "9042565e4c0c494a6e663a6d85913b1e01082305"
+          }
+        },
+        {
+          "client_id": "972079450043-mnc36bt8etgd6o7s5toh0ccdo31g2vdk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzhTDG68iGHec9qrLv0OIaEFfrsyJ7LWM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972079450043-mnc36bt8etgd6o7s5toh0ccdo31g2vdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

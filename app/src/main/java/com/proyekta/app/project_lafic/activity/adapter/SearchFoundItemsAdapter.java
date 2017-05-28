@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.api.ApiClient;
+import com.proyekta.app.project_lafic.fragment.adapter.ListFoundItemsAdapter;
 import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.Member;
@@ -26,6 +27,7 @@ public class SearchFoundItemsAdapter extends RecyclerView.Adapter<SearchFoundIte
     private Context context;
     private List<BarangPenemuan> listBarang;
     private setOnSendMessageListener listener = null;
+    private setOnShowImageListener listenerShow = null;
 
     public SearchFoundItemsAdapter(Context context, List<BarangPenemuan> listBarang) {
         this.context = context;
@@ -90,6 +92,15 @@ public class SearchFoundItemsAdapter extends RecyclerView.Adapter<SearchFoundIte
             }
         });
 
+        holder.imgv_barang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listenerShow != null){
+                    listenerShow.OnShowImageListener(position);
+                }
+            }
+        });
+
         Picasso.with(getContext())
                 .load(ApiClient.BASE_URL_FOTO + item.getFOTO_PENEMUAN())
                 .error(R.drawable.ic_image)
@@ -111,8 +122,16 @@ public class SearchFoundItemsAdapter extends RecyclerView.Adapter<SearchFoundIte
         this.listener = listener;
     }
 
+    public void setOnShowImageListener(setOnShowImageListener listener){
+        this.listenerShow = listener;
+    }
+
     public interface setOnSendMessageListener {
         void OnSendMessageListener(Member member);
+    }
+
+    public interface setOnShowImageListener {
+        void OnShowImageListener(int position);
     }
 
 }

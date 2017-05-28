@@ -1,6 +1,7 @@
 package com.proyekta.app.project_lafic.fragment;
 
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +11,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.activity.SendMessageActivity;
 import com.proyekta.app.project_lafic.api.ApiClient;
@@ -25,6 +30,7 @@ import com.proyekta.app.project_lafic.helper.BarangPenemuanHelper;
 import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -82,6 +88,13 @@ public class TabFragmentFoundItem extends Fragment {
             }
         });
 
+        listFoundItemsAdapter.setOnShowImageListener(new ListFoundItemsAdapter.setOnShowImageListener() {
+            @Override
+            public void OnShowImageListener(int position) {
+                showDialogImageZoom(position);
+            }
+        });
+
         loadBarangPenemuan();
 
         return view;
@@ -122,6 +135,26 @@ public class TabFragmentFoundItem extends Fragment {
         alertDialog = alertDialogBuilder.create();
 
         alertDialog.show();
+    }
+
+    private void showDialogImageZoom(int position){
+        Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
+        dialog.setContentView(R.layout.dialog_image_zoom);
+
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        PhotoView image = (PhotoView) dialog.findViewById(R.id.image);
+        Picasso.with(getActivity())
+                .load(ApiClient.BASE_URL_FOTO + listBarangPenemuan.get(position).getFOTO_PENEMUAN())
+                .fit()
+                .into(image);
+
+        dialog.show();
     }
 
     private void refreshData(){

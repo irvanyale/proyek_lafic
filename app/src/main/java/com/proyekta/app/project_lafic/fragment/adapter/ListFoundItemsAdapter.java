@@ -29,6 +29,7 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
     private Context context;
     private List<BarangPenemuan> listBarang;
     private setOnSendMessageListener listener = null;
+    private setOnShowImageListener listenerShow = null;
 
     public ListFoundItemsAdapter(Context context, List<BarangPenemuan> listBarang) {
         this.context = context;
@@ -97,6 +98,15 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
             }
         });
 
+        holder.imgv_barang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listenerShow != null){
+                    listenerShow.OnShowImageListener(position);
+                }
+            }
+        });
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         SimpleDateFormat sdf_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = null;
@@ -135,7 +145,15 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
         this.listener = listener;
     }
 
+    public void setOnShowImageListener(setOnShowImageListener listener){
+        this.listenerShow = listener;
+    }
+
     public interface setOnSendMessageListener {
         void OnSendMessageListener(Member member);
+    }
+
+    public interface setOnShowImageListener {
+        void OnShowImageListener(int position);
     }
 }

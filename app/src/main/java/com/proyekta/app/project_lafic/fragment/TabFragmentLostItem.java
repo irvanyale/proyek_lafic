@@ -1,6 +1,7 @@
 package com.proyekta.app.project_lafic.fragment;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,11 +13,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.activity.BerandaActivity;
 import com.proyekta.app.project_lafic.activity.ScanActivity;
@@ -28,6 +33,7 @@ import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
 import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.Util;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -83,6 +89,13 @@ public class TabFragmentLostItem extends Fragment {
             }
         });
 
+        listLostItemsAdapter.setOnShowImageListener(new ListLostItemsAdapter.setOnShowImageListener() {
+            @Override
+            public void OnShowImageListener(int position) {
+                showDialogImageZoom(position);
+            }
+        });
+
         loadBarangHilang();
 
         return view;
@@ -132,6 +145,26 @@ public class TabFragmentLostItem extends Fragment {
                 loadBarangHilang();
             }
         });
+    }
+
+    private void showDialogImageZoom(int position){
+        Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
+        dialog.setContentView(R.layout.dialog_image_zoom);
+
+        Window window = dialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        window.setAttributes(wlp);
+
+        dialog.setCanceledOnTouchOutside(true);
+
+        PhotoView image = (PhotoView) dialog.findViewById(R.id.image);
+        Picasso.with(getActivity())
+                .load(ApiClient.BASE_URL_FOTO + listBarangHilang.get(position).getFOTO())
+                .fit()
+                .into(image);
+
+        dialog.show();
     }
 
     private void loadBarangHilang(){
