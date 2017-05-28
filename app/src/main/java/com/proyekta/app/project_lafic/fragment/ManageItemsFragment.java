@@ -1,8 +1,12 @@
 package com.proyekta.app.project_lafic.fragment;
 
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +14,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,10 +23,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
@@ -39,6 +49,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -166,7 +177,11 @@ public class ManageItemsFragment extends Fragment {
 
     private String statusBarang = "AMAN";
     private EditText edtx_lokasi_hilang;
+    private TextView edtx_tanggal_hilang;
+    private TextView edtx_waktu_hilang;
     private Dialog dialogEditStatus;
+    private DatePickerDialog DatePickerDialog;
+    private TimePickerDialog timePickerDialog;
 
     private void showDialogEditBarang(final Barang barang){
         dialogEditStatus = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
@@ -181,6 +196,11 @@ public class ManageItemsFragment extends Fragment {
         final Button btn_hilang = (Button) dialogEditStatus.findViewById(R.id.btn_hilang);
         Button btn_update = (Button) dialogEditStatus.findViewById(R.id.btn_update);
         edtx_lokasi_hilang = (EditText) dialogEditStatus.findViewById(R.id.edtx_lokasi_hilang);
+        edtx_tanggal_hilang = (TextView) dialogEditStatus.findViewById(R.id.edtx_tanggal_hilang);
+        edtx_waktu_hilang = (TextView) dialogEditStatus.findViewById(R.id.edtx_waktu_hilang);
+
+        edtx_tanggal_hilang.setInputType(InputType.TYPE_NULL);
+        edtx_waktu_hilang.setInputType(InputType.TYPE_NULL);
 
         btn_aman.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +212,8 @@ public class ManageItemsFragment extends Fragment {
                 btn_hilang.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.black));
 
                 edtx_lokasi_hilang.setVisibility(View.GONE);
+                edtx_tanggal_hilang.setVisibility(View.GONE);
+                edtx_waktu_hilang.setVisibility(View.GONE);
 
                 statusBarang = "AMAN";
             }
@@ -207,8 +229,24 @@ public class ManageItemsFragment extends Fragment {
                 btn_aman.setTextColor(ContextCompat.getColor(getActivity(), android.R.color.black));
 
                 edtx_lokasi_hilang.setVisibility(View.VISIBLE);
+                edtx_tanggal_hilang.setVisibility(View.VISIBLE);
+                edtx_waktu_hilang.setVisibility(View.VISIBLE);
 
                 statusBarang = "HILANG";
+            }
+        });
+
+        edtx_tanggal_hilang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.show();
+            }
+        });
+
+        edtx_waktu_hilang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timePickerDialog.show();
             }
         });
 
@@ -219,8 +257,38 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
+        showDatePicker();
+        showTimePicker();
+
         dialogEditStatus.setCanceledOnTouchOutside(true);
         dialogEditStatus.show();
+    }
+
+    private void showDatePicker(){
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar newCalendar = Calendar.getInstance();
+        DatePickerDialog = new DatePickerDialog(getActivity(), new OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, month, dayOfMonth);
+                edtx_tanggal_hilang.setText(sdf.format(newDate.getTime()));
+            }
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    }
+
+    private void showTimePicker(){
+
+        Calendar calendar = Calendar.getInstance();
+
+        timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                edtx_waktu_hilang.setText(hourOfDay+":"+minute+":00");
+            }
+        }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), DateFormat.is24HourFormat(getActivity()));
     }
 
     private void doUpdateBarang(final Barang barang){
@@ -254,12 +322,12 @@ public class ManageItemsFragment extends Fragment {
 
     private void doPostBarangHilang(final Barang barang){
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        String currentDateandTime = sdf.format(new Date());
+        String datelost = edtx_tanggal_hilang.getText().toString();
+        String timelost = edtx_waktu_hilang.getText().toString();
 
         BarangHilang barangHilang = new BarangHilang();
         barangHilang.setBARANG_ID(barang.getBARANG_ID());
-        barangHilang.setTANGGAL_HILANG(currentDateandTime);
+        barangHilang.setTANGGAL_HILANG(datelost+" "+timelost);
         //barangHilang.setTANGGAL_KETEMU("-");
         barangHilang.setLOKASI_HILANG(edtx_lokasi_hilang.getText().toString());
 
@@ -297,6 +365,7 @@ public class ManageItemsFragment extends Fragment {
                     List<Barang> barang = response.body();
                     for (Barang data : barang){
                         listBarang.add(data);
+                        listBarangAman.add(data);
                     }
                     listBarangAman = BarangStatusAmanHelper.getBarangAman();
                     listItemsAdapter.setList(listBarangAman);

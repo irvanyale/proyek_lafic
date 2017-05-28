@@ -109,6 +109,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
                     item.setWARNA_BARANG(barang.getWARNA_BARANG());
                     item.setKETERANGAN(barang.getKETERANGAN());
                     item.setSTATUS(barang.getSTATUS());
+                    item.setFOTO(barang.getFOTO());
 
                     listenerEdit.OnShowEditBarangListener(item);
                 }

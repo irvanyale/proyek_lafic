@@ -212,6 +212,10 @@ public class UserLostItemsFragment extends Fragment {
             public void onResponse(Call<List<Barang>> call, Response<List<Barang>> response) {
                 if (response.isSuccessful()){
                     listBarang.clear();
+                    List<Barang> barang = response.body();
+                    for (Barang data : barang){
+                        listBarang.add(data);
+                    }
                     loadDataBarangHilang();
                 } else {
                     Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();

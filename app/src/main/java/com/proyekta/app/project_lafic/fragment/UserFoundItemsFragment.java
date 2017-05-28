@@ -1,14 +1,18 @@
 package com.proyekta.app.project_lafic.fragment;
 
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,8 +20,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
@@ -34,6 +41,8 @@ import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.SuksesResponse;
 import com.proyekta.app.project_lafic.util.Util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -102,6 +111,7 @@ public class UserFoundItemsFragment extends Fragment {
 
     private String statusBarang = "AMAN";
     private EditText edtx_lokasi_hilang;
+
     private Dialog dialogEditStatus;
 
     private void showDialogDeleteBarangPenemuan(final String id){
