@@ -10,32 +10,36 @@
         android:padding="5dp">
 
         <LinearLayout
-            android:id="@+id/lnly_image"
-            android:layout_width="70dp"
-            android:layout_height="110dp"
-            android:background="@drawable/background_stroke"
-            android:gravity="center">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgv_user"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/ic_profile_circle_grey"/>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/lnly_pesan"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="wrap_content"
+            android:minHeight="110dp"
             android:background="@drawable/background_stroke"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="3"
+            android:gravity="center">
+
+            <LinearLayout
+                android:id="@+id/lnly_image"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/background_stroke"
+                android:gravity="center"
+                android:layout_weight="0.6">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgv_user"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/ic_profile_circle_grey"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.6"
+                android:layout_weight="1.4"
                 android:orientation="vertical">
 
                 <TextView
@@ -57,6 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
                     android:text="HP ASUS"
                     android:textColor="@color/colorDarkGrey"
                     android:textSize="12sp" />
@@ -66,7 +71,7 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.4">
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:id="@+id/lnly_time"

@@ -16,6 +16,7 @@ public class Pesan {
     private String EMAIL_MEMBER;
     private String TELEPON;
     private String NOMOR_ID;
+    private String FOTO_MEMBER;
 
     public String getMEMBER_ID() {
         return MEMBER_ID;
@@ -103,5 +104,13 @@ public class Pesan {
 
     public void setNOMOR_ID(String NOMOR_ID) {
         this.NOMOR_ID = NOMOR_ID;
+    }
+
+    public String getFOTO_MEMBER() {
+        return FOTO_MEMBER;
+    }
+
+    public void setFOTO_MEMBER(String FOTO_MEMBER) {
+        this.FOTO_MEMBER = FOTO_MEMBER;
     }
 }

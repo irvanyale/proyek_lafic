@@ -10,8 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.model.Pesan;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -102,6 +104,12 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
                 }
             }
         });
+
+        Picasso.with(getContext())
+                .load(ApiClient.BASE_URL_FOTO + pesan.getFOTO_MEMBER())
+                .error(R.drawable.ic_image)
+                .fit()
+                .into(holder.imgv_user);
     }
 
     @Override

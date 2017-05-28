@@ -201,6 +201,7 @@ public class ManageItemsFragment extends Fragment {
 
         edtx_tanggal_hilang.setInputType(InputType.TYPE_NULL);
         edtx_waktu_hilang.setInputType(InputType.TYPE_NULL);
+        btn_aman.setVisibility(View.GONE);
 
         btn_aman.setOnClickListener(new View.OnClickListener() {
             @Override
