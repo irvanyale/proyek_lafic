@@ -2,6 +2,7 @@ package com.proyekta.app.project_lafic.fragment.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.proyekta.app.project_lafic.model.BarangPenemuan;
 import com.proyekta.app.project_lafic.model.Member;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +47,8 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
         private TextView txtv_warna_barang;
         private TextView txtv_keterangan_barang;
         private TextView txtv_lokasi_ketemu;
+        private TextView txtv_tgl;
+        private TextView txtv_waktu;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -54,6 +59,8 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
             txtv_warna_barang = (TextView) itemView.findViewById(R.id.txtv_warna_barang);
             txtv_keterangan_barang = (TextView) itemView.findViewById(R.id.txtv_keterangan_barang);
             txtv_lokasi_ketemu = (TextView) itemView.findViewById(R.id.txtv_lokasi_ketemu);
+            txtv_tgl = (TextView) itemView.findViewById(R.id.txtv_tgl);
+            txtv_waktu = (TextView) itemView.findViewById(R.id.txtv_waktu);
         }
     }
 
@@ -89,6 +96,23 @@ public class ListFoundItemsAdapter extends RecyclerView.Adapter<ListFoundItemsAd
                 }
             }
         });
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat sdf_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        try {
+            date = sdf.parse(item.getTANGGAL_KETEMU());
+        } catch (Exception e) {
+            Log.e("TAG", Log.getStackTraceString(e));
+        }
+        sdf = new SimpleDateFormat("EEE, d MMM yyyy");
+        sdf_time = new SimpleDateFormat("HH:mm");
+
+        String sdate = sdf.format(date);
+        String stime = sdf_time.format(date);
+
+        holder.txtv_tgl.setText(sdate);
+        holder.txtv_waktu.setText(stime);
 
         Picasso.with(getContext())
                 .load(ApiClient.BASE_URL_FOTO + item.getFOTO_PENEMUAN())
