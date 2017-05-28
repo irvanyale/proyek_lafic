@@ -169,14 +169,14 @@ public class UserFoundItemsFragment extends Fragment {
                     }
                     foundItemsAdapter.setList(barangPenemuan);
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<BarangPenemuan>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

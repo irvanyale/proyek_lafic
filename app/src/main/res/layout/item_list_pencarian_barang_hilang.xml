@@ -82,7 +82,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="Lokasi Hilang : "
+                    android:text="Location Lost : "
                     android:textColor="@color/colorDarkGrey"
                     android:textSize="13sp" />
 

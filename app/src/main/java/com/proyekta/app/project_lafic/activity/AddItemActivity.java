@@ -195,7 +195,7 @@ public class AddItemActivity extends AppCompatActivity {
                 edtx_merk.setVisibility(View.VISIBLE);
                 edtx_warna.setVisibility(View.VISIBLE);
                 edtx_tipe.setVisibility(View.VISIBLE);
-                edtx_tipe.setHint("Keterangan(No. Seri / IMEI)");
+                edtx_tipe.setHint("Information (No. Seri / IMEI)");
                 break;
             case "2":
                 edtx_merk.setVisibility(View.GONE);
@@ -228,13 +228,13 @@ public class AddItemActivity extends AppCompatActivity {
         Log.d(TAG, "doSubmit: "+id_kategori);
 
         if (!id_kategori.trim().isEmpty() &&
-                !jenis.equals("Pilih Jenis Barang")){
+                !jenis.equals("Choose kind items")){
 
             //Item item = new Item(memberId, id_kategori, nama, status, warna, tipe);
-            submit(memberId, id_kategori, jenis, merk, "AMAN", warna, tipe);
+            submit(memberId, id_kategori, jenis, merk, "SECURE", warna, tipe);
 
         } else {
-            Toast.makeText(AddItemActivity.this, "Silahkan lengkapi data barang Anda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddItemActivity.this, "please complete your data items", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -285,7 +285,7 @@ public class AddItemActivity extends AppCompatActivity {
                     uploadFoto(data.getBARANG_ID(), path_gallery);
 
                 } else {
-                    Toast.makeText(AddItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddItemActivity.this, "there is an error", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             }
@@ -293,7 +293,7 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Barang> call, Throwable t) {
                 Log.d(TAG, "onFailure: "+t);
-                Toast.makeText(AddItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
 
@@ -321,14 +321,14 @@ public class AddItemActivity extends AppCompatActivity {
                     }
                     finish();
                 } else {
-                    Toast.makeText(AddItemActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddItemActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Barang>> call, Throwable t) {
-                Toast.makeText(AddItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

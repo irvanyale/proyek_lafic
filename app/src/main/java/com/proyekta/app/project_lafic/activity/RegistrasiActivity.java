@@ -83,10 +83,10 @@ public class RegistrasiActivity extends AppCompatActivity {
                 //Member member = new Member(name, password, email, telp, "", id);
                 register(name, password, email, telp, "", id);
             } else {
-                Toast.makeText(RegistrasiActivity.this, "Password tidak sama", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrasiActivity.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(RegistrasiActivity.this, "Silahkan lengkapi data diri Anda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegistrasiActivity.this, "please complete your data", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -104,14 +104,14 @@ public class RegistrasiActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     showDialog();
                 } else {
-                    Toast.makeText(RegistrasiActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrasiActivity.this, "There is an error", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<Member> call, Throwable t) {
-                Toast.makeText(RegistrasiActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegistrasiActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
 

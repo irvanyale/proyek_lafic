@@ -98,7 +98,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="Lokasi Ketemu : "
+                        android:text="Location Found : "
                         android:textColor="@color/colorDarkGrey"
                         android:textSize="13sp"
                         android:layout_alignParentLeft="true"/>

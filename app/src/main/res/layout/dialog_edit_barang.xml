@@ -12,7 +12,7 @@
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginBottom="10dp"
-        android:text="AMAN"
+        android:text="SECURE"
         android:textSize="14sp"
         android:textColor="@android:color/black"
         android:background="@drawable/button_grey"/>
@@ -22,7 +22,7 @@
         android:layout_width="150dp"
         android:layout_height="40dp"
         android:layout_marginBottom="20dp"
-        android:text="HILANG"
+        android:text="LOST"
         android:textSize="14sp"
         android:textColor="@android:color/black"
         android:background="@drawable/button_grey"/>
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="150dp"
-        android:hint="Lokasi Hilang"
+        android:hint="LOCATION LOST"
         android:textColor="@android:color/black"
         android:visibility="gone"/>
 

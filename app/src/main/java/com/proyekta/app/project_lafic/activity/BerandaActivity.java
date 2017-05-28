@@ -165,14 +165,14 @@ public class BerandaActivity extends AppCompatActivity
                     }
                     loadKategoriBarang();
                 } else {
-                    Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BerandaActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<Barang>> call, Throwable t) {
-                Toast.makeText(BerandaActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BerandaActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -191,14 +191,14 @@ public class BerandaActivity extends AppCompatActivity
                     }
                     loadBarangHilang();
                 } else {
-                    Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BerandaActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<List<KategoriBarang>> call, Throwable t) {
-                Toast.makeText(BerandaActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BerandaActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -217,14 +217,14 @@ public class BerandaActivity extends AppCompatActivity
                     }
                     replaceFragment(new HomeFragment());
                 } else {
-                    Toast.makeText(BerandaActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BerandaActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<BarangHilang>> call, Throwable t) {
-                Toast.makeText(BerandaActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BerandaActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

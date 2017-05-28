@@ -89,7 +89,7 @@ public class MessagesFragment extends Fragment {
     private void showDialogSendMessage(final Member member){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
 
-        alertDialogBuilder.setTitle("Apakah Anda ingin membalas pesan ke "+member.getNAMA_MEMBER()+"?");
+        alertDialogBuilder.setTitle("would you like to send message to "+member.getNAMA_MEMBER()+"?");
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -101,7 +101,7 @@ public class MessagesFragment extends Fragment {
                         intent.putExtra("telp", member.getTELEPON());
                         intent.putExtra("email", member.getEMAIL_MEMBER());
                         intent.putExtra("no_id", member.getNOMOR_ID());
-                        intent.putExtra("jenis_pesan", "PERMINTAAN BARANG");
+                        intent.putExtra("jenis_pesan", "DEMAND ITEM");
                         startActivity(intent);
                         alertDialog.dismiss();
                     }
@@ -134,14 +134,14 @@ public class MessagesFragment extends Fragment {
                     }
                     messagesAdapter.setList(listPesan);
                 } else {
-                    Toast.makeText(getActivity(), "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Pesan>> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

@@ -73,7 +73,7 @@ public class SearchLostItemsActivity extends AppCompatActivity {
         initComponents();
 
         listKategoriBarang = KategoriBarangHelper.getKategoriBarang();
-        kategoriBarang.add("-1~Pilih Kategori~-");
+        kategoriBarang.add("-1~Choose The Category~-");
         for (KategoriBarang data : listKategoriBarang){
             kategoriBarang.add(data.getID_KATEGORY() + "~" + data.getJENIS() + "~" + data.getKETERANGAN());
         }
@@ -208,7 +208,7 @@ public class SearchLostItemsActivity extends AppCompatActivity {
                     }
                     searchLostItemsAdapter.setList(listPencarianBarangHilang);
                 } else {
-                    Toast.makeText(SearchLostItemsActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchLostItemsActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
 
                 if (refresh != null){
@@ -218,7 +218,7 @@ public class SearchLostItemsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BarangHilang>> call, Throwable t) {
-                Toast.makeText(SearchLostItemsActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchLostItemsActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
 
                 if (refresh != null){
                     refresh.setRefreshing(false);
@@ -249,7 +249,7 @@ public class SearchLostItemsActivity extends AppCompatActivity {
                     }
                     searchLostItemsAdapter.setList(listPencarianBarangHilang);
                 } else {
-                    Toast.makeText(SearchLostItemsActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchLostItemsActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
 
                 if (refresh != null){
@@ -259,7 +259,7 @@ public class SearchLostItemsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<BarangHilang>> call, Throwable t) {
-                Toast.makeText(SearchLostItemsActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SearchLostItemsActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
 
                 if (refresh != null){
                     refresh.setRefreshing(false);
@@ -271,7 +271,7 @@ public class SearchLostItemsActivity extends AppCompatActivity {
     private void showDialogSendMessage(final Member member){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SearchLostItemsActivity.this);
 
-        alertDialogBuilder.setTitle("Apakah Anda ingin mengirim pesan ke "+member.getNAMA_MEMBER()+"?");
+        alertDialogBuilder.setTitle("would you like to send message to "+member.getNAMA_MEMBER()+"?");
 
         alertDialogBuilder.setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -283,7 +283,7 @@ public class SearchLostItemsActivity extends AppCompatActivity {
                         intent.putExtra("telp", member.getTELEPON());
                         intent.putExtra("email", member.getEMAIL_MEMBER());
                         intent.putExtra("no_id", member.getNOMOR_ID());
-                        intent.putExtra("jenis_pesan", "PENEMUAN BARANG");
+                        intent.putExtra("jenis_pesan", "FOUND ITEM");
                         startActivity(intent);
                         alertDialog.dismiss();
                     }

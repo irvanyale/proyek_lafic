@@ -79,7 +79,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
         holder.txtv_warna_barang.setVisibility(barang.getWARNA_BARANG().equals("") ? View.GONE : View.VISIBLE);
         holder.txtv_keterangan_barang.setText(barang.getKETERANGAN());
         holder.imgv_status.setImageDrawable(
-                barang.getSTATUS().equals("AMAN") ?
+                barang.getSTATUS().equals("SECURE") ?
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_aman) :
                         ContextCompat.getDrawable(getContext(), R.drawable.ic_status_hilang)
         );

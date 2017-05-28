@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         if (!username.isEmpty() && !password.isEmpty()){
             login(username, password);
         } else {
-            Toast.makeText(LoginActivity.this, "Username dan Password tidak boleh kosong", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Username and Password can't be empety", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

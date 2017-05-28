@@ -279,7 +279,7 @@ public class ProfileFragment extends Fragment {
                     btn_submit.setVisibility(View.GONE);
                     btn_edit_submit.setVisibility(View.VISIBLE);
                 } else {
-                    Toast.makeText(getActivity(), "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "There is an error", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
                 dialog.dismiss();
@@ -287,7 +287,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Member> call, Throwable t) {
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });

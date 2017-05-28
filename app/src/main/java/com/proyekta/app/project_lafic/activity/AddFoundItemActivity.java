@@ -196,7 +196,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
                 edtx_merk.setVisibility(View.VISIBLE);
                 edtx_warna.setVisibility(View.VISIBLE);
                 edtx_tipe.setVisibility(View.VISIBLE);
-                edtx_tipe.setHint("Keterangan(No. Seri / IMEI)");
+                edtx_tipe.setHint("Information(No. Seri / IMEI)");
                 break;
             case "2":
                 edtx_merk.setVisibility(View.GONE);
@@ -219,7 +219,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
         String tipe = edtx_tipe.getText().toString();
         String lokasi = edtx_lokasi.getText().toString();
 
-        if (!jenis.equals("Pilih Jenis Barang")){
+        if (!jenis.equals("Choose kind items")){
 
             BarangPenemuan barangPenemuan = new BarangPenemuan();
             barangPenemuan.setMEMBER_ID(memberId);
@@ -233,7 +233,7 @@ public class AddFoundItemActivity extends AppCompatActivity {
             submit(barangPenemuan);
 
         } else {
-            Toast.makeText(AddFoundItemActivity.this, "Silahkan lengkapi data barang Anda", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddFoundItemActivity.this, "please complete your data", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -280,14 +280,14 @@ public class AddFoundItemActivity extends AppCompatActivity {
                     Log.d(TAG, "onResponsePenemuan: "+response.body().getBARANG_PENEMUAN_ID());
                     uploadFoto(response.body().getBARANG_PENEMUAN_ID(), path_gallery);
                 } else {
-                    Toast.makeText(AddFoundItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFoundItemActivity.this, "there is an error", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<BarangPenemuan> call, Throwable t) {
-                Toast.makeText(AddFoundItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddFoundItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
@@ -307,14 +307,14 @@ public class AddFoundItemActivity extends AppCompatActivity {
                     }
                     finish();
                 } else {
-                    Toast.makeText(AddFoundItemActivity.this, "Data gagal dimuat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFoundItemActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<BarangPenemuan>> call, Throwable t) {
-                Toast.makeText(AddFoundItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddFoundItemActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
