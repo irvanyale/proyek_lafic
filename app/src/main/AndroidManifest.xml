@@ -39,7 +39,8 @@
         <activity android:name=".activity.SearchFoundItemsActivity" />
         <activity android:name=".activity.AddFoundItemActivity" />
         <activity android:name=".activity.SearchActivity" />
-        <activity android:name=".activity.EditItemActivity"></activity>
+        <activity android:name=".activity.EditItemActivity" />
+        <activity android:name=".activity.WelcomeScreenActivity"></activity>
     </application>
 
 </manifest>

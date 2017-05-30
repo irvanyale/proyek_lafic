@@ -51,7 +51,7 @@ public class FirstActivity extends AppCompatActivity {
         startActivity(i);
     }
     public void register(){
-        Intent i = new Intent(this.getApplicationContext(), RegistrasiActivity.class);
+        Intent i = new Intent(this.getApplicationContext(), WelcomeScreenActivity.class);
         startActivity(i);
     }
 
