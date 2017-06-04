@@ -247,6 +247,7 @@ public class BerandaActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialogInterface, int i) {
                         session = new SessionManagement(BerandaActivity.this);
                         session.logoutUser();
+                        finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
