@@ -121,18 +121,4 @@
         android:layout_below="@+id/chboxlogin"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/btn_sign"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:background="#FF9800"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android:onClick="btn_onClick"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/chboxlogin"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
-
 </RelativeLayout>

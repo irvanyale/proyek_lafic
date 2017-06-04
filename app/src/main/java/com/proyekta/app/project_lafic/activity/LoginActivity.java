@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
 
     private Button btn_login;
-    private Button btn_sign;
     private CheckBox chbox_login;
     private EditText edtxt_username;
     private EditText edtxt_password;
@@ -63,8 +62,13 @@ public class LoginActivity extends AppCompatActivity {
 
         initComponents();
 
-        btn_login.setOnClickListener(_handlerClick);
-        btn_sign.setOnClickListener(_handlerClick);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyboard(v);
+                doLogin();
+            }
+        });
 
         chbox_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -79,7 +83,6 @@ public class LoginActivity extends AppCompatActivity {
         edtxt_username = (EditText) findViewById(R.id.edtxt_username);
         edtxt_password = (EditText) findViewById(R.id.edtxt_password);
         btn_login = (Button)findViewById(R.id.btn_login);
-        btn_sign = (Button)findViewById(R.id.btn_sign);
         chbox_login = (CheckBox) findViewById(R.id.chbox_login);
     }
 
@@ -138,21 +141,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    private View.OnClickListener _handlerClick = new View.OnClickListener(){
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.btn_login:
-                    hideKeyboard(v);
-                    doLogin();
-                    break;
-                case R.id.btn_sign:
-                    startActivity(new Intent(LoginActivity.this, RegistrasiActivity.class));
-                    break;
-            }
-        }
-    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

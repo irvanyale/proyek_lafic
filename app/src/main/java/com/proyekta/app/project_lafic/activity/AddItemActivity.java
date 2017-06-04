@@ -126,7 +126,8 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != 0){
-                    idKategoriBarang = listIdKategoriBarang.get(position);
+                    //idKategoriBarang = listIdKategoriBarang.get(position);
+                    idKategoriBarang = listKategoriBarang.get(position - 1).getID_KATEGORY();
                     Log.d(TAG, "onItemSelected: "+idKategoriBarang);
 
                     subKategoriAdapter(idKategoriBarang);

@@ -23,11 +23,11 @@ public class SubKategoriBarangHelper {
             case "2":
                 listSubKategori.add("STNK");
                 listSubKategori.add("SIM");
-                listSubKategori.add("KTM ");
+                listSubKategori.add("KTM");
                 listSubKategori.add("KTP");
                 break;
             case "3":
-                listSubKategori.add("Jam Tangan ");
+                listSubKategori.add("Jam Tangan");
                 listSubKategori.add("Dompet");
                 break;
         }
