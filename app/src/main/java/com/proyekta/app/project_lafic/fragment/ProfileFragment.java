@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.proyekta.app.project_lafic.R;
 import com.proyekta.app.project_lafic.SessionManagement;
 import com.proyekta.app.project_lafic.activity.AddItemActivity;
+import com.proyekta.app.project_lafic.activity.BerandaActivity;
 import com.proyekta.app.project_lafic.api.ApiClient;
 import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.model.Foto;
@@ -275,6 +276,7 @@ public class ProfileFragment extends Fragment {
                 if (response.isSuccessful()){
                     Member member = response.body();
                     updateUserAccount(member);
+                    ((BerandaActivity)getActivity()).setImageUser(member.getFOTO());
                     setEnabled(false);
                     btn_submit.setVisibility(View.GONE);
                     btn_edit_submit.setVisibility(View.VISIBLE);

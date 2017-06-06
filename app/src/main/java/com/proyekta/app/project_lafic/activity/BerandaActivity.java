@@ -400,4 +400,12 @@ public class BerandaActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public void setImageUser(String foto){
+        Picasso.with(this)
+                .load(ApiClient.BASE_URL_FOTO + foto)
+                .error(R.drawable.ic_profile_circle_white)
+                .fit()
+                .into(imgv_user);
+    }
 }
