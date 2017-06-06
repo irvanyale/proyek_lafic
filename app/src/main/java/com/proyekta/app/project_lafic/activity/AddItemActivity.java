@@ -1,14 +1,23 @@
 package com.proyekta.app.project_lafic.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
@@ -58,6 +67,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private static final String TAG = "AddItemActivity";
     private int SELECT_FILE = 1;
+    private int PERMISSION_CODE = 100;
 
     private RelativeLayout rlly_foto;
     private ImageView imgv_barang;
@@ -69,6 +79,7 @@ public class AddItemActivity extends AppCompatActivity {
     private TextInputEditText edtx_warna;
     private TextInputEditText edtx_tipe;
     private TextInputEditText edtx_status;
+    private Button btn_imei;
     private Button btn_submit;
     private String memberId;
     private String idKategoriBarang = "";
@@ -115,6 +126,13 @@ public class AddItemActivity extends AppCompatActivity {
         HashMap<String, String> user = session.getUserDetails();
         memberId = user.get(SessionManagement.KEY_ID_MEMBER);
 
+        btn_imei.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                edtx_tipe.setText(getIMEI());
+            }
+        });
+
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,12 +162,39 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
+        spinner_sub_kategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (idKategoriBarang.equals("1")){
+                    if (position == 3){
+                        btn_imei.setVisibility(View.VISIBLE);
+                    } else {
+                        btn_imei.setVisibility(View.GONE);
+                    }
+                } else {
+                    btn_imei.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         rlly_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery();
             }
         });
+
+        if(isReadpermissionAllowed()){
+            Toast.makeText(AddItemActivity.this,"You already have the permission",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        requestPermission();
     }
 
     private void initComponents(){
@@ -163,6 +208,7 @@ public class AddItemActivity extends AppCompatActivity {
         edtx_warna = (TextInputEditText) findViewById(R.id.edtx_warna);
         edtx_tipe = (TextInputEditText) findViewById(R.id.edtx_tipe);
         edtx_status = (TextInputEditText) findViewById(R.id.edtx_status);
+        btn_imei = (Button) findViewById(R.id.btn_imei);
         btn_submit = (Button) findViewById(R.id.btn_submit);
 
         edtx_merk.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
@@ -216,6 +262,23 @@ public class AddItemActivity extends AppCompatActivity {
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
         return user.get(SessionManagement.KEY_ID_MEMBER);
+    }
+
+    private String getIMEI(){
+        String imei = "";
+        try {
+            TelephonyManager mngr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            imei = mngr.getDeviceId();
+            if (imei == null) {
+                WifiManager manager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiInfo info = manager.getConnectionInfo();
+                imei = info.getMacAddress();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, Log.getStackTraceString(e));
+        }
+        Log.d(TAG, "getIMEI: "+imei);
+        return imei;
     }
 
     private void doSubmit(){
@@ -379,6 +442,38 @@ public class AddItemActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private boolean isReadpermissionAllowed() {
+
+        int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+
+        if (result1 == PackageManager.PERMISSION_GRANTED)
+            return true;
+
+        return false;
+    }
+
+    private void requestPermission(){
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_PHONE_STATE)){
+
+        }
+
+        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSION_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == PERMISSION_CODE){
+
+            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                Toast.makeText(this,"Permission granted now you can access IMEI",Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this,"Oops you just denied the permission",Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
 }
