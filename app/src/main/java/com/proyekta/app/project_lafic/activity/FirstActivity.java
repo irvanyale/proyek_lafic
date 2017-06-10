@@ -1,8 +1,11 @@
 package com.proyekta.app.project_lafic.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +23,8 @@ public class FirstActivity extends AppCompatActivity {
 
     //Permision code that will be checked in the method onRequestPermissionsResult
     private int STORAGE_PERMISSION_CODE = 23;
+    private boolean isValid = true;
+    private int REQUEST_PERMISSION_CODE = 200;
 
     Button btnLogin, btnRegister;
 
@@ -30,7 +35,9 @@ public class FirstActivity extends AppCompatActivity {
 
         initComponents();
 
-        if(isReadStorageAllowed()){
+        checkPermission();
+
+        /*if(isReadStorageAllowed()){
             //If permission is already having then showing the toast
             Toast.makeText(FirstActivity.this,"You already have the permission",Toast.LENGTH_LONG).show();
             //Existing the method with return
@@ -38,7 +45,7 @@ public class FirstActivity extends AppCompatActivity {
         }
 
         //If the app has not the permission then asking for the permission
-        requestStoragePermission();
+        requestStoragePermission();*/
     }
 
     private void initComponents(){
@@ -61,6 +68,21 @@ public class FirstActivity extends AppCompatActivity {
             login();
         }else if (x == btnRegister){
             register();
+        }
+    }
+
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(FirstActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) +
+                    ContextCompat.checkSelfPermission(FirstActivity.this, Manifest.permission.READ_PHONE_STATE) +
+                    ContextCompat.checkSelfPermission(FirstActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                isValid = false;
+                ActivityCompat.requestPermissions(FirstActivity.this, new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.CAMERA
+                }, REQUEST_PERMISSION_CODE);
+            }
         }
     }
 
@@ -103,6 +125,32 @@ public class FirstActivity extends AppCompatActivity {
                 //Displaying another toast if permission is not granted
                 Toast.makeText(this,"Oops you just denied the permission",Toast.LENGTH_LONG).show();
             }
+        }
+
+        switch (requestCode) {
+            case 200:
+                if (grantResults.length > 0 &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                        grantResults[1] == PackageManager.PERMISSION_GRANTED &&
+                        grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this,"Permission granted now you can use LAFIC",Toast.LENGTH_LONG).show();
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(FirstActivity.this);
+                            builder.setMessage("Some permission was denied, the apps maybe run error.");
+                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Toast.makeText(FirstActivity.this,"Some permission was denied, the apps maybe run error.",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            builder.show();
+                        }
+                    });
+                }
+                return;
         }
     }
 }

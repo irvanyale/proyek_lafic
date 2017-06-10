@@ -189,12 +189,6 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
-        if(isReadpermissionAllowed()){
-            Toast.makeText(AddItemActivity.this,"You already have the permission",Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        requestPermission();
     }
 
     private void initComponents(){
@@ -442,38 +436,6 @@ public class AddItemActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
-    }
-
-    private boolean isReadpermissionAllowed() {
-
-        int result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
-
-        if (result1 == PackageManager.PERMISSION_GRANTED)
-            return true;
-
-        return false;
-    }
-
-    private void requestPermission(){
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_PHONE_STATE)){
-
-        }
-
-        ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISSION_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == PERMISSION_CODE){
-
-            if(grantResults.length >0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-                Toast.makeText(this,"Permission granted now you can access IMEI",Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(this,"Oops you just denied the permission",Toast.LENGTH_LONG).show();
-            }
-        }
     }
 
 }
