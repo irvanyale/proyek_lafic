@@ -7,19 +7,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.PersistableBundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +33,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,6 +58,7 @@ import com.proyekta.app.project_lafic.util.ImageUtil;
 import com.proyekta.app.project_lafic.util.StorageUtil;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,7 +76,8 @@ public class AddItemActivity extends AppCompatActivity {
 
     private static final String TAG = "AddItemActivity";
     private int SELECT_FILE = 1;
-    private int PERMISSION_CODE = 100;
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    private Uri fileUri;
 
     private RelativeLayout rlly_foto;
     private ImageView imgv_barang;
@@ -185,7 +195,7 @@ public class AddItemActivity extends AppCompatActivity {
         rlly_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openGallery();
+                showDialogImage();
             }
         });
 
@@ -207,6 +217,54 @@ public class AddItemActivity extends AppCompatActivity {
 
         edtx_merk.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         edtx_warna.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS| InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+    }
+
+    private void showDialogImage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddItemActivity.this);
+
+        LayoutInflater inf = LayoutInflater.from(AddItemActivity.this);
+        View v = inf.inflate(R.layout.dialog_search, null);
+
+        builder.setView(v);
+
+        final AlertDialog ad = builder.create();
+
+        final RadioGroup rgp_search = (RadioGroup) v.findViewById(R.id.rgp_search);
+        RadioButton rbtn_lost_items = (RadioButton) v.findViewById(R.id.rbtn_lost_items);
+        RadioButton rbtn_found_items = (RadioButton) v.findViewById(R.id.rbtn_found_items);
+        Button btn_search = (Button) v.findViewById(R.id.btn_search);
+
+        rbtn_lost_items.setText("Capture Image");
+        rbtn_found_items.setText("Gallery");
+        btn_search.setText("SUBMIT");
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (rgp_search.getCheckedRadioButtonId()){
+                    case R.id.rbtn_lost_items:
+                        captureImage();
+                        ad.dismiss();
+                        break;
+                    case R.id.rbtn_found_items:
+                        openGallery();
+                        ad.dismiss();
+                        break;
+                }
+            }
+        });
+
+        ad.show();
+    }
+
+    private void captureImage() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        fileUri = StorageUtil.getOutputMediaFileUri();
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+
+        startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
     }
 
     private void openGallery() {
@@ -393,6 +451,18 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putParcelable("file_uri", fileUri);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        fileUri = savedInstanceState.getParcelable("file_uri");
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK){
@@ -419,6 +489,18 @@ public class AddItemActivity extends AppCompatActivity {
                     } catch (Exception e){
                         Log.e(TAG, Log.getStackTraceString(e));
                     }
+                }
+            }
+            if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE){
+                try {
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 8;
+                    path_gallery = fileUri.getPath();
+                    Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+                    imgv_barang.setImageBitmap(bitmap);
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
             }
         }

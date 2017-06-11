@@ -6,17 +6,23 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -29,6 +35,7 @@ import com.proyekta.app.project_lafic.api.ApiInterface;
 import com.proyekta.app.project_lafic.model.Foto;
 import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.ImageUtil;
+import com.proyekta.app.project_lafic.util.StorageUtil;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +56,8 @@ public class ProfileFragment extends Fragment {
 
     private static final String TAG = "ProfileFragment";
     private int SELECT_FILE = 1;
+    private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
+    private Uri fileUri;
 
     private TextInputEditText edtx_nomor_id;
     private TextInputEditText edtx_nama;
@@ -192,9 +201,71 @@ public class ProfileFragment extends Fragment {
                 .into(imgv_user);
     }
 
+    private void showDialogImage(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inf = LayoutInflater.from(getActivity());
+        View v = inf.inflate(R.layout.dialog_search, null);
+
+        builder.setView(v);
+
+        final AlertDialog ad = builder.create();
+
+        final RadioGroup rgp_search = (RadioGroup) v.findViewById(R.id.rgp_search);
+        RadioButton rbtn_lost_items = (RadioButton) v.findViewById(R.id.rbtn_lost_items);
+        RadioButton rbtn_found_items = (RadioButton) v.findViewById(R.id.rbtn_found_items);
+        Button btn_search = (Button) v.findViewById(R.id.btn_search);
+
+        rbtn_lost_items.setText("Capture Image");
+        rbtn_found_items.setText("Gallery");
+        btn_search.setText("SUBMIT");
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (rgp_search.getCheckedRadioButtonId()){
+                    case R.id.rbtn_lost_items:
+                        captureImage();
+                        ad.dismiss();
+                        break;
+                    case R.id.rbtn_found_items:
+                        openGallery();
+                        ad.dismiss();
+                        break;
+                }
+            }
+        });
+
+        ad.show();
+    }
+
+    private void captureImage() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        fileUri = StorageUtil.getOutputMediaFileUri();
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+
+        startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
+    }
+
     private void openGallery() {
         Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(gallery, SELECT_FILE);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("file_uri", fileUri);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null){
+            fileUri = savedInstanceState.getParcelable("file_uri");
+        }
     }
 
     @Override
@@ -224,6 +295,18 @@ public class ProfileFragment extends Fragment {
                     } catch (Exception e){
                         Log.e(TAG, Log.getStackTraceString(e));
                     }
+                }
+            }
+            if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE){
+                try {
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 8;
+                    path_gallery = fileUri.getPath();
+                    Bitmap bitmap = BitmapFactory.decodeFile(fileUri.getPath(), options);
+                    imgv_user.setImageBitmap(bitmap);
+
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -319,7 +402,7 @@ public class ProfileFragment extends Fragment {
 
                     break;
                 case R.id.rlly_edit_foto:
-                    openGallery();
+                    showDialogImage();
                     break;
             }
         }
