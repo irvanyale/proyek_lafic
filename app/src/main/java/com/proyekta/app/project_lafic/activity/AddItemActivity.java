@@ -92,6 +92,7 @@ public class AddItemActivity extends AppCompatActivity {
     private Button btn_imei;
     private Button btn_submit;
     private String memberId;
+    private String memberNama;
     private String idKategoriBarang = "";
     private ApiInterface client;
     private List<KategoriBarang> listKategoriBarang;
@@ -136,6 +137,7 @@ public class AddItemActivity extends AppCompatActivity {
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
         memberId = user.get(SessionManagement.KEY_ID_MEMBER);
+        memberNama = user.get(SessionManagement.KEY_NAMA);
         qrcode = user.get(SessionManagement.KEY_QRCODE);
 
         Log.d(TAG, "onCreate: "+qrcode);

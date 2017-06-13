@@ -150,6 +150,12 @@ public class ManageItemsFragment extends Fragment {
         return user.get(SessionManagement.KEY_ID_MEMBER);
     }
 
+    private String getMemberNama(){
+        SessionManagement session = new SessionManagement(getActivity());
+        HashMap<String, String> user = session.getUserDetails();
+        return user.get(SessionManagement.KEY_NAMA);
+    }
+
     private Dialog dialogQrCode;
     //tampil dialog QRCode
     private void showDialogQRCode(final String id){
@@ -173,7 +179,7 @@ public class ManageItemsFragment extends Fragment {
 
         dialogQrCode.setCanceledOnTouchOutside(true);
 
-        Uri uri = Uri.fromFile(new File(StorageUtil.getFileDirectoryPath() + "/" + getMemberId() + ".jpg"));
+        Uri uri = Uri.fromFile(new File(StorageUtil.getFileDirectoryPath() + "/" +getMemberId()+ "_" +getMemberNama()+ ".jpg"));
         Log.d(TAG, "showDialogQRCode: "+uri);
         Log.d(TAG, "showDialogQRCode: "+getMemberId());
 
