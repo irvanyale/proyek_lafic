@@ -102,6 +102,7 @@ public class AddItemActivity extends AppCompatActivity {
     private List<Barang> barang;
     private ProgressDialog dialog;
     private String path_gallery = "-1";
+    private String qrcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,9 @@ public class AddItemActivity extends AppCompatActivity {
         SessionManagement session = new SessionManagement(this);
         HashMap<String, String> user = session.getUserDetails();
         memberId = user.get(SessionManagement.KEY_ID_MEMBER);
+        qrcode = user.get(SessionManagement.KEY_QRCODE);
+
+        Log.d(TAG, "onCreate: "+qrcode);
 
         btn_imei.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -396,9 +400,14 @@ public class AddItemActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Barang data = response.body();
 
-                    //downloadQrCode(data.getQRCODE(), data.getBARANG_ID());
+                    downloadQrCode(qrcode, memberId);
 
-                    uploadFoto(data.getBARANG_ID(), path_gallery);
+                    if (!path_gallery.equals("-1")){
+                        uploadFoto(data.getBARANG_ID(), path_gallery);
+                    } else {
+                        loadBarang();
+                        dialog.dismiss();
+                    }
 
                 } else {
                     Toast.makeText(AddItemActivity.this, "there is an error", Toast.LENGTH_SHORT).show();

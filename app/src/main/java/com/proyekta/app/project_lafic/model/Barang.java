@@ -15,6 +15,7 @@ public class Barang {
     private String WARNA_BARANG;
     private String KETERANGAN;
     private String FOTO;
+    private String QRCODE;
 
     public Barang() {
     }
@@ -99,5 +100,13 @@ public class Barang {
 
     public void setFOTO(String FOTO) {
         this.FOTO = FOTO;
+    }
+
+    public String getQRCODE() {
+        return QRCODE;
+    }
+
+    public void setQRCODE(String QRCODE) {
+        this.QRCODE = QRCODE;
     }
 }

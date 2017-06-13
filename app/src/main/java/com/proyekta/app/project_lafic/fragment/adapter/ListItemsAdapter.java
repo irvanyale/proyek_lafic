@@ -89,7 +89,7 @@ public class ListItemsAdapter extends RecyclerView.Adapter<ListItemsAdapter.View
             @Override
             public void onClick(View v) {
                 if (listener != null){
-                    Log.d("a", "onClick: ");
+                    Log.d("a", "onClick: QR");
                     listener.OnShowQRCodeListener(barang.getBARANG_ID());
                 }
             }

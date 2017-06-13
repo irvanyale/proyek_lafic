@@ -34,6 +34,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.proyekta.app.project_lafic.R;
+import com.proyekta.app.project_lafic.SessionManagement;
 import com.proyekta.app.project_lafic.activity.AddItemActivity;
 import com.proyekta.app.project_lafic.activity.EditItemActivity;
 import com.proyekta.app.project_lafic.fragment.adapter.ListItemsAdapter;
@@ -51,6 +52,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -97,7 +99,8 @@ public class ManageItemsFragment extends Fragment {
         listItemsAdapter.setOnShowQRCodeListener(new ListItemsAdapter.setOnShowQRCodeListener() {
             @Override
             public void OnShowQRCodeListener(String url) {
-                //showDialogQRCode(url);
+                Log.d(TAG, "OnShowQRCodeListener: onclick");
+                showDialogQRCode(url);
             }
         });
 
@@ -141,17 +144,24 @@ public class ManageItemsFragment extends Fragment {
         rv_listItem = (RecyclerView) view.findViewById(R.id.rv_listItem);
     }
 
+    private String getMemberId(){
+        SessionManagement session = new SessionManagement(getActivity());
+        HashMap<String, String> user = session.getUserDetails();
+        return user.get(SessionManagement.KEY_ID_MEMBER);
+    }
+
+    private Dialog dialogQrCode;
     //tampil dialog QRCode
     private void showDialogQRCode(final String id){
-        Dialog dialog = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
-        dialog.setContentView(R.layout.dialog_qrcode);
+        dialogQrCode = new Dialog(getActivity(), R.style.Theme_Dialog_Fullscreen_Margin);
+        dialogQrCode.setContentView(R.layout.dialog_qrcode);
 
-        Window window = dialog.getWindow();
+        Window window = dialogQrCode.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.TOP;
+        wlp.gravity = Gravity.CENTER;
         window.setAttributes(wlp);
 
-        ImageView imgv_share = (ImageView) dialog.findViewById(R.id.imgv_share);
+        ImageView imgv_share = (ImageView) dialogQrCode.findViewById(R.id.imgv_share);
 
         //Image share QR code
         imgv_share.setOnClickListener(new View.OnClickListener() {
@@ -161,18 +171,20 @@ public class ManageItemsFragment extends Fragment {
             }
         });
 
-        dialog.setCanceledOnTouchOutside(true);
+        dialogQrCode.setCanceledOnTouchOutside(true);
 
-        Uri uri = Uri.fromFile(new File(StorageUtil.getFileDirectoryPath() + "/" + id + ".jpg"));
+        Uri uri = Uri.fromFile(new File(StorageUtil.getFileDirectoryPath() + "/" + getMemberId() + ".jpg"));
+        Log.d(TAG, "showDialogQRCode: "+uri);
+        Log.d(TAG, "showDialogQRCode: "+getMemberId());
 
-        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+        ImageView image = (ImageView) dialogQrCode.findViewById(R.id.image);
         Picasso.with(getActivity())
                 .load(uri)
                 .fit()
                 .error(R.drawable.ic_image)
                 .into(image);
 
-        dialog.show();
+        dialogQrCode.show();
     }
 
     private String statusBarang = "AMAN";
@@ -405,7 +417,7 @@ public class ManageItemsFragment extends Fragment {
         listItemsAdapter.setOnShowQRCodeListener(new ListItemsAdapter.setOnShowQRCodeListener() {
             @Override
             public void OnShowQRCodeListener(String url) {
-                //showDialogQRCode(url);
+                showDialogQRCode(url);
             }
         });
 
