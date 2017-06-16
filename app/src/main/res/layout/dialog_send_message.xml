@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="550dp"
+    android:padding="10dp"
+    android:background="@drawable/rounded_background_white">
+
+    <ImageView
+        android:id="@+id/imgv_close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_close" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/imgv_item"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="20dp"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.4"
+            android:gravity="center_vertical"
+            android:text="Pemilik"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.2"
+            android:gravity="center"
+            android:text=":"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/item_pemilik"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.2"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Jenis Barang"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.4"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:id="@+id/item_jenis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_weight="2.2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Merk Barang"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.4"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:id="@+id/item_merk"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_weight="2.2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_weight="0.2" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Warna Barang"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.4"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:id="@+id/item_warna"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_weight="2.2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:weightSum="4">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Keterangan"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1.4"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.2"/>
+
+        <TextView
+            android:id="@+id/item_keterangan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:gravity="center_vertical"
+            android:layout_weight="2.2"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="SEND"
+        android:background="@color/colorAccent"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:layout_alignParentRight="true"/>
+
+</LinearLayout>

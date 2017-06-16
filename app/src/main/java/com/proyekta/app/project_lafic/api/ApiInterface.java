@@ -45,6 +45,9 @@ public interface ApiInterface {
     Call<Member> doUpdateProfile(@Body Member member);
 
     @GET("barang")
+    Call<List<Member>> getAllMember();
+
+    @GET("barang")
     Call<List<Barang>> getAllBarang(@Query("MEMBER_ID") String id);
 
     @GET("barang")

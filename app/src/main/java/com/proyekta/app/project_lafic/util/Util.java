@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Spinner;
 
+import com.proyekta.app.project_lafic.helper.MemberHelper;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
+import com.proyekta.app.project_lafic.model.Member;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,23 @@ public class Util {
             listKet.add(ket[2]);
         }
         return listKet;
+    }
+
+    public static Member getMember(String idMember){
+        List<Member> listMember = MemberHelper.getMember();
+        Member member = new Member();
+        for (Member data : listMember){
+            if (data.getMEMBER_ID().equals(idMember)){
+                member.setMEMBER_ID(data.getMEMBER_ID());
+                member.setNOMOR_ID(data.getNOMOR_ID());
+                member.setEMAIL_MEMBER(data.getEMAIL_MEMBER());
+                member.setNAMA_MEMBER(data.getNAMA_MEMBER());
+                member.setTELEPON(data.getTELEPON());
+                member.setKELAMIN(data.getKELAMIN());
+            }
+        }
+
+        return member;
     }
 
     public static int getIndex(Spinner spinner, String myString) {

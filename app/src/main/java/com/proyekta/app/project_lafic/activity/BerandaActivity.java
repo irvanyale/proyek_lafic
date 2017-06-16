@@ -45,9 +45,11 @@ import com.proyekta.app.project_lafic.fragment.UserLostItemsFragment;
 import com.proyekta.app.project_lafic.helper.BarangHelper;
 import com.proyekta.app.project_lafic.helper.BarangHilangHelper;
 import com.proyekta.app.project_lafic.helper.KategoriBarangHelper;
+import com.proyekta.app.project_lafic.helper.MemberHelper;
 import com.proyekta.app.project_lafic.model.Barang;
 import com.proyekta.app.project_lafic.model.BarangHilang;
 import com.proyekta.app.project_lafic.model.KategoriBarang;
+import com.proyekta.app.project_lafic.model.Member;
 import com.proyekta.app.project_lafic.util.Util;
 import com.squareup.picasso.Picasso;
 
@@ -76,6 +78,7 @@ public class BerandaActivity extends AppCompatActivity
     private List<KategoriBarang> kategoriBarang;
     private List<Barang> barang;
     private List<BarangHilang> barangHilang;
+    private List<Member> listMember;
     private ProgressDialog dialog;
 
     private static final int TIME_INTERVAL = 2000;
@@ -106,6 +109,9 @@ public class BerandaActivity extends AppCompatActivity
 
         barangHilang = BarangHilangHelper.getBarangHilang();
         barangHilang.clear();
+
+        listMember = MemberHelper.getMember();
+        listMember.clear();
 
         client = ApiClient.createService(ApiInterface.class, Util.getToken(this));
 
@@ -215,7 +221,7 @@ public class BerandaActivity extends AppCompatActivity
                     for (BarangHilang data : listBarangHilang){
                         barangHilang.add(data);
                     }
-                    replaceFragment(new HomeFragment());
+                    loadAllMember();
                 } else {
                     Toast.makeText(BerandaActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
                 }
@@ -226,6 +232,30 @@ public class BerandaActivity extends AppCompatActivity
             public void onFailure(Call<List<BarangHilang>> call, Throwable t) {
                 Toast.makeText(BerandaActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+            }
+        });
+    }
+
+    private void loadAllMember(){
+
+        Call<List<Member>> call = client.getAllMember();
+        call.enqueue(new Callback<List<Member>>() {
+            @Override
+            public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
+                if (response.isSuccessful()){
+                    List<Member> member = response.body();
+                    for (Member data : member){
+                        listMember.add(data);
+                    }
+                    replaceFragment(new HomeFragment());
+                } else {
+                    Toast.makeText(BerandaActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Member>> call, Throwable t) {
+                Toast.makeText(BerandaActivity.this, "connection problem", Toast.LENGTH_SHORT).show();
             }
         });
     }
