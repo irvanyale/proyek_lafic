@@ -402,7 +402,7 @@ public class AddItemActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Barang data = response.body();
 
-                    downloadQrCode(data.getQRCODE(), memberId);
+                    downloadQrCode(data.getQRCODE(), data.getBARANG_ID()+"_"+data.getJENIS_BARANG());
 
                     if (!path_gallery.equals("-1")){
                         uploadFoto(data.getBARANG_ID(), path_gallery);

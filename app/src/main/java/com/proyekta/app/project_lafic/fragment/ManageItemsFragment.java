@@ -179,7 +179,7 @@ public class ManageItemsFragment extends Fragment {
 
         dialogQrCode.setCanceledOnTouchOutside(true);
 
-        Uri uri = Uri.fromFile(new File(StorageUtil.getFileDirectoryPath() + "/" +getMemberId()+ "_" +getMemberNama()+ ".jpg"));
+        Uri uri = Uri.fromFile(new File(StorageUtil.getFileDirectoryPath() + "/" +id+".jpg"));
         Log.d(TAG, "showDialogQRCode: "+uri);
         Log.d(TAG, "showDialogQRCode: "+getMemberId());
 
