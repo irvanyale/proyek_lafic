@@ -164,7 +164,7 @@ public class ManageItemsFragment extends Fragment {
 
         Window window = dialogQrCode.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
-        wlp.gravity = Gravity.CENTER;
+        wlp.gravity = Gravity.TOP;
         window.setAttributes(wlp);
 
         ImageView imgv_share = (ImageView) dialogQrCode.findViewById(R.id.imgv_share);

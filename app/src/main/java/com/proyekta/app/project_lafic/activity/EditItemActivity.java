@@ -282,12 +282,12 @@ public class EditItemActivity extends AppCompatActivity {
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
         RequestBody idBarang = RequestBody.create(MediaType.parse("text/plain"), id);
 
-        Call<Foto> call = client.uploadFotoBarang(body, idBarang);
-        call.enqueue(new Callback<Foto>() {
+        Call<Barang> call = client.uploadFotoBarang(body, idBarang);
+        call.enqueue(new Callback<Barang>() {
             @Override
-            public void onResponse(Call<Foto> call, Response<Foto> response) {
+            public void onResponse(Call<Barang> call, Response<Barang> response) {
                 if (response.isSuccessful()){
-                    item.setFOTO(response.body().getFOTO_BARANG());
+                    item.setFOTO(response.body().getFOTO());
                     doUpdateBarang(item);
                 } else {
                     Toast.makeText(EditItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
@@ -296,7 +296,7 @@ public class EditItemActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Foto> call, Throwable t) {
+            public void onFailure(Call<Barang> call, Throwable t) {
                 Toast.makeText(EditItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }

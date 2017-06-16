@@ -370,12 +370,13 @@ public class AddItemActivity extends AppCompatActivity {
         MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), reqFile);
         RequestBody idBarang = RequestBody.create(MediaType.parse("text/plain"), id);
 
-        Call<Foto> call = client.uploadFotoBarang(body, idBarang);
-        call.enqueue(new Callback<Foto>() {
+        Call<Barang> call = client.uploadFotoBarang(body, idBarang);
+        call.enqueue(new Callback<Barang>() {
             @Override
-            public void onResponse(Call<Foto> call, Response<Foto> response) {
+            public void onResponse(Call<Barang> call, Response<Barang> response) {
                 if (response.isSuccessful()){
-                    loadBarang();
+                    Barang barang = response.body();
+                    loadBarang(barang);
                 } else {
                     Toast.makeText(AddItemActivity.this, "Terjadi Kesalahan", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
@@ -383,7 +384,7 @@ public class AddItemActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Foto> call, Throwable t) {
+            public void onFailure(Call<Barang> call, Throwable t) {
                 Toast.makeText(AddItemActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
@@ -402,12 +403,10 @@ public class AddItemActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     Barang data = response.body();
 
-                    downloadQrCode(data.getQRCODE(), data.getBARANG_ID()+"_"+data.getJENIS_BARANG());
-
                     if (!path_gallery.equals("-1")){
                         uploadFoto(data.getBARANG_ID(), path_gallery);
                     } else {
-                        loadBarang();
+                        loadBarang(data);
                         dialog.dismiss();
                     }
 
@@ -434,7 +433,7 @@ public class AddItemActivity extends AppCompatActivity {
         DownloadUtil.DownloadImage(this, url, path, filename);
     }
 
-    private void loadBarang(){
+    private void loadBarang(final Barang data){
 
         Call<List<Barang>> call = client.getAllBarang(getMemberId());
         call.enqueue(new Callback<List<Barang>>() {
@@ -446,6 +445,7 @@ public class AddItemActivity extends AppCompatActivity {
                     for (Barang data : listBarang){
                         barang.add(data);
                     }
+                    downloadQrCode(data.getQRCODE(), data.getBARANG_ID()+"_"+data.getJENIS_BARANG());
                     finish();
                 } else {
                     Toast.makeText(AddItemActivity.this, "Data failed to load", Toast.LENGTH_SHORT).show();

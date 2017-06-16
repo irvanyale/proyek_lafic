@@ -44,7 +44,7 @@ public interface ApiInterface {
     @PUT("member")
     Call<Member> doUpdateProfile(@Body Member member);
 
-    @GET("barang")
+    @GET("member")
     Call<List<Member>> getAllMember();
 
     @GET("barang")
@@ -72,7 +72,7 @@ public interface ApiInterface {
                         @Field("FOTO") String FOTO);
 
     @GET("barang")
-    Call<Barang> getBarang(@Query("BARANG_ID") String id);
+    Call<Barang> getBarangById(@Query("BARANG_ID") String id);
 
     @GET("kategoribarang")
     Call<List<KategoriBarang>> getKategoriBarang();
@@ -127,7 +127,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("upload_foto")
-    Call<Foto> uploadFotoBarang(@Part MultipartBody.Part image, @Part("BARANG_ID") RequestBody id);
+    Call<Barang> uploadFotoBarang(@Part MultipartBody.Part image, @Part("BARANG_ID") RequestBody id);
 
     @Multipart
     @POST("upload_foto")
